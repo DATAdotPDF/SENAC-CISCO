@@ -1,0 +1,19 @@
+# Sistema operacional
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Editores
+.vscode/
+.idea/
+
+# Arquivos temporários e cópias de segurança
+*.tmp
+*.temp
+*.bak
+*.autosave
+*~
+~$*
+
+# Registros locais
+*.log
