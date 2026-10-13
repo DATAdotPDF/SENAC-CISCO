@@ -1,34 +1,34 @@
-# SENAC CISCO Cibersegurança
+# SENAC CISCO Cybersecurity
 
-Repositório central dos projetos do curso de Cibersegurança Cisco do SENAC RJ.
+Central repository for the SENAC RJ Cisco Cybersecurity course projects.
 
-A branch principal funciona como índice. Cada projeto tem uma branch própria com README, arquivos de trabalho e registro do que foi feito.
+The default branch works as an index. Each project has its own branch with a README, working files, and a record of completed work.
 
-## Branches de projetos
+## Project branches
 
-| Branch | Projeto | Conteúdo |
+| Branch | Project | Contents |
 |---|---|---|
-| `projeto-lan-wan` | Projeto LAN-WAN e Segurança | Três filiais, WAN serial, OSPF, DHCP, DNS, WEB, WEP, VLANs, port-security, SSH e ACLs. |
-| `projeto-copa-norte` | Projeto de Rede Copa Norte LTDA | Dois prédios, DHCP, DNS, WEB, Wi-Fi WPA2, NAT/PAT e Internet simulada. |
+| `projeto-lan-wan` | LAN-WAN and Security Project | Three branches, serial WAN, OSPF, DHCP, DNS, web services, WEP, VLANs, port security, SSH, and ACLs. |
+| `projeto-copa-norte` | Copa Norte LTDA Network Project | Two buildings, DHCP, DNS, web services, WPA2 Wi-Fi, NAT/PAT, and simulated Internet. |
 
-- [Branch projeto-lan-wan](https://github.com/DATAdotPDF/SENAC-CISCO/tree/projeto-lan-wan)
-- [Branch projeto-copa-norte](https://github.com/DATAdotPDF/SENAC-CISCO/tree/projeto-copa-norte)
+- [LAN-WAN project branch](https://github.com/DATAdotPDF/SENAC-CISCO/tree/projeto-lan-wan)
+- [Copa Norte project branch](https://github.com/DATAdotPDF/SENAC-CISCO/tree/projeto-copa-norte)
 
-## Materiais no branch principal
+## Materials in the default branch
 
-- `documentos/`: pesquisas, tarefas e documentos de requisitos do curso.
-- `packet-tracer/Projeto-LAN-WAN/`: arquivo `.pkt`, relatório, README, evidências e mapa do projeto LAN-WAN.
+- `documentos/`: research, assignments, and course requirement documents.
+- `packet-tracer/Projeto-LAN-WAN/`: `.pkt` file, report, README, evidence, and LAN-WAN project map.
 
-## Como localizar cada entrega
+## How to find each deliverable
 
-Abra a branch do projeto antes de consultar o README específico. O README de cada branch descreve objetivo, arquivos, topologia, serviços, segurança, testes e limites da simulação.
+Open the project branch before reading its specific README. Each branch README describes the goal, files, topology, services, security, tests, and simulation limits.
 
-Use o arquivo `.pkt` da branch correspondente ao projeto. Os relatórios e documentos de requisitos ficam junto dos materiais indicados no README.
+Use the `.pkt` file from the branch that matches the project. Reports and requirement documents are stored with the materials listed in the README.
 
-## Autor
+## Author
 
 Pedro Dutra Ferreira
 
-Curso Cibersegurança — Cisco
+Cisco Cybersecurity Course
 
 Senac RJ
