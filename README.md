@@ -1,6 +1,6 @@
 # LAN-WAN and Security Project
 
-Project branch for SENAC Cisco with three branches: Rio de Janeiro, São Paulo, and Vitória.
+Project branch for SENAC Cisco with three offices: Rio de Janeiro, São Paulo, and Vitória.
 
 ## Completed work
 
