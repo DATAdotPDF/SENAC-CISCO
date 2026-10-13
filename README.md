@@ -8,7 +8,7 @@ The default branch works as an index. Each project has its own branch with a REA
 
 | Branch | Project | Contents |
 |---|---|---|
-| `projeto-lan-wan` | LAN-WAN and Security Project | Three branches, serial WAN, OSPF, DHCP, DNS, web services, WEP, VLANs, port security, SSH, and ACLs. |
+| `projeto-lan-wan` | LAN-WAN and Security Project | Three offices, serial WAN, OSPF, DHCP, DNS, web services, WEP, VLANs, port security, SSH, and ACLs. |
 | `projeto-copa-norte` | Copa Norte LTDA Network Project | Two buildings, DHCP, DNS, web services, WPA2 Wi-Fi, NAT/PAT, and simulated Internet. |
 
 - [LAN-WAN project branch](https://github.com/DATAdotPDF/SENAC-CISCO/tree/projeto-lan-wan)
