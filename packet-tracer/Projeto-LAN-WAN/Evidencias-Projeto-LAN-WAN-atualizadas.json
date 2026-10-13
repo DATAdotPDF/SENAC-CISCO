@@ -1,0 +1,75 @@
+{
+  "data": "2026-10-13",
+  "escopo": "Estado final após associação WLAN, ACL da Fábrica e organização Physical",
+  "arquivo": "PedroFerreira_2026-10-13_Projeto-LAN-WAN.pkt",
+  "sha256": "caab3be565bee5c5bbc34ccb5aa0373f6a88e0dea2613f85d3d17aefc8e8e89c",
+  "tamanhoBytes": 264077,
+  "wireless": [
+    {
+      "device": "LAP-RIO",
+      "ssid": "ACME-RIO",
+      "ip": "10.0.0.102",
+      "mask": "255.0.0.0",
+      "link": "linked",
+      "port": "up",
+      "protocol": "up"
+    },
+    {
+      "device": "LAP-SAO",
+      "ssid": "ACME-SAO",
+      "ip": "20.0.0.103",
+      "mask": "255.0.0.0",
+      "link": "linked",
+      "port": "up",
+      "protocol": "up"
+    },
+    {
+      "device": "LAP-VIT",
+      "ssid": "ACME-VIT",
+      "ip": "30.0.0.101",
+      "mask": "255.255.0.0",
+      "link": "linked",
+      "port": "up",
+      "protocol": "up"
+    }
+  ],
+  "aclFabrica": {
+    "name": "VIT-FABRICA-ONLY",
+    "interface": "RT-VIT GigabitEthernet0/0.31",
+    "direction": "in",
+    "allows": [
+      "30.31.0.0/16",
+      "DHCP",
+      "DNS 30.0.0.11",
+      "HTTP WEB-RIO/WEB-SAO/WEB-VIT",
+      "ICMP para os três WEB"
+    ],
+    "denyMatchesAfterTest": 4
+  },
+  "physical": {
+    "status": "manual_confirmed_by_user_saved",
+    "reason": "A ponte MCP expõe o Logical workspace, não o Physical workspace. A organização em cidades, buildings e closets foi realizada na interface e o canvas ativo foi salvo.",
+    "locations": [
+      {
+        "name": "Rio de Janeiro",
+        "latitude": -22.9068,
+        "longitude": -43.1729
+      },
+      {
+        "name": "Sao Paulo",
+        "latitude": -23.5505,
+        "longitude": -46.6333
+      },
+      {
+        "name": "Vitoria",
+        "latitude": -20.3155,
+        "longitude": -40.3128
+      }
+    ],
+    "straightLineKm": {
+      "Rio-SaoPaulo": 361,
+      "SaoPaulo-Vitoria": 744,
+      "Rio-Vitoria": 413
+    }
+  }
+}
