@@ -1,174 +1,174 @@
-# Projeto de Rede — Copa Norte LTDA
+# Network Project — Copa Norte LTDA
 
-Projeto acadêmico criado por Pedro Dutra Ferreira no curso Cibersegurança — Cisco, do Senac RJ.
+Academic project created by Pedro Dutra Ferreira for the SENAC RJ Cisco Cybersecurity course.
 
-O laboratório simula a rede de uma empresa com dois prédios, serviços internos, acesso Wi-Fi protegido e uma conexão externa por NAT/PAT.
+The lab simulates a company network with two buildings, internal services, protected Wi-Fi access, and an external connection through NAT/PAT.
 
-## Objetivo
+## Objective
 
-Planejar e configurar uma pequena rede corporativa no Cisco Packet Tracer. A solução conecta os Prédios A e B, oferece serviços DHCP, DNS e Web, atende dispositivos cabeados e sem fio e simula o acesso à Internet.
+Plan and configure a small corporate network in Cisco Packet Tracer. The solution connects Buildings A and B, provides DHCP, DNS, and Web services, supports wired and wireless devices, and simulates Internet access.
 
-## Requisitos atendidos
+## Requirements covered
 
-- Dois prédios em redes IPv4 distintas.
-- PCs e laptops conectados por cabo.
-- Quatro dispositivos móveis conectados por Wi-Fi.
-- Uma impressora de rede em cada prédio.
-- Servidores DHCP, DNS e Web.
-- Aplicações acessíveis por `site.com`, `vendas.com` e `cisco.com`.
-- Endereçamento automático no Prédio A.
-- Endereçamento estático no Prédio B.
-- Redes Wi-Fi `PredioA` e `PredioB` com WPA2 Personal e AES.
-- Saída para a Internet simulada por NAT/PAT.
-- Topologias lógica e física documentadas.
+- Two buildings on separate IPv4 networks.
+- PCs and laptops connected by cable.
+- Four mobile devices connected through Wi-Fi.
+- One network printer in each building.
+- DHCP, DNS, and Web servers.
+- Applications reachable through `site.com`, `vendas.com`, and `cisco.com`.
+- Automatic addressing in Building A.
+- Static addressing in Building B.
+- `PredioA` and `PredioB` Wi-Fi networks with WPA2 Personal and AES.
+- Internet access simulated with NAT/PAT.
+- Logical and physical topologies documented.
 
-## Passo a passo do laboratório
+## Lab walkthrough
 
-1. Levantamento dos requisitos: separar os dois prédios, os usuários cabeados, os quatro dispositivos móveis, as impressoras, os servidores e o acesso externo.
-2. Planejamento IPv4: reservar `192.168.0.0/24` para o Prédio A, `192.168.1.0/24` para o Prédio B e `209.165.200.0/24` para a Internet simulada.
-3. Montagem da topologia: adicionar o roteador Cisco 2911, os switches, os pontos de acesso, os servidores, os computadores, os laptops, as impressoras e os dispositivos móveis.
-4. Cabeamento: conectar roteador e equipamentos cabeados aos switches. Ligar os pontos de acesso pela porta LAN e o servidor Cisco à interface externa do roteador.
-5. Configuração do roteador: nomear `R-COPA-NORTE`, configurar G0/0, G0/1 e G0/2, marcar as interfaces internas e externas e ativar o NAT/PAT.
-6. Configuração dos switches: nomear `SW-PREDIO-A` e `SW-PREDIO-B`, definir os endereços de gerenciamento e informar o gateway de cada switch.
-7. Configuração do Prédio A: usar DHCP para PCs e laptop, configurar o servidor DHCP, o servidor DNS, o servidor Web A e a impressora.
-8. Configuração do Prédio B: usar endereços estáticos nos PCs e no laptop, configurar o servidor Web B e a impressora.
-9. Configuração do Wi-Fi: criar os SSIDs `PredioA` e `PredioB`, desativar o DHCP interno dos pontos de acesso e aplicar WPA2 Personal com AES.
-10. Configuração dos serviços: cadastrar no DNS os domínios `site.com`, `vendas.com` e `cisco.com`, ativar HTTP e HTTPS e preencher as páginas Web.
-11. Testes: verificar gateway, DHCP, endereçamento estático, comunicação entre redes, resolução DNS, acesso aos três sites, impressoras, Wi-Fi e traduções NAT.
-12. Registro da entrega: salvar o arquivo `.pkt`, exportar as topologias lógica e física, documentar os comandos e organizar os arquivos do projeto.
+1. Gather requirements: separate the two buildings, wired users, four mobile devices, printers, servers, and external access.
+2. Plan IPv4: reserve `192.168.0.0/24` for Building A, `192.168.1.0/24` for Building B, and `209.165.200.0/24` for the simulated Internet.
+3. Build the topology: add the Cisco 2911 router, switches, access points, servers, computers, laptops, printers, and mobile devices.
+4. Cable the network: connect the router and wired equipment to the switches. Connect the access points through their LAN ports and connect the Cisco server to the router's external interface.
+5. Configure the router: name it `R-COPA-NORTE`, configure G0/0, G0/1, and G0/2, mark internal and external interfaces, and enable NAT/PAT.
+6. Configure the switches: name them `SW-PREDIO-A` and `SW-PREDIO-B`, set management addresses, and specify each switch gateway.
+7. Configure Building A: use DHCP for PCs and the laptop, configure the DHCP server, DNS server, Web Server A, and printer.
+8. Configure Building B: use static addresses for PCs and the laptop, configure Web Server B, and configure the printer.
+9. Configure Wi-Fi: create SSIDs `PredioA` and `PredioB`, disable internal DHCP on the access points, and apply WPA2 Personal with AES.
+10. Configure services: add the `site.com`, `vendas.com`, and `cisco.com` DNS records, enable HTTP and HTTPS, and fill in the Web pages.
+11. Test the network: check the gateway, DHCP, static addressing, inter-network communication, DNS resolution, access to all three sites, printers, Wi-Fi, and NAT translations.
+12. Record the delivery: save the `.pkt` file, export logical and physical topologies, document commands, and organize project files.
 
-## Topologia
+## Topology
 
-O roteador `R-COPA-NORTE` liga as duas redes internas à rede externa simulada:
+The `R-COPA-NORTE` router connects both internal networks to the simulated external network:
 
-- Prédio A: `192.168.0.0/24`.
-- Prédio B: `192.168.1.0/24`.
-- Internet simulada: `209.165.200.0/24`.
+- Building A: `192.168.0.0/24`.
+- Building B: `192.168.1.0/24`.
+- Simulated Internet: `209.165.200.0/24`.
 
-![Topologia lógica](imagens/PedroFerreira-topologia-logica.png)
+![Logical topology](imagens/PedroFerreira-topologia-logica.png)
 
-![Topologia física](imagens/PedroFerreira-topologia-fisica.png)
+![Physical topology](imagens/PedroFerreira-topologia-fisica.png)
 
-### Distribuição física
+### Physical layout
 
-| Local | Conteúdo |
+| Location | Contents |
 |---|---|
-| Prédio A | Sala Técnica A e dispositivos da rede `192.168.0.0/24` |
-| Prédio B | Sala Técnica B e dispositivos da rede `192.168.1.0/24` |
-| Provedor de Internet | Data Center Cisco e servidor externo |
+| Building A | Technical Room A and devices on `192.168.0.0/24` |
+| Building B | Technical Room B and devices on `192.168.1.0/24` |
+| Internet Provider | Cisco Data Center and external server |
 
-![Prédio A](imagens/PedroFerreira-fisica-predio-A.png)
+![Building A](imagens/PedroFerreira-fisica-predio-A.png)
 
-![Prédio B](imagens/PedroFerreira-fisica-predio-B.png)
+![Building B](imagens/PedroFerreira-fisica-predio-B.png)
 
-![Provedor de Internet](imagens/PedroFerreira-fisica-provedor.png)
+![Internet Provider](imagens/PedroFerreira-fisica-provedor.png)
 
-## Equipamentos
+## Equipment
 
-| Quantidade | Equipamento | Função |
+| Quantity | Equipment | Function |
 |---:|---|---|
-| 1 | Roteador Cisco 2911 | Roteamento entre redes e NAT/PAT |
-| 2 | Switches Cisco 2960-24TT | Conexão dos dispositivos cabeados |
-| 2 | Roteadores sem fio WRT300N | Pontos de acesso Wi-Fi |
-| 5 | Servidores | DHCP, DNS, WEB-A, WEB-B e Cisco externo |
-| 4 | PCs | Estações cabeadas nos dois prédios |
-| 2 | Laptops | Estações cabeadas nos dois prédios |
-| 4 | Dispositivos móveis | Smartphones e tablets via Wi-Fi |
-| 2 | Impressoras | Impressão em rede, uma por prédio |
+| 1 | Cisco 2911 router | Routing between networks and NAT/PAT |
+| 2 | Cisco 2960-24TT switches | Wired device connectivity |
+| 2 | WRT300N wireless routers | Wi-Fi access points |
+| 5 | Servers | DHCP, DNS, WEB-A, WEB-B, and external Cisco server |
+| 4 | PCs | Wired workstations in both buildings |
+| 2 | Laptops | Wired workstations in both buildings |
+| 4 | Mobile devices | Smartphones and tablets over Wi-Fi |
+| 2 | Printers | One network printer per building |
 
-## Tabela de endereçamento
+## Addressing table
 
-### Infraestrutura e servidores
+### Infrastructure and servers
 
-| Dispositivo | Interface ou função | IPv4 | Gateway |
+| Device | Interface or function | IPv4 | Gateway |
 |---|---|---|---|
-| R-COPA-NORTE | G0/0 — Prédio A | `192.168.0.1/24` | — |
-| R-COPA-NORTE | G0/1 — Prédio B | `192.168.1.1/24` | — |
-| R-COPA-NORTE | G0/2 — rede externa | `209.165.200.1/24` | — |
-| AP-PREDIO-A | Ponto de acesso | `192.168.0.2/24` | `192.168.0.1` |
-| SW-PREDIO-A | Gerenciamento | `192.168.0.3/24` | `192.168.0.1` |
+| R-COPA-NORTE | G0/0 — Building A | `192.168.0.1/24` | — |
+| R-COPA-NORTE | G0/1 — Building B | `192.168.1.1/24` | — |
+| R-COPA-NORTE | G0/2 — external network | `209.165.200.1/24` | — |
+| AP-PREDIO-A | Access point | `192.168.0.2/24` | `192.168.0.1` |
+| SW-PREDIO-A | Management | `192.168.0.3/24` | `192.168.0.1` |
 | SRV-DHCP | DHCP | `192.168.0.10/24` | `192.168.0.1` |
 | SRV-DNS | DNS | `192.168.0.11/24` | `192.168.0.1` |
 | SRV-WEB-A | `site.com` | `192.168.0.20/24` | `192.168.0.1` |
-| IMPRESSORA-A | Impressora | `192.168.0.30/24` | `192.168.0.1` |
-| AP-PREDIO-B | Ponto de acesso | `192.168.1.2/24` | `192.168.1.1` |
-| SW-PREDIO-B | Gerenciamento | `192.168.1.3/24` | `192.168.1.1` |
+| IMPRESSORA-A | Printer | `192.168.0.30/24` | `192.168.0.1` |
+| AP-PREDIO-B | Access point | `192.168.1.2/24` | `192.168.1.1` |
+| SW-PREDIO-B | Management | `192.168.1.3/24` | `192.168.1.1` |
 | SRV-WEB-B | `vendas.com` | `192.168.1.20/24` | `192.168.1.1` |
-| IMPRESSORA-B | Impressora | `192.168.1.30/24` | `192.168.1.1` |
+| IMPRESSORA-B | Printer | `192.168.1.30/24` | `192.168.1.1` |
 | SRV-CISCO | `cisco.com` | `209.165.200.10/24` | `209.165.200.1` |
 
-### Clientes
+### Clients
 
-| Dispositivo | Endereçamento | IPv4 |
+| Device | Addressing | IPv4 |
 |---|---|---|
-| PC-A1 | DHCP | Pool iniciado em `192.168.0.100` |
-| PC-A2 | DHCP | Pool iniciado em `192.168.0.100` |
-| LAPTOP-A | DHCP | Pool iniciado em `192.168.0.100` |
-| SMARTPHONE-A | Estático | `192.168.0.40/24` |
-| TABLET-A | Estático | `192.168.0.41/24` |
-| PC-B1 | Estático | `192.168.1.100/24` |
-| PC-B2 | Estático | `192.168.1.101/24` |
-| LAPTOP-B | Estático | `192.168.1.110/24` |
-| SMARTPHONE-B | Estático | `192.168.1.40/24` |
-| TABLET-B | Estático | `192.168.1.41/24` |
+| PC-A1 | DHCP | Pool starts at `192.168.0.100` |
+| PC-A2 | DHCP | Pool starts at `192.168.0.100` |
+| LAPTOP-A | DHCP | Pool starts at `192.168.0.100` |
+| SMARTPHONE-A | Static | `192.168.0.40/24` |
+| TABLET-A | Static | `192.168.0.41/24` |
+| PC-B1 | Static | `192.168.1.100/24` |
+| PC-B2 | Static | `192.168.1.101/24` |
+| LAPTOP-B | Static | `192.168.1.110/24` |
+| SMARTPHONE-B | Static | `192.168.1.40/24` |
+| TABLET-B | Static | `192.168.1.41/24` |
 
-Os clientes usam o DNS `192.168.0.11`. O pool principal do Prédio A começa em `192.168.0.100` e aceita até 50 clientes.
+Clients use DNS `192.168.0.11`. The main Building A pool starts at `192.168.0.100` and supports up to 50 clients.
 
-## Serviços
+## Services
 
 ### DHCP
 
-O servidor `192.168.0.10` entrega endereços aos PCs e ao laptop do Prédio A. Ele também informa o gateway `192.168.0.1` e o DNS `192.168.0.11`.
+Server `192.168.0.10` assigns addresses to the Building A PCs and laptop. It also provides gateway `192.168.0.1` and DNS `192.168.0.11`.
 
 ### DNS
 
-O servidor `192.168.0.11` mantém registros para:
+Server `192.168.0.11` stores records for:
 
-| Domínio | Destino |
+| Domain | Destination |
 |---|---|
-| `site.com` e `www.site.com` | `192.168.0.20` |
-| `vendas.com` e `www.vendas.com` | `192.168.1.20` |
-| `cisco.com` e `www.cisco.com` | `209.165.200.10` |
+| `site.com` and `www.site.com` | `192.168.0.20` |
+| `vendas.com` and `www.vendas.com` | `192.168.1.20` |
+| `cisco.com` and `www.cisco.com` | `209.165.200.10` |
 
 ### Web
 
-- `site.com`: aplicação hospedada no Prédio A.
-- `vendas.com`: aplicação hospedada no Prédio B.
-- `cisco.com`: página externa usada para testar a Internet simulada.
+- `site.com`: application hosted in Building A.
+- `vendas.com`: application hosted in Building B.
+- `cisco.com`: external page used to test the simulated Internet.
 
-Os três servidores Web têm HTTP e HTTPS habilitados no laboratório.
+All three Web servers have HTTP and HTTPS enabled in the lab.
 
-## Segurança Wi-Fi
+## Wi-Fi security
 
-| Prédio | SSID | Proteção | Criptografia |
+| Building | SSID | Protection | Encryption |
 |---|---|---|---|
 | A | `PredioA` | WPA2 Personal | AES |
 | B | `PredioB` | WPA2 Personal | AES |
 
-As chaves de acesso não são publicadas neste repositório.
+Access keys are not published in this repository.
 
 ## NAT/PAT
 
-As interfaces G0/0 e G0/1 do `R-COPA-NORTE` são internas. A interface G0/2 é externa.
+G0/0 and G0/1 on `R-COPA-NORTE` are internal. G0/2 is external.
 
-Uma lista de acesso permite as redes `192.168.0.0/24` e `192.168.1.0/24`. O roteador aplica PAT com sobrecarga no endereço `209.165.200.1` para o tráfego destinado à rede externa simulada.
+An access list permits `192.168.0.0/24` and `192.168.1.0/24`. The router applies PAT overload on `209.165.200.1` for traffic sent to the simulated external network.
 
-## Testes realizados
+## Tests performed
 
-O registro do projeto marca os seguintes testes como concluídos:
+The project record marks these tests as completed:
 
-- Comunicação entre as redes dos dois prédios.
-- Concessão DHCP no Prédio A.
-- Endereçamento estático no Prédio B.
-- Resolução dos três domínios pelo servidor DNS.
-- Acesso HTTP a `site.com`, `vendas.com` e `cisco.com`.
-- Comunicação com as duas impressoras.
-- Conexão dos quatro dispositivos móveis às redes Wi-Fi.
-- Tradução NAT/PAT conferida com `show ip nat translations`.
+- Communication between the two building networks.
+- DHCP assignment in Building A.
+- Static addressing in Building B.
+- Resolution of all three domains by the DNS server.
+- HTTP access to `site.com`, `vendas.com`, and `cisco.com`.
+- Communication with both printers.
+- Connection of all four mobile devices to the Wi-Fi networks.
+- NAT/PAT translation checked with `show ip nat translations`.
 
-A primeira tentativa de ping pode expirar enquanto os dispositivos resolvem endereços por ARP. As tentativas seguintes devem responder.
+The first ping may time out while devices resolve addresses through ARP. Later attempts should receive replies.
 
-## Estrutura do repositório
+## Repository structure
 
 ```text
 .
@@ -186,19 +186,19 @@ A primeira tentativa de ping pode expirar enquanto os dispositivos resolvem ende
     └── PedroFerreira-fisica-provedor.png
 ```
 
-## Como abrir o projeto
+## Open the project
 
-1. Instale o Cisco Packet Tracer.
-2. Clone ou baixe este repositório.
-3. Abra o Packet Tracer.
-4. Selecione `File > Open`.
-5. Abra `packet-tracer/PedroFerreira-prjrede.pkt`.
-6. Aguarde a convergência dos links antes de repetir os testes.
+1. Install Cisco Packet Tracer.
+2. Clone or download this repository.
+3. Open Packet Tracer.
+4. Select `File > Open`.
+5. Open `packet-tracer/PedroFerreira-prjrede.pkt`.
+6. Wait for the links to converge before repeating the tests.
 
-## Autor
+## Author
 
 Pedro Dutra Ferreira
 
-Curso Cibersegurança — Cisco
+Cisco Cybersecurity Course
 
 Senac RJ
