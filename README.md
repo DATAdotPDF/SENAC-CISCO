@@ -13,6 +13,8 @@ This repository records my study projects from the SENAC RJ Cisco Cybersecurity 
 
 Open the branch README before opening a `.pkt`, `.pka`, or `.pksz` file. The branch README explains the topology, addressing, configuration order, verification commands, evidence, and limits.
 
+The ACL branch also contains the separate numbered ACL package at [Configurar-ACLs-IPv4-Padrao-Numeradas](https://github.com/DATAdotPDF/SENAC-CISCO/tree/projeto-acl/packet-tracer/Configurar-ACLs-IPv4-Padrao-Numeradas). It includes the original PKA, the completed PKA, an English README, and a Portuguese report.
+
 ## How the projects were produced
 
 1. Read the assignment and separate its requirements from optional design choices.
@@ -39,7 +41,7 @@ The branch keeps two activity interpretations separate. The three-router EIGRP v
 
 ### NetAcad studies
 
-The branch is an academic archive. It preserves the original activity filenames and formats so the exercises can be reopened in Packet Tracer. It is study material, not a production deployment.
+The branch is an academic archive. It preserves source activity formats so the exercises can be reopened in Packet Tracer. New study deliverables use the `PedroFerreira_YYYY-MM-DD_Task-name` naming pattern. It is study material, not a production deployment.
 
 ## Repository structure
 
@@ -57,7 +59,7 @@ branches:
 ## File and branch conventions
 
 - Branch names identify the project or study collection.
-- Packet Tracer files keep the original course or delivery filename.
+- Source Packet Tracer files keep the original course filename. New deliverables use `PedroFerreira_YYYY-MM-DD_Task-name`.
 - Reports and evidence stay beside the project file they explain.
 - Wi-Fi passwords and private tokens are not published.
 - A study activity is marked as study material when it is not a production deployment.
@@ -73,4 +75,3 @@ Pedro Dutra Ferreira
 Cisco Cybersecurity Course
 
 Senac RJ
-
