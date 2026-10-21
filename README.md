@@ -148,8 +148,8 @@ The final named ACL counters recorded four matches for each permit line and eigh
 - [Named ACL Packet Tracer file](packet-tracer/Controle-de-Acesso-ACL/PedroFerreira_2026-10-21_Projeto-ACL-Nomeada.pkt)
 - [Three-router report](packet-tracer/Controle-de-Acesso-ACL/PedroFerreira_2026-10-21_Relatorio-Projeto-ACL-3-Roteadores.docx)
 - [Named ACL report](packet-tracer/Controle-de-Acesso-ACL/PedroFerreira_2026-10-21_Relatorio-Projeto-ACL-Nomeada.docx)
-- [Numbered ACL source document](documentos/Portuguese_4_5_6_Packet_Tracer_Configure_Numbered_Standard_IPv4_ACLs.docx)
-- [Named ACL source activity](documentos/Portuguese_Configure_Named_Standard_IPv4_ACLs_pka.pka)
+- [Numbered ACL source document](packet-tracer/Controle-de-Acesso-ACL/Portuguese_4_5_6_Packet_Tracer_Configure_Numbered_Standard_IPv4_ACLs.docx)
+- [Named ACL source activity](packet-tracer/Controle-de-Acesso-ACL/Portuguese_Configure_Named_Standard_IPv4_ACLs_pka.pka)
 
 ## Study limits
 
@@ -162,3 +162,4 @@ Pedro Dutra Ferreira
 Cisco Cybersecurity Course
 
 Senac RJ
+
