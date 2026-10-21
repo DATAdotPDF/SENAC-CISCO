@@ -10,9 +10,11 @@ The default branch works as an index. Each project has its own branch with a REA
 |---|---|---|
 | `projeto-lan-wan` | LAN-WAN and Security Project | Three offices, serial WAN, OSPF, DHCP, DNS, web services, WEP, VLANs, port security, SSH, and ACLs. |
 | `projeto-copa-norte` | Copa Norte LTDA Network Project | Two buildings, DHCP, DNS, web services, WPA2 Wi-Fi, NAT/PAT, and simulated Internet. |
+| `projeto-acl` | Numbered Standard IPv4 ACL Project | R1 standard ACL protecting the File Server, with permitted and denied source tests. |
 
 - [LAN-WAN project branch](https://github.com/DATAdotPDF/SENAC-CISCO/tree/projeto-lan-wan)
 - [Copa Norte project branch](https://github.com/DATAdotPDF/SENAC-CISCO/tree/projeto-copa-norte)
+- [ACL project branch](https://github.com/DATAdotPDF/SENAC-CISCO/tree/projeto-acl)
 
 ## Materials in the default branch
 
@@ -23,7 +25,7 @@ The default branch works as an index. Each project has its own branch with a REA
 
 Open the project branch before reading its specific README. Each branch README describes the goal, files, topology, services, security, tests, and simulation limits.
 
-Use the `.pkt` file from the branch that matches the project. Reports and requirement documents are stored with the materials listed in the README.
+Use the `.pkt` or `.pka` file from the branch that matches the project. Reports and requirement documents are stored with the materials listed in the README.
 
 ## Author
 
