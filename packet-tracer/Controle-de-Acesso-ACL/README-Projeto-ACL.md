@@ -73,6 +73,12 @@ The Packet Tracer MCP tests returned:
 
 When I reviewed the DOCX named above, I confirmed that it requires three routers. During a review with a study colleague, I identified a second one-router and switch topology. I kept it as a separate comparative version because it records a different activity structure. `PedroFerreira_2026-10-21_Projeto-ACL.pka` is the original container from that visual version.
 
+## Audit findings
+
+I opened a copy of `Portuguese_Configure_Named_Standard_IPv4_ACLs_pka.pka` and found one 1841 router, four 2960-24TT switches, two servers, three PCs, no serial interfaces, and no ACL configured on R1. The completed visual version adds ACL 1 on R1 with two permitted hosts followed by `deny any`.
+
+The primary project has three 2911 routers, three serial links, EIGRP, and ACL 1 on R2 and R3. The source files describe different activities. I kept both versions separate instead of treating one topology as an incomplete copy of the other.
+
 ## Integrity
 
 SHA-1 of the valid `.pkt` saved from Packet Tracer: `23923f6c27a588c88c02189db9551448ad11c266`.
