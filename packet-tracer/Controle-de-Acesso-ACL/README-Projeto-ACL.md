@@ -66,13 +66,16 @@ The Packet Tracer MCP tests returned:
 ## Files
 
 - `PedroFerreira_2026-10-21_Projeto-ACL-3-Roteadores.pkt` — valid three-router Packet Tracer project.
+- `PedroFerreira_2026-10-21_Projeto-ACL-Literal-Visual.pkt` — comparative one-router and switch topology preserved from the visual reference.
 - `PedroFerreira_2026-10-21_Relatorio-Projeto-ACL-3-Roteadores.docx` — Portuguese report with the addressing table, configuration, and evidence.
 - `Portuguese_4_5_6_Packet_Tracer_Configure_Numbered_Standard_IPv4_ACLs.docx` — assignment reference.
 - `Portuguese_Configure_Named_Standard_IPv4_ACLs_pka.pka` — original reference activity.
 
-`PedroFerreira_2026-10-21_Projeto-ACL.pka` is an earlier single-router attempt and is not the valid deliverable for this assignment.
+The DOCX named above is the primary assignment reference and requires three routers. The visual one-router topology is kept as a separate comparative version because it matches a different reference activity shown in the screenshots. `PedroFerreira_2026-10-21_Projeto-ACL.pka` is the original container from that visual version.
 
 ## Integrity
 
 SHA-1 of the valid `.pkt` saved from Packet Tracer: `23923f6c27a588c88c02189db9551448ad11c266`.
+
+SHA-1 of the comparative visual `.pkt`: `f031b0f4edfe9c2e7bdb214f6c42b65aff080c86`.
 
