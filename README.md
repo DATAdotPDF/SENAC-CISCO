@@ -1,199 +1,126 @@
-# Network Project — Copa Norte LTDA
+# Copa Norte LTDA Network Project
 
-Academic project created by Pedro Dutra Ferreira for the SENAC RJ Cisco Cybersecurity course.
+This branch documents a Cisco Packet Tracer study project for a company called Copa Norte LTDA. The design separates two buildings, supplies wired and wireless users, publishes internal Web services, and simulates an external provider through NAT/PAT.
 
-The lab simulates a company network with two buildings, internal services, protected Wi-Fi access, and an external connection through NAT/PAT.
+## Project goals
 
-## Objective
+- Connect Building A and Building B through one Cisco 2911 router.
+- Use DHCP in Building A and static addressing in Building B.
+- Provide DNS, Web, printer, and file access paths needed by the scenario.
+- Connect four mobile devices through protected Wi-Fi.
+- Publish `site.com`, `vendas.com`, and `cisco.com`.
+- Test access from the internal networks to the simulated Internet.
+- Record the logical and Physical layouts so another student can reproduce the lab.
 
-Plan and configure a small corporate network in Cisco Packet Tracer. The solution connects Buildings A and B, provides DHCP, DNS, and Web services, supports wired and wireless devices, and simulates Internet access.
+## Visual evidence
 
-## Requirements covered
-
-- Two buildings on separate IPv4 networks.
-- PCs and laptops connected by cable.
-- Four mobile devices connected through Wi-Fi.
-- One network printer in each building.
-- DHCP, DNS, and Web servers.
-- Applications reachable through `site.com`, `vendas.com`, and `cisco.com`.
-- Automatic addressing in Building A.
-- Static addressing in Building B.
-- `PredioA` and `PredioB` Wi-Fi networks with WPA2 Personal and AES.
-- Internet access simulated with NAT/PAT.
-- Logical and physical topologies documented.
-
-## Lab walkthrough
-
-1. Gather requirements: separate the two buildings, wired users, four mobile devices, printers, servers, and external access.
-2. Plan IPv4: reserve `192.168.0.0/24` for Building A, `192.168.1.0/24` for Building B, and `209.165.200.0/24` for the simulated Internet.
-3. Build the topology: add the Cisco 2911 router, switches, access points, servers, computers, laptops, printers, and mobile devices.
-4. Cable the network: connect the router and wired equipment to the switches. Connect the access points through their LAN ports and connect the Cisco server to the router's external interface.
-5. Configure the router: name it `R-COPA-NORTE`, configure G0/0, G0/1, and G0/2, mark internal and external interfaces, and enable NAT/PAT.
-6. Configure the switches: name them `SW-PREDIO-A` and `SW-PREDIO-B`, set management addresses, and specify each switch gateway.
-7. Configure Building A: use DHCP for PCs and the laptop, configure the DHCP server, DNS server, Web Server A, and printer.
-8. Configure Building B: use static addresses for PCs and the laptop, configure Web Server B, and configure the printer.
-9. Configure Wi-Fi: create SSIDs `PredioA` and `PredioB`, disable internal DHCP on the access points, and apply WPA2 Personal with AES.
-10. Configure services: add the `site.com`, `vendas.com`, and `cisco.com` DNS records, enable HTTP and HTTPS, and fill in the Web pages.
-11. Test the network: check the gateway, DHCP, static addressing, inter-network communication, DNS resolution, access to all three sites, printers, Wi-Fi, and NAT translations.
-12. Record the delivery: save the `.pkt` file, export logical and physical topologies, document commands, and organize project files.
-
-## Topology
-
-The `R-COPA-NORTE` router connects both internal networks to the simulated external network:
-
-- Building A: `192.168.0.0/24`.
-- Building B: `192.168.1.0/24`.
-- Simulated Internet: `209.165.200.0/24`.
+### Logical topology
 
 ![Logical topology](imagens/PedroFerreira-topologia-logica.png)
 
+### Physical topology
+
 ![Physical topology](imagens/PedroFerreira-topologia-fisica.png)
 
-### Physical layout
+### Building and provider views
 
-| Location | Contents |
-|---|---|
-| Building A | Technical Room A and devices on `192.168.0.0/24` |
-| Building B | Technical Room B and devices on `192.168.1.0/24` |
-| Internet Provider | Cisco Data Center and external server |
+| Building A | Building B | Provider |
+|---|---|---|
+| ![Building A](imagens/PedroFerreira-fisica-predio-A.png) | ![Building B](imagens/PedroFerreira-fisica-predio-B.png) | ![Provider](imagens/PedroFerreira-fisica-provedor.png) |
 
-![Building A](imagens/PedroFerreira-fisica-predio-A.png)
+```mermaid
+flowchart LR
+  A[Building A\n192.168.0.0/24] --> R[R-COPA-NORTE\n2911]
+  B[Building B\n192.168.1.0/24] --> R
+  R --> ISP[Provider\n209.165.200.0/24]
+  A --> AP_A[PredioA\nWPA2 Personal]
+  B --> AP_B[PredioB\nWPA2 Personal]
+```
 
-![Building B](imagens/PedroFerreira-fisica-predio-B.png)
+## Addressing plan
 
-![Internet Provider](imagens/PedroFerreira-fisica-provedor.png)
+| Segment | Addressing | Gateway |
+|---|---|---|
+| Building A | `192.168.0.0/24` | `192.168.0.1` |
+| Building B | `192.168.1.0/24` | `192.168.1.1` |
+| Simulated Internet | `209.165.200.0/24` | `209.165.200.1` |
+
+| Device or service | Address |
+|---|---:|
+| AP-PREDIO-A | `192.168.0.2` |
+| SW-PREDIO-A | `192.168.0.3` |
+| SRV-DHCP | `192.168.0.10` |
+| SRV-DNS | `192.168.0.11` |
+| SRV-WEB-A | `192.168.0.20` |
+| IMPRESSORA-A | `192.168.0.30` |
+| AP-PREDIO-B | `192.168.1.2` |
+| SW-PREDIO-B | `192.168.1.3` |
+| SRV-WEB-B | `192.168.1.20` |
+| IMPRESSORA-B | `192.168.1.30` |
+| SRV-CISCO | `209.165.200.10` |
+
+Building A PCs and its laptop receive DHCP addresses from the pool that starts at `192.168.0.100`. Building B clients use the static addresses recorded in the branch report.
 
 ## Equipment
 
-| Quantity | Equipment | Function |
-|---:|---|---|
-| 1 | Cisco 2911 router | Routing between networks and NAT/PAT |
-| 2 | Cisco 2960-24TT switches | Wired device connectivity |
-| 2 | WRT300N wireless routers | Wi-Fi access points |
-| 5 | Servers | DHCP, DNS, WEB-A, WEB-B, and external Cisco server |
-| 4 | PCs | Wired workstations in both buildings |
-| 2 | Laptops | Wired workstations in both buildings |
-| 4 | Mobile devices | Smartphones and tablets over Wi-Fi |
-| 2 | Printers | One network printer per building |
+- One Cisco 2911 router: `R-COPA-NORTE`.
+- Two Cisco 2960-24TT switches.
+- Two WRT300N devices used as access points.
+- Five servers for DHCP, DNS, Web, and the external provider.
+- Four PCs, two laptops, four mobile devices, and two printers.
 
-## Addressing table
+## Configuration procedure
 
-### Infrastructure and servers
+1. Add the router, two switches, access points, servers, clients, mobile devices, and printers.
+2. Connect Building A to G0/0, Building B to G0/1, and the provider network to G0/2.
+3. Assign the gateway and management addresses from the table.
+4. Configure the Building A DHCP server and check that PCs and the laptop obtain an address, gateway, and DNS server.
+5. Configure static addresses in Building B.
+6. Configure DNS records for `site.com`, `www.site.com`, `vendas.com`, `www.vendas.com`, `cisco.com`, and `www.cisco.com`.
+7. Enable HTTP and HTTPS on Web Server A, Web Server B, and the provider Web server.
+8. Configure `PredioA` and `PredioB` with WPA2 Personal and AES. Disable the access point DHCP services so the central plan remains authoritative.
+9. Configure the two printers and check their gateway reachability.
+10. Mark G0/0 and G0/1 as inside for NAT. Mark G0/2 as outside.
+11. Use an ACL for `192.168.0.0/24` and `192.168.1.0/24`, then apply PAT overload on the external interface.
+12. Save the `.pkt`, export the logical and Physical images, and repeat the tests from clean client sessions.
 
-| Device | Interface or function | IPv4 | Gateway |
-|---|---|---|---|
-| R-COPA-NORTE | G0/0 — Building A | `192.168.0.1/24` | — |
-| R-COPA-NORTE | G0/1 — Building B | `192.168.1.1/24` | — |
-| R-COPA-NORTE | G0/2 — external network | `209.165.200.1/24` | — |
-| AP-PREDIO-A | Access point | `192.168.0.2/24` | `192.168.0.1` |
-| SW-PREDIO-A | Management | `192.168.0.3/24` | `192.168.0.1` |
-| SRV-DHCP | DHCP | `192.168.0.10/24` | `192.168.0.1` |
-| SRV-DNS | DNS | `192.168.0.11/24` | `192.168.0.1` |
-| SRV-WEB-A | `site.com` | `192.168.0.20/24` | `192.168.0.1` |
-| IMPRESSORA-A | Printer | `192.168.0.30/24` | `192.168.0.1` |
-| AP-PREDIO-B | Access point | `192.168.1.2/24` | `192.168.1.1` |
-| SW-PREDIO-B | Management | `192.168.1.3/24` | `192.168.1.1` |
-| SRV-WEB-B | `vendas.com` | `192.168.1.20/24` | `192.168.1.1` |
-| IMPRESSORA-B | Printer | `192.168.1.30/24` | `192.168.1.1` |
-| SRV-CISCO | `cisco.com` | `209.165.200.10/24` | `209.165.200.1` |
+## Verification checklist
 
-### Clients
-
-| Device | Addressing | IPv4 |
-|---|---|---|
-| PC-A1 | DHCP | Pool starts at `192.168.0.100` |
-| PC-A2 | DHCP | Pool starts at `192.168.0.100` |
-| LAPTOP-A | DHCP | Pool starts at `192.168.0.100` |
-| SMARTPHONE-A | Static | `192.168.0.40/24` |
-| TABLET-A | Static | `192.168.0.41/24` |
-| PC-B1 | Static | `192.168.1.100/24` |
-| PC-B2 | Static | `192.168.1.101/24` |
-| LAPTOP-B | Static | `192.168.1.110/24` |
-| SMARTPHONE-B | Static | `192.168.1.40/24` |
-| TABLET-B | Static | `192.168.1.41/24` |
-
-Clients use DNS `192.168.0.11`. The main Building A pool starts at `192.168.0.100` and supports up to 50 clients.
-
-## Services
-
-### DHCP
-
-Server `192.168.0.10` assigns addresses to the Building A PCs and laptop. It also provides gateway `192.168.0.1` and DNS `192.168.0.11`.
-
-### DNS
-
-Server `192.168.0.11` stores records for:
-
-| Domain | Destination |
+| Test | Expected result |
 |---|---|
-| `site.com` and `www.site.com` | `192.168.0.20` |
-| `vendas.com` and `www.vendas.com` | `192.168.1.20` |
-| `cisco.com` and `www.cisco.com` | `209.165.200.10` |
+| Building A client receives DHCP | Address, gateway, and DNS are assigned |
+| Building B client uses static addressing | Gateway and DNS are reachable |
+| Client reaches both internal networks | ICMP replies return after ARP resolution |
+| `site.com` resolves | Building A Web server opens |
+| `vendas.com` resolves | Building B Web server opens |
+| `cisco.com` resolves | Simulated provider page opens |
+| Mobile devices associate | `PredioA` or `PredioB` accepts the WPA2 credentials |
+| Printers respond | Each building printer answers through its gateway |
+| NAT/PAT translates an external request | `show ip nat translations` shows the session |
 
-### Web
-
-- `site.com`: application hosted in Building A.
-- `vendas.com`: application hosted in Building B.
-- `cisco.com`: external page used to test the simulated Internet.
-
-All three Web servers have HTTP and HTTPS enabled in the lab.
-
-## Wi-Fi security
-
-| Building | SSID | Protection | Encryption |
-|---|---|---|---|
-| A | `PredioA` | WPA2 Personal | AES |
-| B | `PredioB` | WPA2 Personal | AES |
-
-Access keys are not published in this repository.
-
-## NAT/PAT
-
-G0/0 and G0/1 on `R-COPA-NORTE` are internal. G0/2 is external.
-
-An access list permits `192.168.0.0/24` and `192.168.1.0/24`. The router applies PAT overload on `209.165.200.1` for traffic sent to the simulated external network.
-
-## Tests performed
-
-The project record marks these tests as completed:
-
-- Communication between the two building networks.
-- DHCP assignment in Building A.
-- Static addressing in Building B.
-- Resolution of all three domains by the DNS server.
-- HTTP access to `site.com`, `vendas.com`, and `cisco.com`.
-- Communication with both printers.
-- Connection of all four mobile devices to the Wi-Fi networks.
-- NAT/PAT translation checked with `show ip nat translations`.
-
-The first ping may time out while devices resolve addresses through ARP. Later attempts should receive replies.
-
-## Repository structure
+Useful router checks:
 
 ```text
-.
-├── README.md
-├── .gitignore
-├── packet-tracer/
-│   └── PedroFerreira-prjrede.pkt
-├── configuracoes/
-│   └── PedroFerreira-configuracoes.txt
-└── imagens/
-    ├── PedroFerreira-topologia-logica.png
-    ├── PedroFerreira-topologia-fisica.png
-    ├── PedroFerreira-fisica-predio-A.png
-    ├── PedroFerreira-fisica-predio-B.png
-    └── PedroFerreira-fisica-provedor.png
+show ip interface brief
+show ip route
+show ip dhcp binding
+show ip nat translations
+show access-lists
 ```
 
-## Open the project
+## Files in this branch
 
-1. Install Cisco Packet Tracer.
-2. Clone or download this repository.
-3. Open Packet Tracer.
-4. Select `File > Open`.
-5. Open `packet-tracer/PedroFerreira-prjrede.pkt`.
-6. Wait for the links to converge before repeating the tests.
+- [Packet Tracer project](packet-tracer/PedroFerreira-prjrede.pkt)
+- [Configuration notes](configuracoes/PedroFerreira-configuracoes.txt)
+- [Logical topology](imagens/PedroFerreira-topologia-logica.png)
+- [Physical topology](imagens/PedroFerreira-topologia-fisica.png)
+- [Building A view](imagens/PedroFerreira-fisica-predio-A.png)
+- [Building B view](imagens/PedroFerreira-fisica-predio-B.png)
+- [Provider view](imagens/PedroFerreira-fisica-provedor.png)
+
+## Study limits
+
+This is a controlled academic simulation. The access keys are intentionally not published. The provider is simulated inside Packet Tracer. The number of visible clients is a test sample, not a claim that a production network would run on only these devices.
 
 ## Author
 
