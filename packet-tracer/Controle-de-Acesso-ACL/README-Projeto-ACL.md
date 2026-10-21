@@ -71,7 +71,7 @@ The Packet Tracer MCP tests returned:
 - `Portuguese_4_5_6_Packet_Tracer_Configure_Numbered_Standard_IPv4_ACLs.docx` — assignment reference.
 - `Portuguese_Configure_Named_Standard_IPv4_ACLs_pka.pka` — original reference activity.
 
-The DOCX named above is the primary assignment reference and requires three routers. The visual one-router topology is kept as a separate comparative version because it matches a different reference activity shown in the screenshots. `PedroFerreira_2026-10-21_Projeto-ACL.pka` is the original container from that visual version.
+When I reviewed the DOCX named above, I confirmed that it requires three routers. During a review with a study colleague, I identified a second one-router and switch topology. I kept it as a separate comparative version because it records a different activity structure. `PedroFerreira_2026-10-21_Projeto-ACL.pka` is the original container from that visual version.
 
 ## Integrity
 
