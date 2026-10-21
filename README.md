@@ -27,7 +27,7 @@ The local folder currently contains these four groups:
 - LAN-WAN is published in `projeto-lan-wan`.
 - Copa Norte is published in `projeto-copa-norte`.
 - The named ACL project is published in `projeto-acl`.
-- The NetAcad branch is identified as a study collection. The complete local archive is kept locally because it contains many activity packages and reference files.
+- The NetAcad branch is identified as a study collection. Its 47 local activity and reference files are published there, with the same filenames used in the local archive.
 
 Open the branch README before using a project file. Each project README describes its objective, files, topology, services, security controls, tests, and study limits.
 
@@ -43,5 +43,4 @@ Pedro Dutra Ferreira
 Cisco Cybersecurity Course
 
 Senac RJ
-
 
