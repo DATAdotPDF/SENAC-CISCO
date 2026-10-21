@@ -1,23 +1,17 @@
-# Packet Tracer Projects
+# Packet Tracer Study Projects
 
-The repository uses one branch for each completed project.
+This directory mirrors the local Packet Tracer folders and links each project to its study branch.
 
-## Published projects
-
-| Project | Branch | Main file |
+| Local folder | Branch | Publication |
 |---|---|---|
-| Numbered Standard IPv4 ACL | [`projeto-acl`](https://github.com/DATAdotPDF/SENAC-CISCO/tree/projeto-acl) | `PedroFerreira_2026-10-21_Projeto-ACL.pka` |
-| LAN-WAN and Security | [`projeto-lan-wan`](https://github.com/DATAdotPDF/SENAC-CISCO/tree/projeto-lan-wan) | `PedroFerreira_2026-10-13_Projeto-LAN-WAN.pkt` |
-| Copa Norte LTDA | [`projeto-copa-norte`](https://github.com/DATAdotPDF/SENAC-CISCO/tree/projeto-copa-norte) | `PedroFerreira-prjrede.pkt` |
+| `Controle de Acesso por ACL` | [`projeto-acl`](https://github.com/DATAdotPDF/SENAC-CISCO/tree/projeto-acl) | Named standard IPv4 ACL project, report, README, and source requirements. |
+| `Copa-Norte-LTDA` | [`projeto-copa-norte`](https://github.com/DATAdotPDF/SENAC-CISCO/tree/projeto-copa-norte) | Two-building network project with Wi-Fi, services, and NAT/PAT. |
+| `NetAcad` | [`projeto-netacad-estudos`](https://github.com/DATAdotPDF/SENAC-CISCO/tree/projeto-netacad-estudos) | Study archive of 47 NetAcad practice and reference files. |
+| `Projeto LAN-WAN` | [`projeto-lan-wan`](https://github.com/DATAdotPDF/SENAC-CISCO/tree/projeto-lan-wan) | Three-office LAN-WAN and security project. |
 
-Each project branch includes its README, configuration record, evidence, and main Packet Tracer file.
+## How to use the files
 
-## Local NetAcad archive
+Open the branch that matches the project before opening a Packet Tracer file. Read the branch README first. It records the topology, addressing, services, security controls, tests, and limits of the study simulation.
 
-The local `NetAcad` folder contains 47 course exercises and practice files totaling about 364 MB. It is a study archive, not a single project deliverable. It remains local because it includes large course activity packages and reference files.
+These are academic study projects from the SENAC RJ Cisco Cybersecurity course.
 
-The personal Copa Norte project files from that archive are already published in the `projeto-copa-norte` branch.
-
-## Local folder note
-
-The local `Copa-Norte-LTDA` folder is an older copy of the LAN-WAN project structure. It is not a separate project branch.
