@@ -13,32 +13,6 @@ This repository records my study projects from the SENAC RJ Cisco Cybersecurity 
 
 Open the branch README before opening a `.pkt`, `.pka`, or `.pksz` file. The branch README explains the topology, addressing, configuration order, verification commands, evidence, and limits.
 
-## Visual overview
-
-### LAN-WAN offices
-
-![LAN-WAN branch map](https://raw.githubusercontent.com/DATAdotPDF/SENAC-CISCO/projeto-lan-wan/packet-tracer/Projeto-LAN-WAN/Mapa-Brasil-Filiais-LAN-WAN.png)
-
-The LAN-WAN project places Rio de Janeiro, São Paulo, and Vitória in separate physical locations and connects their routers with serial links.
-
-### Copa Norte buildings
-
-![Copa Norte logical topology](https://raw.githubusercontent.com/DATAdotPDF/SENAC-CISCO/projeto-copa-norte/imagens/PedroFerreira-topologia-logica.png)
-
-The Copa Norte project separates Building A, Building B, and the simulated provider network.
-
-### ACL traffic policy
-
-```mermaid
-flowchart LR
-  PC1[PC1 / Web Manager] -->|permitted| FS[File Server]
-  WEB[Web Server] -->|permitted| FS
-  PC0[PC0] -->|denied| FS
-  PC2[PC2] -->|denied| FS
-```
-
-The ACL branches document the rule order and the test results that prove each permitted or denied path.
-
 ## How the projects were produced
 
 1. Read the assignment and separate its requirements from optional design choices.
@@ -99,3 +73,4 @@ Pedro Dutra Ferreira
 Cisco Cybersecurity Course
 
 Senac RJ
+
