@@ -1,23 +1,58 @@
 # NetAcad Study Archive
 
-This branch contains study material collected while completing the SENAC RJ Cisco Cybersecurity course.
+This folder contains the original Packet Tracer activities and reference files collected during the SENAC RJ Cisco Cybersecurity course.
 
-## Contents
+## Inventory
 
-- 47 Packet Tracer practice activities and reference files.
-- `.pka`, `.pkt`, and `.pksz` activities for guided exercises.
-- `.zip`, `.txt`, `.htm`, and `.png` files kept as course references or evidence.
+There are 47 original study or reference files in this folder, plus this README:
 
-The files are kept under `packet-tracer/NetAcad/` with their original filenames. They are academic study material, not a production network deployment. Each activity should be opened with the Packet Tracer version that supports its file format.
+- 32 `.pka` guided activities.
+- 3 `.pksz` packaged activities.
+- 4 `.pkt` saved topologies.
+- 1 `.zip` archive.
+- 5 `.png` diagrams and Physical views.
+- 1 `.htm` activity reference.
+- 1 `.txt` configuration record.
+
+The archive is about 347 MiB. The largest file is below the GitHub single-file limit. Filenames and formats remain unchanged.
+
+## Visual files
+
+![Building A](PedroFerreira-fisica-predio-A.png)
+
+![Building B](PedroFerreira-fisica-predio-B.png)
+
+![Provider](PedroFerreira-fisica-provedor.png)
+
+![Logical topology](PedroFerreira-topologia-logica.png)
+
+![Physical topology](PedroFerreira-topologia-fisica.png)
+
+## Suggested study order
+
+1. Open a simple network activity.
+2. Record the device names, interfaces, and address table.
+3. Complete the guided configuration.
+4. Check the result inside Packet Tracer.
+5. Repeat the same idea in a saved `.pkt` file.
+6. Compare the result with `PedroFerreira-configuracoes.txt` when the topic is routing, services, or wireless.
+
+## Topics represented
+
+- LAN construction and Packet Tracer navigation.
+- IPv4 addressing, MAC identification, `ipconfig`, and ping.
+- DHCP, DNS, Web, FTP, and NAT.
+- Wireless router setup, client association, and wireless troubleshooting.
+- ACLs, data integrity, threat scenarios, and physical IoT security.
 
 ## Local source
 
-The local source folder is:
-
 `D:\VSCODE_PROJECTS\SENAC_CISCO_CIBERSECURITY\Packet Tracer\NetAcad`
 
-The published archive contains 47 files and is approximately 347 MiB. Credentials or private access tokens must not be added to this study branch.
+## Git branch
 
-## Branch
+The collection is published in [`projeto-netacad-estudos`](https://github.com/DATAdotPDF/SENAC-CISCO/tree/projeto-netacad-estudos). It is marked as study material and is separate from the delivery branches.
 
-This branch is `projeto-netacad-estudos`. The other course projects use separate branches listed in the repository root README.
+## Study boundary
+
+Do not treat the activities as production configurations. Keep credentials private. Make a working copy before changing an original guided activity.

@@ -1,40 +1,79 @@
-# SENAC CISCO Cybersecurity
+# NetAcad Study Collection
 
-Central repository for SENAC RJ Cisco Cybersecurity course work.
+This branch is the study archive for the SENAC RJ Cisco Cybersecurity course. It preserves Packet Tracer activities, guided exercises, reference files, and visual evidence collected while learning Cisco networking and security.
 
-The repository uses one branch for each project or study collection. The local Packet Tracer folder and the Git branches are listed below so the two views remain consistent.
+## Scope
 
-## Project branches
+The original archive contains 47 study and reference files. This branch adds a README so the collection has a clear entry point.
 
-| Branch | Local folder | Scope |
-|---|---|---|
-| [`projeto-lan-wan`](https://github.com/DATAdotPDF/SENAC-CISCO/tree/projeto-lan-wan) | `Packet Tracer/Projeto LAN-WAN` | Three offices, serial WAN, OSPF, DHCP, DNS, Web, WEP, VLANs, SSH, port security, and ACLs. |
-| [`projeto-copa-norte`](https://github.com/DATAdotPDF/SENAC-CISCO/tree/projeto-copa-norte) | `Packet Tracer/Copa-Norte-LTDA` | Two buildings, DHCP, DNS, Web, WPA2 Wi-Fi, NAT/PAT, and simulated Internet. |
-| [`projeto-acl`](https://github.com/DATAdotPDF/SENAC-CISCO/tree/projeto-acl) | `Packet Tracer/Controle de Acesso por ACL` | Named standard IPv4 ACL study project with a traceable Packet Tracer file, report, and verification results. |
-| [`projeto-netacad-estudos`](https://github.com/DATAdotPDF/SENAC-CISCO/tree/projeto-netacad-estudos) | `Packet Tracer/NetAcad` | NetAcad study archive containing practice activities and reference exercises. |
+| Format | Quantity | Typical use |
+|---|---:|---|
+| `.pka` | 32 | Guided Packet Tracer activities |
+| `.pksz` | 3 | Tutored or packaged Packet Tracer activities |
+| `.pkt` | 4 | Saved topology exercises |
+| `.zip` | 1 | Study archive |
+| `.png` | 5 | Physical and logical evidence |
+| `.htm` | 1 | Activity reference page |
+| `.txt` | 1 | Configuration notes |
 
-## Local Packet Tracer structure
+## Visual study evidence
 
-The local folder currently contains these four groups:
+![Logical topology study](packet-tracer/NetAcad/PedroFerreira-topologia-logica.png)
 
-- `Controle de Acesso por ACL`: the named ACL project and its two source requirements.
-- `Copa-Norte-LTDA`: the Copa Norte study project, report, and Packet Tracer files.
-- `NetAcad`: practice activities from the course.
-- `Projeto LAN-WAN`: the three-office LAN-WAN project, report, evidence, and map.
+![Physical topology study](packet-tracer/NetAcad/PedroFerreira-topologia-fisica.png)
 
-## Git publication status
+The remaining building and provider images are linked in the [collection README](packet-tracer/NetAcad/README.md).
 
-- LAN-WAN is published in `projeto-lan-wan`.
-- Copa Norte is published in `projeto-copa-norte`.
-- The named ACL project is published in `projeto-acl`.
-- The NetAcad branch is identified as a study collection. Its 47 local activity and reference files are published there, with the same filenames used in the local archive.
+## Learning path
 
-Open the branch README before using a project file. Each project README describes its objective, files, topology, services, security controls, tests, and study limits.
+1. Start with simple LAN creation and basic Packet Tracer navigation.
+2. Practice `ipconfig`, `ping`, MAC and IP identification, and Web requests.
+3. Configure DHCP, wireless routers, wireless clients, and basic wireless security.
+4. Explore NAT, FTP, DNS, Web services, and routed traffic.
+5. Study ACLs, data and file integrity, threat scenarios, and physical security with IoT.
+6. Reopen the saved `.pkt` files and compare the topology with the written configuration notes.
 
-## Materials
+## How to use an activity
 
-- `documentos/`: course research, assignments, and requirement documents.
-- `packet-tracer/`: Packet Tracer project branches and published study files.
+1. Read the activity name and identify whether it is a `.pka`, `.pksz`, or `.pkt` file.
+2. Open it with a Cisco Packet Tracer version that supports the file format.
+3. Read the instructions inside the activity before changing the topology.
+4. Record the addressing, device names, and expected result.
+5. Complete the guided steps and use the Check Results view when the activity provides one.
+6. Test the result with the relevant Packet Tracer command or client application.
+7. Save a separate working copy when the original activity must remain unchanged.
+
+## Main study themes
+
+### Network fundamentals
+
+Simple networks, LAN construction, IP and MAC identification, `ipconfig`, ping, and basic routed traffic.
+
+### Services
+
+DHCP, DNS, Web, FTP, and NAT exercises show how clients receive addresses and reach local or external services.
+
+### Wireless
+
+The archive includes wireless router setup, DHCP on a wireless router, client association, wireless troubleshooting, and basic wireless security.
+
+### Security
+
+ACL demonstrations, access control, data and file integrity, threat scenarios, and physical security with IoT devices connect the Packet Tracer practice to the course cybersecurity topics.
+
+## Files
+
+All original study files are under [`packet-tracer/NetAcad/`](packet-tracer/NetAcad/). The collection README includes the local source path, the complete file list, and the study boundary.
+
+- [NetAcad collection README](packet-tracer/NetAcad/README.md)
+- [Logical topology image](packet-tracer/NetAcad/PedroFerreira-topologia-logica.png)
+- [Physical topology image](packet-tracer/NetAcad/PedroFerreira-topologia-fisica.png)
+- [Configuration notes](packet-tracer/NetAcad/PedroFerreira-configuracoes.txt)
+- [Saved topology](packet-tracer/NetAcad/PedroDFerreira-prjrede.pkt)
+
+## Study boundary
+
+These files are academic exercises. They are useful for learning commands and behavior inside Packet Tracer. They are not production network designs. Passwords and private tokens are not published. Original filenames are preserved so the activities can be matched with their course references.
 
 ## Author
 
@@ -43,4 +82,3 @@ Pedro Dutra Ferreira
 Cisco Cybersecurity Course
 
 Senac RJ
-
