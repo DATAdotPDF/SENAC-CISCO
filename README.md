@@ -11,6 +11,14 @@ This branch records the ACL work from the SENAC RJ Cisco Cybersecurity course. I
 
 The two versions are study evidence for different instructions. They must not be evaluated as one incomplete topology.
 
+## Numbered ACL activity package
+
+The branch includes a separate NetAcad package for the numbered standard IPv4 ACL activity. It follows the three-router Addressing Table and preserves both the supplied PKA and the completed PKA.
+
+- [Numbered ACL package](packet-tracer/Configurar-ACLs-IPv4-Padrao-Numeradas/PedroFerreira_2026-10-21_Configurar-ACLs-IPv4-Padrao-Numeradas-README.md)
+- [Completed PKA](packet-tracer/Configurar-ACLs-IPv4-Padrao-Numeradas/PedroFerreira_2026-10-21_Configurar-ACLs-IPv4-Padrao-Numeradas-concluido.pka)
+- [Portuguese report](packet-tracer/Configurar-ACLs-IPv4-Padrao-Numeradas/PedroFerreira_2026-10-21_Configurar-ACLs-IPv4-Padrao-Numeradas-Relatorio.docx)
+
 ## Visual comparison
 
 ### Three-router EIGRP activity
@@ -149,7 +157,7 @@ The final named ACL counters recorded four matches for each permit line and eigh
 - [Three-router report](packet-tracer/Controle-de-Acesso-ACL/PedroFerreira_2026-10-21_Relatorio-Projeto-ACL-3-Roteadores.docx)
 - [Named ACL report](packet-tracer/Controle-de-Acesso-ACL/PedroFerreira_2026-10-21_Relatorio-Projeto-ACL-Nomeada.docx)
 - [Numbered ACL source document](packet-tracer/Controle-de-Acesso-ACL/Portuguese_4_5_6_Packet_Tracer_Configure_Numbered_Standard_IPv4_ACLs.docx)
-- [Named ACL source activity](packet-tracer/Controle-de-Acesso-ACL/Portuguese_Configure_Named_Standard_IPv4_ACLs_pka.pka)
+- [Named ACL source activity](packet-tracer/Controle-de-Acesso-ACL/Portuguese_Configure_Named_Standard_IPv4_ACLs_pka.pka)`r`n- [Numbered ACL source PKA](packet-tracer/Configurar-ACLs-IPv4-Padrao-Numeradas/PedroFerreira_2026-10-21_Configurar-ACLs-IPv4-Padrao-Numeradas-base.pka)
 
 ## Study limits
 
@@ -162,4 +170,3 @@ Pedro Dutra Ferreira
 Cisco Cybersecurity Course
 
 Senac RJ
-
