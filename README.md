@@ -19,7 +19,7 @@ The default branch works as an index. Each project has its own branch with a REA
 ## Materials in the default branch
 
 - `documentos/`: research, assignments, and course requirement documents.
-- `packet-tracer/Projeto-LAN-WAN/`: `.pkt` file, report, README, evidence, and LAN-WAN project map.
+- `packet-tracer/`: project index and published Packet Tracer project references.
 
 ## How to find each deliverable
 
