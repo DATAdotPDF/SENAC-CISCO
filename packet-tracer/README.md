@@ -6,6 +6,7 @@ This directory mirrors the local Packet Tracer folders and links each project to
 |---|---|---|
 | `Controle de Acesso por ACL` | [`projeto-acl`](https://github.com/DATAdotPDF/SENAC-CISCO/tree/projeto-acl) | Named standard IPv4 ACL project, report, README, and source requirements. |
 | Configurar ACLs IPv4 padrao numeradas | [projeto-acl](https://github.com/DATAdotPDF/SENAC-CISCO/tree/projeto-acl) | Separate numbered standard IPv4 ACL NetAcad activity with original and completed PKA files, README, and report. |
+| Configurar ACL Estentida | [projeto-acl](https://github.com/DATAdotPDF/SENAC-CISCO/tree/projeto-acl) | Numbered and named extended IPv4 ACL NetAcad activity with original and completed PKA files, README, and report. |
 | `Copa-Norte-LTDA` | [`projeto-copa-norte`](https://github.com/DATAdotPDF/SENAC-CISCO/tree/projeto-copa-norte) | Two-building network project with Wi-Fi, services, and NAT/PAT. |
 | `NetAcad` | [`projeto-netacad-estudos`](https://github.com/DATAdotPDF/SENAC-CISCO/tree/projeto-netacad-estudos) | Study archive of 47 NetAcad practice and reference files. |
 | `Projeto LAN-WAN` | [`projeto-lan-wan`](https://github.com/DATAdotPDF/SENAC-CISCO/tree/projeto-lan-wan) | Three-office LAN-WAN and security project. |

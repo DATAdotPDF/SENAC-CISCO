@@ -19,6 +19,13 @@ The branch includes a separate NetAcad package for the numbered standard IPv4 AC
 - [Completed PKA](packet-tracer/Configurar-ACLs-IPv4-Padrao-Numeradas/PedroFerreira_2026-10-21_Configurar-ACLs-IPv4-Padrao-Numeradas-concluido.pka)
 - [Portuguese report](packet-tracer/Configurar-ACLs-IPv4-Padrao-Numeradas/PedroFerreira_2026-10-21_Configurar-ACLs-IPv4-Padrao-Numeradas-Relatorio.docx)
 
+## Extended ACL activity package
+
+This branch also contains the Task 4 NetAcad study package for numbered and named extended IPv4 ACLs. It preserves the source PKA, the completed PKA, an English guide, and a Portuguese execution report.
+
+- [Extended ACL package](packet-tracer/Configurar-ACL-Estendida/PedroFerreira_2026-10-21_Configurar-ACL-Estendida-README.md)
+- [Completed PKA](packet-tracer/Configurar-ACL-Estendida/PedroFerreira_2026-10-21_Configurar-ACL-Estendida-concluido.pka)
+- [Portuguese report](packet-tracer/Configurar-ACL-Estendida/PedroFerreira_2026-10-21_Configurar-ACL-Estendida-Relatorio.docx)
 ## Visual comparison
 
 ### Three-router EIGRP activity
