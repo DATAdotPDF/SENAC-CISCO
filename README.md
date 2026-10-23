@@ -9,13 +9,15 @@ This repository records my study projects from the SENAC RJ Cisco Cybersecurity 
 | [`projeto-lan-wan`](https://github.com/DATAdotPDF/SENAC-CISCO/tree/projeto-lan-wan) | LAN-WAN and security | Three offices, serial WAN, OSPF, DHCP, DNS, WEP, VLANs, SSH, port security, and ACLs. |
 | [`projeto-copa-norte`](https://github.com/DATAdotPDF/SENAC-CISCO/tree/projeto-copa-norte) | Copa Norte LTDA | Two buildings, wired and wireless clients, DHCP, DNS, Web, WPA2, NAT/PAT, and simulated Internet. |
 | [`projeto-acl`](https://github.com/DATAdotPDF/SENAC-CISCO/tree/projeto-acl) | ACL studies | Numbered and named standard IPv4 ACL exercises, the extended ACL activity, the three-router activity, and the one-router comparison. |
-| [`projeto-netacad-estudos`](https://github.com/DATAdotPDF/SENAC-CISCO/tree/projeto-netacad-estudos) | NetAcad studies | 47 Packet Tracer activities and reference files collected during the course. |
+| [`projeto-netacad-estudos`](https://github.com/DATAdotPDF/SENAC-CISCO/tree/projeto-netacad-estudos) | NetAcad studies | 47 Packet Tracer activities and reference files collected during the course, plus documented firewall study exercises. |
 
 Open the branch README before opening a `.pkt`, `.pka`, or `.pksz` file. The branch README explains the topology, addressing, configuration order, verification commands, evidence, and limits.
 
 The ACL branch also contains the separate numbered ACL package at [Configurar-ACLs-IPv4-Padrao-Numeradas](https://github.com/DATAdotPDF/SENAC-CISCO/tree/projeto-acl/packet-tracer/Configurar-ACLs-IPv4-Padrao-Numeradas). It includes the original PKA, the completed PKA, an English README, and a Portuguese report.
 
 It also contains the extended ACL package at [Configurar-ACL-Estendida](https://github.com/DATAdotPDF/SENAC-CISCO/tree/projeto-acl/packet-tracer/Configurar-ACL-Estendida), with numbered and named extended ACLs, the original and completed PKA files, an English README, and a Portuguese report.
+
+The NetAcad branch also contains the [Configure a ZPF package](https://github.com/DATAdotPDF/SENAC-CISCO/tree/projeto-netacad-estudos/packet-tracer/NetAcad/PedroFerreira_2026-10-23_Configurar-ZPF-README.md), with the base PKA, completed PKA, English README, and Portuguese report.
 
 ## How the projects were produced
 
