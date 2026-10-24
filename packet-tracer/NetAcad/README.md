@@ -4,7 +4,7 @@ This folder contains the original Packet Tracer activities and reference files c
 
 ## Inventory
 
-The archive preserves 47 original study or reference files. The ZPF package adds four standard-named deliverables:
+The archive preserves 47 original study or reference files. The ZPF package adds five standard-named deliverables:
 
 - 32 `.pka` guided activities.
 - 3 `.pksz` packaged activities.
@@ -49,8 +49,11 @@ The archive is about 347 MiB. The largest file is below the GitHub single-file l
 
 The Configure a ZPF activity applies a zone based policy firewall on R3. It places G0/1 in IN-ZONE, S0/0/1 in OUT-ZONE, inspects traffic sourced from 192.168.3.0/24, and drops new traffic from the external side.
 
+The result was verified live in Packet Tracer 9.0.1. Check Results reached 100%. PC-C reached PC-A, PC-A could not reach PC-C, and an SSH session from PC-C to R2 appeared as an inspected session on R3.
+
 - [ZPF English guide](PedroFerreira_2026-10-23_Configurar-ZPF-README.md)
 - [ZPF configured PKA](PedroFerreira_2026-10-23_Configurar-ZPF-concluido.pka)
+- [ZPF verified PKA](PedroFerreira_2026-10-23_Configurar-ZPF-concluido.pkt.pka)
 - [ZPF Portuguese report](PedroFerreira_2026-10-23_Configurar-ZPF-Relatorio.docx)
 
 ## Local source
