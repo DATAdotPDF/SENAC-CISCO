@@ -1,0 +1,967 @@
+<html>
+
+<head>
+	<meta http-equiv=Content-Type content="text/html; charset=utf-8">
+	<meta name=Generator content="Microsoft Word 15 (filtered)">
+	<title>Packet Tracer – Criar uma Rede Simples</title>
+	<style>
+		/* Font Definitions */
+		@font-face {
+			font-family: Wingdings;
+			panose-1: 5 0 0 0 0 0 0 0 0 0;
+		}
+
+		@font-face {
+			font-family: SimSun;
+			panose-1: 2 1 6 0 3 1 1 1 1 1;
+		}
+
+		@font-face {
+			font-family: "Cambria Math";
+			panose-1: 2 4 5 3 5 4 6 3 2 4;
+		}
+
+		@font-face {
+			font-family: Calibri;
+			panose-1: 2 15 5 2 2 2 4 3 2 4;
+		}
+
+		@font-face {
+			font-family: Tahoma;
+			panose-1: 2 11 6 4 3 5 4 4 2 4;
+		}
+
+		@font-face {
+			font-family: Webdings;
+			panose-1: 5 3 1 2 1 5 9 6 7 3;
+		}
+
+		@font-face {
+			font-family: "\@SimSun";
+			panose-1: 2 1 6 0 3 1 1 1 1 1;
+		}
+
+		/* Style Definitions */
+		p.MsoNormal,
+		li.MsoNormal,
+		div.MsoNormal {
+			margin-top: 3.0pt;
+			margin-right: 0in;
+			margin-bottom: 3.0pt;
+			margin-left: 0in;
+			line-height: 115%;
+			font-size: 11.0pt;
+			font-family: "Arial", sans-serif;
+		}
+
+		h1 {
+			mso-style-link: "Heading 1 Char";
+			margin-top: 12.0pt;
+			margin-right: 0in;
+			margin-bottom: 6.0pt;
+			margin-left: .25in;
+			text-indent: -.25in;
+			page-break-after: avoid;
+			font-size: 13.0pt;
+			font-family: "Arial", sans-serif;
+		}
+
+		h2 {
+			mso-style-link: "Heading 2 Char";
+			margin-top: 12.0pt;
+			margin-right: 0in;
+			margin-bottom: 6.0pt;
+			margin-left: 0in;
+			text-indent: 0in;
+			page-break-after: avoid;
+			font-size: 12.0pt;
+			font-family: "Arial", sans-serif;
+		}
+
+		h3 {
+			mso-style-link: "Heading 3 Char";
+			margin-top: 12.0pt;
+			margin-right: 0in;
+			margin-bottom: 6.0pt;
+			margin-left: 0in;
+			text-indent: 0in;
+			page-break-after: avoid;
+			font-size: 11.0pt;
+			font-family: "Arial", sans-serif;
+		}
+
+		p.MsoHeader,
+		li.MsoHeader,
+		div.MsoHeader {
+			mso-style-link: "Header Char";
+			margin-top: 3.0pt;
+			margin-right: 0in;
+			margin-bottom: 3.0pt;
+			margin-left: 0in;
+			line-height: 115%;
+			font-size: 11.0pt;
+			font-family: "Arial", sans-serif;
+		}
+
+		p.MsoFooter,
+		li.MsoFooter,
+		div.MsoFooter {
+			mso-style-link: "Footer Char";
+			margin-top: 3.0pt;
+			margin-right: 0in;
+			margin-bottom: 0in;
+			margin-left: 0in;
+			font-size: 8.0pt;
+			font-family: "Arial", sans-serif;
+		}
+
+		p.MsoTitle,
+		li.MsoTitle,
+		div.MsoTitle {
+			mso-style-link: "Title Char";
+			margin-top: 0in;
+			margin-right: 0in;
+			margin-bottom: 6.0pt;
+			margin-left: 0in;
+			font-size: 16.0pt;
+			font-family: "Arial", sans-serif;
+			font-weight: bold;
+		}
+
+		p.MsoTitleCxSpFirst,
+		li.MsoTitleCxSpFirst,
+		div.MsoTitleCxSpFirst {
+			mso-style-link: "Title Char";
+			margin: 0in;
+			font-size: 16.0pt;
+			font-family: "Arial", sans-serif;
+			font-weight: bold;
+		}
+
+		p.MsoTitleCxSpMiddle,
+		li.MsoTitleCxSpMiddle,
+		div.MsoTitleCxSpMiddle {
+			mso-style-link: "Title Char";
+			margin: 0in;
+			font-size: 16.0pt;
+			font-family: "Arial", sans-serif;
+			font-weight: bold;
+		}
+
+		p.MsoTitleCxSpLast,
+		li.MsoTitleCxSpLast,
+		div.MsoTitleCxSpLast {
+			mso-style-link: "Title Char";
+			margin-top: 0in;
+			margin-right: 0in;
+			margin-bottom: 6.0pt;
+			margin-left: 0in;
+			font-size: 16.0pt;
+			font-family: "Arial", sans-serif;
+			font-weight: bold;
+		}
+
+		span.Heading1Char {
+			mso-style-name: "Heading 1 Char";
+			mso-style-link: "Heading 1";
+			font-weight: bold;
+		}
+
+		span.Heading2Char {
+			mso-style-name: "Heading 2 Char";
+			mso-style-link: "Heading 2";
+			font-family: "Times New Roman", serif;
+			font-weight: bold;
+		}
+
+		p.PageHead,
+		li.PageHead,
+		div.PageHead {
+			mso-style-name: "Page Head";
+			margin-top: 3.0pt;
+			margin-right: 0in;
+			margin-bottom: 3.0pt;
+			margin-left: 0in;
+			line-height: 115%;
+			border: none;
+			padding: 0in;
+			font-size: 10.0pt;
+			font-family: "Arial", sans-serif;
+			font-weight: bold;
+		}
+
+		span.HeaderChar {
+			mso-style-name: "Header Char";
+			mso-style-link: Header;
+		}
+
+		span.FooterChar {
+			mso-style-name: "Footer Char";
+			mso-style-link: Footer;
+		}
+
+		p.TableText,
+		li.TableText,
+		div.TableText {
+			mso-style-name: "Table Text";
+			mso-style-link: "Table Text Char";
+			margin-top: 3.0pt;
+			margin-right: 0in;
+			margin-bottom: 3.0pt;
+			margin-left: 0in;
+			font-size: 10.0pt;
+			font-family: "Arial", sans-serif;
+		}
+
+		span.TableTextChar {
+			mso-style-name: "Table Text Char";
+			mso-style-link: "Table Text";
+		}
+
+		p.TableHeading,
+		li.TableHeading,
+		div.TableHeading {
+			mso-style-name: "Table Heading";
+			margin-top: 6.0pt;
+			margin-right: 0in;
+			margin-bottom: 6.0pt;
+			margin-left: 0in;
+			text-align: center;
+			line-height: 115%;
+			page-break-after: avoid;
+			font-size: 10.0pt;
+			font-family: "Arial", sans-serif;
+			font-weight: bold;
+		}
+
+		p.Bulletlevel1,
+		li.Bulletlevel1,
+		div.Bulletlevel1 {
+			mso-style-name: "Bullet level 1";
+			margin-top: 6.0pt;
+			margin-right: 0in;
+			margin-bottom: 6.0pt;
+			margin-left: .5in;
+			text-indent: -.25in;
+			font-size: 10.0pt;
+			font-family: "Arial", sans-serif;
+		}
+
+		p.ConfigWindow,
+		li.ConfigWindow,
+		div.ConfigWindow {
+			mso-style-name: "Config Window";
+			margin: 0in;
+			font-size: 3.0pt;
+			font-family: "Arial", sans-serif;
+			color: white;
+			font-style: italic;
+		}
+
+		p.SubStepAlpha,
+		li.SubStepAlpha,
+		div.SubStepAlpha {
+			mso-style-name: "SubStep Alpha";
+			margin-top: 6.0pt;
+			margin-right: 0in;
+			margin-bottom: 6.0pt;
+			margin-left: .5in;
+			text-indent: -.25in;
+			font-size: 10.0pt;
+			font-family: "Arial", sans-serif;
+		}
+
+		p.BodyTextL50,
+		li.BodyTextL50,
+		div.BodyTextL50 {
+			mso-style-name: "Body Text L50";
+			mso-style-link: "Body Text L50 Char";
+			margin-top: 6.0pt;
+			margin-right: 0in;
+			margin-bottom: 6.0pt;
+			/* margin-left: .5in; */
+			font-size: 10.0pt;
+			font-family: "Arial", sans-serif;
+		}
+
+		p.BodyTextL25,
+		li.BodyTextL25,
+		div.BodyTextL25 {
+			mso-style-name: "Body Text L25";
+			mso-style-link: "Body Text L25 Char";
+			margin-top: 6.0pt;
+			margin-right: 0in;
+			margin-bottom: 6.0pt;
+			margin-left: .25in;
+			font-size: 10.0pt;
+			font-family: "Arial", sans-serif;
+		}
+
+		span.LabTitleInstVersred {
+			mso-style-name: "Lab Title Inst Vers \(red\)";
+			font-family: "Arial", sans-serif;
+			color: #EE0000;
+			font-weight: bold;
+		}
+
+		p.SubStepNum,
+		li.SubStepNum,
+		div.SubStepNum {
+			mso-style-name: "SubStep Num";
+			margin-top: 6.0pt;
+			margin-right: 0in;
+			margin-bottom: 6.0pt;
+			margin-left: .75in;
+			text-indent: -.25in;
+			font-size: 10.0pt;
+			font-family: "Arial", sans-serif;
+		}
+
+		p.BodyTextL25Bold,
+		li.BodyTextL25Bold,
+		div.BodyTextL25Bold {
+			mso-style-name: "Body Text L25 Bold";
+			margin-top: 6.0pt;
+			margin-right: 0in;
+			margin-bottom: 6.0pt;
+			margin-left: .25in;
+			font-size: 10.0pt;
+			font-family: "Arial", sans-serif;
+			font-weight: bold;
+		}
+
+		span.Heading3Char {
+			mso-style-name: "Heading 3 Char";
+			mso-style-link: "Heading 3";
+			font-family: "Times New Roman", serif;
+			font-weight: bold;
+		}
+
+		span.TitleChar {
+			mso-style-name: "Title Char";
+			mso-style-link: Title;
+			font-family: SimSun;
+			font-weight: bold;
+		}
+
+		span.BodyTextL25Char {
+			mso-style-name: "Body Text L25 Char";
+			mso-style-link: "Body Text L25";
+		}
+
+		p.TableAnswer,
+		li.TableAnswer,
+		div.TableAnswer {
+			mso-style-name: "Table Answer";
+			margin-top: 3.0pt;
+			margin-right: 0in;
+			margin-bottom: 3.0pt;
+			margin-left: 0in;
+			font-size: 10.0pt;
+			font-family: "Arial", sans-serif;
+			color: white;
+		}
+
+		span.BodyTextL50Char {
+			mso-style-name: "Body Text L50 Char";
+			mso-style-link: "Body Text L50";
+		}
+
+		.MsoChpDefault {
+			font-size: 10.0pt;
+			font-family: "Arial", sans-serif;
+		}
+
+		/* Page Definitions */
+		@page WordSection1 {
+			size: 8.5in 11.0in;
+			margin: 76.3pt .75in .9in .75in;
+		}
+
+		div.WordSection1 {
+			page: WordSection1;
+		}
+
+		/* List Definitions */
+		ol {
+			margin-bottom: 0in;
+		}
+
+		ul {
+			margin-bottom: 0in;
+		}
+
+		.AnswerGray {
+			padding: 0.2rem;
+		}
+
+		.question-action-container {
+			margin-top: 6pt;
+			margin-right: 0in;
+			margin-bottom: 6pt;
+			/* margin-left: 0.5in; */
+		}
+
+		.show-answer,
+		.hide-answer {
+			padding: 0.5rem 1rem;
+			background-color: #00bceb;
+			color: #fff;
+			border: 0px;
+			cursor: pointer;
+		}
+
+		.global-action-container {
+			display: flex;
+			margin-top: 1rem;
+			margin-bottom: 1rem;
+		}
+
+		.global-action-container .btn__action {
+			margin: 10px;
+		}
+
+		.btn__container button.btn__action:not(.is-full-width) {
+			width: calc(50% - .5%);
+		}
+
+		.btn-text {
+			border: 0px;
+			padding: 0.5rem 1rem;
+			background-color: #3d692b;
+			color: #fff;
+			border-radius: 0;
+			cursor: pointer;
+		}
+
+		.hidden {
+			display: none;
+		}
+
+		/* dark theme */
+		.dark-theme {
+			color: #fff;
+		}
+		
+		.dark-theme p.ConfigWindow, .dark-theme li.ConfigWindow, .dark-theme div.ConfigWindow {
+			mso-style-name: "Config Window";
+			color: #212328;
+		}
+		
+		.dark-theme h4{
+			color: #212328;
+		}
+		
+		.dark-theme .MsoTitle span{
+			color: #fff !important;
+		}
+		
+		.dark-theme textarea{
+			background-color: #212328;
+			color: #fff;
+		}
+		
+		.dark-theme .BodyTextL25Answer{
+			background-color: #000;
+			color: #fff;
+		}
+		
+		.dark-theme .BodyTextL25Answer > span{
+			padding: 4px;
+		}
+		
+		.dark-theme .BodyTextL25Answer span{
+			color: #fff;
+		}
+		
+		.dark-theme table tbody tr td{
+			color: #fff !important;
+		}
+		
+		.show-all-answers, .hide-all-answers, .clear-all-responces {
+			background-color: #6abf4b;
+		}
+
+	</style>
+</head>
+
+<body lang=EN-US style='word-wrap:break-word'>
+
+	<div class=WordSection1>
+
+		<p class=MsoTitle><span style='color:#EE0000;font-weight:normal'><b><span style='color:windowtext'>Packet Tracer
+						– Criar uma Rede Simples</span></b></span></p>
+		<h1>Objetivos</h1>
+		<p class=BodyTextL25>Nesta atividade, você criará uma rede simples no Logical Workspace do Packet Tracer .</p>
+
+		<p class=BodyTextL25Bold>Parte 1: construir uma rede simples</p>
+
+		<p class=BodyTextL25Bold>Parte 2: Configurar os End Devices  e Verificar a Conectividade</p>
+		<h1>Instruções</h1>
+		<h2 style='margin-left:0in;text-indent:0in'>Parte 1: Construa uma rede simples.</h2>
+		<p class=BodyTextL25>Nesta parte, você criará uma rede simples implantando e conectando os dispositivos de rede
+			no Logical Workspace.</p>
+		<h3 style='margin-left:0in;text-indent:0in'>Passo 1: Adicione dispositivos de rede ao ambiente de trabalho.</h3>
+		<p class=BodyTextL25>Nesta etapa, você adicionará um PC, um laptop e um cable modem ao Logical Workspace.</p>
+
+		<p class=BodyTextL25>Um cable modem é um dispositivo de hardware que permite a comunicação com um provedor de
+			serviços de Internet (ISP). O cabo coaxial do ISP está conectado ao cable modem, e um cabo Ethernet da rede
+			local também está conectado. O cable modem converte a conexão coaxial em uma conexão Ethernet.</p>
+
+		<p class=BodyTextL25>Usando a caixa de seleção Tipo de dispositivo, adicione os seguintes dispositivos à área de
+			trabalho. A categoria e a subcategoria associadas ao dispositivo estão listadas abaixo:</p>
+
+		<p class=Bulletlevel1><span style='font-size:7.0pt;font-family:Webdings'>=<span
+					style='font:7.0pt "Times New Roman"'> &nbsp; </span></span><b>PC</b>: End Devices &gt;
+			End Devices &gt; PC</p>
+
+		<p class=Bulletlevel1><span style='font-size:7.0pt;font-family:Webdings'>=<span
+					style='font:7.0pt "Times New Roman"'> &nbsp; </span></span><b>Laptop</b>: End Devices &gt;
+			End Devices &gt; Laptop</p>
+
+		<p class=Bulletlevel1><span style='font-size:7.0pt;font-family:Webdings'>=<span
+					style='font:7.0pt "Times New Roman"'> &nbsp; </span></span><b>Cable Modem</b>: Network Devices&gt; WAN Emulation&gt; Cable Modem</p>
+		<h3 style='margin-left:0in;text-indent:0in'>Passo 2: Altere os nomes de exibição dos dispositivos de rede.</h3>
+		<p class=SubStepAlpha>a.<span style='font:7.0pt "Times New Roman"'> &nbsp; </span>Para alterar os nomes de
+			exibição dos dispositivos de rede, clique no ícone de dispositivo no Logical Workspace.</p>
+
+		<p class=SubStepAlpha>b.<span style='font:7.0pt "Times New Roman"'> &nbsp; </span>Clique na guia
+			<b>Config </b> na janela de dispositivos da nuvem.</p>
+
+		<p class=SubStepAlpha>c.<span style='font:7.0pt "Times New Roman"'> &nbsp; </span>Insira o novo nome do
+			dispositivo recém-adicionado no campo <b>Nome para</b> exibição: PC, Laptop e Cable Modem.</p>
+		<h3 style='margin-left:0in;text-indent:0in'>Etapa 3: Adicionar o cabeamento físico entre dispositivos no
+			ambiente de trabalho</h3>
+		<p class=BodyTextL25>Usando a caixa de seleção de dispositivos, adicione o cabeamento físico entre dispositivos
+			no ambiente de trabalho, como mostrado no diagrama da topologia.</p>
+
+		<p class=SubStepAlpha>a.<span style='font:7.0pt "Times New Roman"'>&nbsp; </span> O computador precisará de um
+			cabo straight-through de cobre para se conectar ao roteador sem fio. Usando a Caixa de seleção de tipo de
+			dispositivo, clique <b>em Conexões </b>(ícone de um raio). Selecione o cabo de cobre straight-through na
+			caixa de seleção de dispositivos e conecte-o à interface <b>FastEthernet 0</b> do computador e à interface
+			<b>Ethernet 1</b> do roteador sem fio</p>
+
+		<p class=SubStepAlpha>b.<span style='font:7.0pt "Times New Roman"'> &nbsp; </span>O roteador sem fio precisará
+			de um cabo straight-through para se conectar ao cable modem. Selecione o cabo straight-through na caixa de seleção de
+			dispositivos e conecte-o à interface de Internet do roteador sem fio e à interface de <b>Porta 1</b> do
+			cable modem.</p>
+
+		<p class=SubStepAlpha>c.<span style='font:7.0pt "Times New Roman"'> &nbsp; </span>O cable modem precisará de um
+			cabo coaxial para conectar-se à nuvem da Internet. Selecione o cabo coaxial na caixa de seleção de
+			dispositivos e conecte-o à interface da <b>Porta 0</b> do cable modem e à interface <b>coaxial 7</b>da nuvem
+			da Internet.</p>
+		<h2 style='margin-left:0in;text-indent:0in'>Parte 2: Configurar os End Devices  e Verificar a
+			Conectividade</h2>
+		<p class=BodyTextL25>Nesta parte, você conectará um PC e um laptop ao roteador sem fio. O PC será conectado à
+			rede usando um cabo Ethernet. No notebook, você substituirá a placa de interface de rede com fio (NIC) por
+			uma NIC sem fio e conectará o laptop ao roteador sem fio.</p>
+
+		<p class=BodyTextL25>Depois que os dois End Devices  estiverem conectados à rede, você verificará a
+			conectividade com cisco.srv. Ao PC e ao laptop será atribuído um endereço IP (Internet Protocol). O IP
+			(Internet Protocol) é um conjunto de regras para roteamento e endereçamento de dados na Internet. Os
+			endereços IP são usados para identificar os dispositivos em uma rede e permitir que os dispositivos se
+			conectem e transfiram dados em uma rede.</p>
+		<h3 style='margin-left:0in;text-indent:0in'>Etapa 1: Configurar o computador</h3>
+		<p class=BodyTextL25>Você vai configurar o PC para a rede com fio nesta etapa.</p>
+
+		<p class=SubStepAlpha>a.<span style='font:7.0pt "Times New Roman"'> &nbsp; </span>Clique em <b>PC</b>. Na
+			guia<b> Desktop </b>, navegue até <b> IP Configuration</b> para verificar se o DHCP está ativado e
+			se o PC recebeu um endereço IP.</p>
+
+		<p class=BodyTextL50>Selecione <b>DHCP</b> em IP Configuration se um endereço IP não estiver configurado no
+			campo Endereço IPv4. Observe o processo enquanto o PC está recebendo
+			um endereço IP do servidor DHCP.</p>
+
+		<p class=BodyTextL50>DHCP - Protocolo de configuração de host dinâmico (Dynamic Host Configuration Protocol).
+			Esse protocolo atribui endereços IP aos dispositivos de forma dinâmica. Nessa rede simples, o Roteador sem
+			fio é configurado para atribuir endereços IP a dispositivos que solicitam endereços IP. Se o DHCP estiver
+			desativado, você precisará atribuir um endereço IP e configurar todas as informações necessárias para se
+			comunicar com outros dispositivos na rede e na Internet.</p>
+
+		<p class=SubStepAlpha>b.<span style='font:7.0pt "Times New Roman"'> &nbsp; </span>Fechar <b>IP
+				Configuration</b>. Na guia <b>Desktop </b>, clique em <b>Command Prompt</b>.</p>
+
+		<p class=SubStepAlpha>c.<span style='font:7.0pt "Times New Roman"'> &nbsp; </span>No prompt, digite <b>ipconfig
+				/ all </b>para verificar as informações de endereçamento IPv4 do servidor DHCP. O computador deve
+			receber um endereço IPv4 no intervalo 192.168.0.x. </p>
+
+		<p class=SubStepAlpha style='text-indent:0in'><b>Observação:</b> existem dois tipos de endereços IP: IPv4 e
+			IPv6. Um endereço IPv4 (Internet Protocol versão 4) é uma sequência de números no formato x.x.x.x, como você
+			usou neste laboratório. À medida que a Internet cresceu, tornou-se necessário ter mais endereços IP. Então,
+			o IPv6 (protocolo de Internet versão 6) foi introduzido no final dos anos 90 para abordar as limitações do
+			IPv4. Os detalhes do endereçamento IPv6 estão além do escopo dessa atividade.</p>
+
+		<p class=SubStepAlpha>d.<span style='font:7.0pt "Times New Roman"'> &nbsp; </span>Teste a conectividade com o
+			cisco.srv do PC. Do command prompt, digitando o comando <b>ping cisco.srv</b>. Pode levar alguns segundos
+			para que o ping retorne. Quatro respostas devem ser recebidas, como mostrado na figura.</p>
+		<h3 style='margin-left:0in;text-indent:0in'>Etapa 2: Configurar o notebook.</h3>
+		<p class=BodyTextL25>Nesta etapa você irá configurar o notebook para acessar a rede sem fio.</p>
+
+		<p class=SubStepAlpha>a.<span style='font:7.0pt "Times New Roman"'> &nbsp; </span>Clique em <b>Laptop</b> e
+			selecione a guia <b>Physical.</b></p>
+
+		<p class=SubStepAlpha>b.<span style='font:7.0pt "Times New Roman"'> &nbsp; </span>Na guia <b>Physical</b> será
+			necessário remover o módulo de cobre da Ethernet e substituí-lo com o módulo WPC300N sem fio.</p>
+
+		<p class=SubStepNum>1)<span style='font:7.0pt "Times New Roman"'> &nbsp; </span> Por fim ligue o <b>notebook</b>
+			novamente, clicando no botão Liga/Desliga do notebook novamente.</p>
+
+		<p class=SubStepNum>2)<span style='font:7.0pt "Times New Roman"'> &nbsp; </span>Em seguida, remova o módulo de
+			cobre da Ethernet atualmente instalado clicando no módulo na lateral do notebook e arrastando-o para o
+			painel <b>MODULES</b> à esquerda da janela do notebook.</p>
+
+		<p class=SubStepNum>3)<span style='font:7.0pt "Times New Roman"'> &nbsp; </span>Depois, instale o módulo
+			<b>WPC300N</b> sem fio clicando nele no painel <b>MODULES</b> e arrastando-o para a porta do módulo vazia na
+			lateral do notebook.</p>
+
+		<p class=SubStepNum>4)<span style='font:7.0pt "Times New Roman"'> &nbsp; </span> Por fim ligue o <b>notebook</b>
+			novamente, clicando no botão Liga/Desliga do notebook novamente.</p>
+
+		<p class=SubStepAlpha>c.<span style='font:7.0pt "Times New Roman"'> &nbsp; </span>Com o módulo sem fio
+			instalado, a próxima tarefa é conectar o notebook à rede sem fio. Clique na guia <b>Desktop</b> e clique em
+			<b>PC Wireless</b>.</p>
+
+		<p class=SubStepAlpha>d.<span style='font:7.0pt "Times New Roman"'> &nbsp; </span>Selecione a guia
+			<b>Connect.</b> Após um breve atraso, a rede sem fio <b>HomeNetwork</b> estará visível na lista de redes sem
+			fio. Clique em <b>Refresh</b> (Atualizar) se necessário para ver a lista de redes disponíveis. Selecione
+			<b>HomeNetwork.</b> Clique em <b>Conectar</b>. </p>
+
+		<p class=SubStepAlpha>e.<span style='font:7.0pt "Times New Roman"'> &nbsp; </span>Feche a janela <b>PC
+				Wireless</b>. Selecione a guia Desktop e abra o <b>Web Browser.</b></p>
+
+		<p class=SubStepAlpha>f.<span style='font:7.0pt "Times New Roman"'> &nbsp; &nbsp; </span>No navegador da Web,
+			acesse <b>cisco.srv.</b></p>
+		<h1>Reflexão</h1>
+		<p class=BodyTextL25>Agora que você verificou a conectividade com o cisco.srv, use o comando <b>ipconfig</b> do
+			prompt de comando para preencher a tabela de endereçamento IP abaixo:</p>
+
+			<div class="question-container">
+
+			<table align=center class=LabTableStyle border=1 cellspacing=0 cellpadding=0
+				summary="The table lists the addressing info for devices. Record your answers in cell labeled &quot;blank&quot;"
+				width=672 style='width:7.0in;border-collapse:collapse;border:none;border-collapse:
+ collapse !important;border:none !important'>
+				<thead>
+					<tr style='page-break-inside:avoid' style='page-break-inside:avoid !important'>
+						<td width=168 valign=bottom style='width:125.85pt;border:solid windowtext 1.0pt;
+   background:#DBE5F1;padding:.7pt 5.75pt .7pt 5.75pt;border:solid windowtext 1.0pt !important;
+   padding:.7pt 5.75pt .7pt 5.75pt !important'>
+							<p class=TableHeading><span style='color:black'>Dispositivo</span></p>
+						</td>
+						<td width=168 valign=bottom style='width:125.85pt;border:solid windowtext 1.0pt;
+   border-left:none;background:#DBE5F1;padding:.7pt 5.75pt .7pt 5.75pt;
+   border:solid windowtext 1.0pt !important;border-left:none !important;padding:.7pt 5.75pt .7pt 5.75pt !important'>
+							<p class=TableHeading><span style='color:windowtext !important'><span
+										style='color:black'>Endereço IPv4</span></span></p>
+						</td>
+						<td width=168 valign=bottom style='width:125.9pt;border:solid windowtext 1.0pt;
+   border-left:none;background:#DBE5F1;padding:.7pt 5.75pt .7pt 5.75pt;
+   border:solid windowtext 1.0pt !important;border-left:none !important;padding:.7pt 5.75pt .7pt 5.75pt !important'>
+							<p class=TableHeading><span style='color:windowtext !important'><span
+										style='color:black'>Máscara de sub-rede</span></span></p>
+						</td>
+						<td width=168 valign=bottom style='width:125.9pt;border:solid windowtext 1.0pt;
+   border-left:none;background:#DBE5F1;padding:.7pt 5.75pt .7pt 5.75pt;
+   border:solid windowtext 1.0pt !important;border-left:none !important;padding:.7pt 5.75pt .7pt 5.75pt !important'>
+							<p class=TableHeading><span style='color:windowtext !important'><span
+										style='color:black'>Gateway padrão</span></span></p>
+						</td>
+					</tr>
+				</thead>
+				<tr style='page-break-inside:avoid' style='page-break-inside:avoid !important'>
+					<td width=168 valign=bottom style='width:125.85pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:.7pt 5.75pt .7pt 5.75pt;border:solid windowtext 1.0pt !important;
+  border-top:none !important;padding:.7pt 5.75pt .7pt 5.75pt !important'>
+						<p class=TableText>PC</p>
+					</td>
+					<td width=168 valign=top style='width:125.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:.7pt 5.75pt .7pt 5.75pt;border-top:none !important;border-left:none !important;
+  border-bottom:solid windowtext 1.0pt !important;border-right:solid windowtext 1.0pt !important;
+  padding:.7pt 5.75pt .7pt 5.75pt !important'>
+						<!-- <p class=TableAnswer>em branco</p> -->
+						<div class=AnswerLineL50>
+							<fieldset style="font-size:10px;font-style:normal;color:gray;">
+								<legend>Área de resposta</legend><textarea rows="3" name="answerArea"
+									placeholder="Digite sua resposta aqui." style="border:none;width:100%;"></textarea>
+							</fieldset>
+						</div>
+					</td>
+					<td width=168 valign=top style='width:125.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:.7pt 5.75pt .7pt 5.75pt;border-top:none !important;border-left:none !important;
+  border-bottom:solid windowtext 1.0pt !important;border-right:solid windowtext 1.0pt !important;
+  padding:.7pt 5.75pt .7pt 5.75pt !important'>
+						<!-- <p class=TableAnswer>em branco</p> -->
+						<div class=AnswerLineL50>
+							<fieldset style="font-size:10px;font-style:normal;color:gray;">
+								<legend>Área de resposta</legend><textarea rows="3" name="answerArea"
+									placeholder="Digite sua resposta aqui." style="border:none;width:100%;"></textarea>
+							</fieldset>
+						</div>
+					</td>
+					<td width=168 valign=top style='width:125.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:.7pt 5.75pt .7pt 5.75pt;border-top:none !important;border-left:none !important;
+  border-bottom:solid windowtext 1.0pt !important;border-right:solid windowtext 1.0pt !important;
+  padding:.7pt 5.75pt .7pt 5.75pt !important'>
+						<!-- <p class=TableAnswer>em branco</p> -->
+						<div class=AnswerLineL50>
+							<fieldset style="font-size:10px;font-style:normal;color:gray;">
+								<legend>Área de resposta</legend><textarea rows="3" name="answerArea"
+									placeholder="Digite sua resposta aqui." style="border:none;width:100%;"></textarea>
+							</fieldset>
+						</div>
+					</td>
+				</tr>
+				<tr style='page-break-inside:avoid' style='page-break-inside:avoid !important'>
+					<td width=168 valign=bottom style='width:125.85pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:.7pt 5.75pt .7pt 5.75pt;border:solid windowtext 1.0pt !important;
+  border-top:none !important;padding:.7pt 5.75pt .7pt 5.75pt !important'>
+						<p class=TableText>Laptop</p>
+					</td>
+					<td width=168 valign=top style='width:125.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:.7pt 5.75pt .7pt 5.75pt;border-top:none !important;border-left:none !important;
+  border-bottom:solid windowtext 1.0pt !important;border-right:solid windowtext 1.0pt !important;
+  padding:.7pt 5.75pt .7pt 5.75pt !important'>
+						<!-- <p class=TableAnswer>em branco</p> -->
+						<div class=AnswerLineL50>
+							<fieldset style="font-size:10px;font-style:normal;color:gray;">
+								<legend>Área de resposta</legend><textarea rows="3" name="answerArea"
+									placeholder="Digite sua resposta aqui." style="border:none;width:100%;"></textarea>
+							</fieldset>
+						</div>
+					</td>
+					<td width=168 valign=top style='width:125.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:.7pt 5.75pt .7pt 5.75pt;border-top:none !important;border-left:none !important;
+  border-bottom:solid windowtext 1.0pt !important;border-right:solid windowtext 1.0pt !important;
+  padding:.7pt 5.75pt .7pt 5.75pt !important'>
+						<!-- <p class=TableAnswer>em branco</p> -->
+						<div class=AnswerLineL50>
+							<fieldset style="font-size:10px;font-style:normal;color:gray;">
+								<legend>Área de resposta</legend><textarea rows="3" name="answerArea"
+									placeholder="Digite sua resposta aqui." style="border:none;width:100%;"></textarea>
+							</fieldset>
+						</div>
+					</td>
+					<td width=168 valign=top style='width:125.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:.7pt 5.75pt .7pt 5.75pt;border-top:none !important;border-left:none !important;
+  border-bottom:solid windowtext 1.0pt !important;border-right:solid windowtext 1.0pt !important;
+  padding:.7pt 5.75pt .7pt 5.75pt !important'>
+						<!-- <p class=TableAnswer>em branco</p> -->
+						<div class=AnswerLineL50>
+							<fieldset style="font-size:10px;font-style:normal;color:gray;">
+								<legend>Área de resposta</legend><textarea rows="3" name="answerArea"
+									placeholder="Digite sua resposta aqui." style="border:none;width:100%;"></textarea>
+							</fieldset>
+						</div>
+					</td>
+				</tr>
+			</table>
+
+		
+
+		<p class=ConfigWindow>Linha em branco, sem informações adicionais</p>
+
+		
+		<p class=BodyTextL50>
+			<span class=AnswerGray style="background-color: transparent;">
+			<table align=center class=LabAnswerTable border=1 cellspacing=0 cellpadding=0
+				summary="The table lists the addressing info for devices. Record your answers in cell labeled &quot;blank&quot;"
+				width=672 style='width:7.0in;border-collapse:collapse;border:none;border-collapse:
+ collapse !important;border:none !important'>
+				<thead>
+					<tr style='page-break-inside:avoid' style='page-break-inside:avoid !important'>
+						<td width=168 valign=bottom style='width:125.85pt;border:solid windowtext 1.0pt;
+   background:#F2DBDB;padding:.7pt 5.75pt .7pt 5.75pt;border:solid windowtext 1.0pt !important;
+   padding:.7pt 5.75pt .7pt 5.75pt !important'>
+							<p class=TableHeading><span style='color:black'>Dispositivo</span></p>
+						</td>
+						<td width=168 valign=bottom style='width:125.85pt;border:solid windowtext 1.0pt;
+   border-left:none;background:#F2DBDB;padding:.7pt 5.75pt .7pt 5.75pt;
+   border:solid windowtext 1.0pt !important;border-left:none !important;padding:.7pt 5.75pt .7pt 5.75pt !important'>
+							<p class=TableHeading><span style='color:windowtext !important'><span
+										style='color:black'>Endereço IPv4</span></span></p>
+						</td>
+						<td width=168 valign=bottom style='width:125.9pt;border:solid windowtext 1.0pt;
+   border-left:none;background:#F2DBDB;padding:.7pt 5.75pt .7pt 5.75pt;
+   border:solid windowtext 1.0pt !important;border-left:none !important;padding:.7pt 5.75pt .7pt 5.75pt !important'>
+							<p class=TableHeading><span style='color:windowtext !important'><span
+										style='color:black'>Máscara de sub-rede</span></span></p>
+						</td>
+						<td width=168 valign=bottom style='width:125.9pt;border:solid windowtext 1.0pt;
+   border-left:none;background:#F2DBDB;padding:.7pt 5.75pt .7pt 5.75pt;
+   border:solid windowtext 1.0pt !important;border-left:none !important;padding:.7pt 5.75pt .7pt 5.75pt !important'>
+							<p class=TableHeading><span style='color:windowtext !important'><span
+										style='color:black'>Gateway padrão</span></span></p>
+						</td>
+					</tr>
+				</thead>
+				<tr style='page-break-inside:avoid' style='page-break-inside:avoid !important'>
+					<td width=168 valign=bottom style='width:125.85pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:.7pt 5.75pt .7pt 5.75pt;border:solid windowtext 1.0pt !important;
+  border-top:none !important;padding:.7pt 5.75pt .7pt 5.75pt !important'>
+						<p class=TableText>PC</p>
+					</td>
+					<td width=168 valign=bottom style='width:125.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:.7pt 5.75pt .7pt 5.75pt;border-top:none !important;border-left:none !important;
+  border-bottom:solid windowtext 1.0pt !important;border-right:solid windowtext 1.0pt !important;
+  padding:.7pt 5.75pt .7pt 5.75pt !important'>
+						<p class=TableText>192.168.0.2</p>
+					</td>
+					<td width=168 valign=bottom style='width:125.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:.7pt 5.75pt .7pt 5.75pt;border-top:none !important;border-left:none !important;
+  border-bottom:solid windowtext 1.0pt !important;border-right:solid windowtext 1.0pt !important;
+  padding:.7pt 5.75pt .7pt 5.75pt !important'>
+						<p class=TableText>255.255.255.0</p>
+					</td>
+					<td width=168 valign=bottom style='width:125.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:.7pt 5.75pt .7pt 5.75pt;border-top:none !important;border-left:none !important;
+  border-bottom:solid windowtext 1.0pt !important;border-right:solid windowtext 1.0pt !important;
+  padding:.7pt 5.75pt .7pt 5.75pt !important'>
+						<p class=TableText>192.168.0.1</p>
+					</td>
+				</tr>
+				<tr style='page-break-inside:avoid' style='page-break-inside:avoid !important'>
+					<td width=168 valign=bottom style='width:125.85pt;border:solid windowtext 1.0pt;
+  border-top:none;padding:.7pt 5.75pt .7pt 5.75pt;border:solid windowtext 1.0pt !important;
+  border-top:none !important;padding:.7pt 5.75pt .7pt 5.75pt !important'>
+						<p class=TableText>Laptop</p>
+					</td>
+					<td width=168 valign=bottom style='width:125.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:.7pt 5.75pt .7pt 5.75pt;border-top:none !important;border-left:none !important;
+  border-bottom:solid windowtext 1.0pt !important;border-right:solid windowtext 1.0pt !important;
+  padding:.7pt 5.75pt .7pt 5.75pt !important'>
+						<p class=TableText>192.168.0.3</p>
+					</td>
+					<td width=168 valign=bottom style='width:125.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:.7pt 5.75pt .7pt 5.75pt;border-top:none !important;border-left:none !important;
+  border-bottom:solid windowtext 1.0pt !important;border-right:solid windowtext 1.0pt !important;
+  padding:.7pt 5.75pt .7pt 5.75pt !important'>
+						<p class=TableText>255.255.255.0</p>
+					</td>
+					<td width=168 valign=bottom style='width:125.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:.7pt 5.75pt .7pt 5.75pt;border-top:none !important;border-left:none !important;
+  border-bottom:solid windowtext 1.0pt !important;border-right:solid windowtext 1.0pt !important;
+  padding:.7pt 5.75pt .7pt 5.75pt !important'>
+						<p class=TableText>192.168.0.1</p>
+					</td>
+				</tr>
+			</table>
+		</span>
+	</p>
+	
+	
+	<div class="question-action-container">
+		<button class="MetroBtn show-answer">Mostre a resposta</button>
+		<button class="MetroBtn hide-answer">Ocultar resposta</button>
+	</div>
+		</div>
+
+		<p class=ConfigWindow>Linha em branco, sem informações adicionais</p>
+
+		<p class=BodyTextL25>Os endereços IP para os End Devices  podem variar de 192.168.0.2 a 192.168.0.254.
+			Cada NIC terá um endereço IP exclusivo na mesma rede. <a name="_Hlk85813096"></a></p>
+
+		<p class=BodyTextL25>A máscara de sub-rede IPv4 é usada para diferenciar a parte da rede da parte do host de um
+			endereço IPv4. Você pode relacionar o endereço IP ao número da sua casa. O comprimento da máscara de
+			sub-rede ao nome da rua onde fica sua casa. A parte do endereço de rede é sua rua, 192.168.0. O número da
+			porta é a porta do host do endereço IP. Para o endereço IP 192.168.0.2, o número da casa é 2 e a rua é
+			192.168.0. Se houver mais de uma casa na mesma rua, por exemplo, número da casa 3, terá um endereço
+			192.168.0.3. O número máximo de casas nesta rua é 253, variando de 2 a 254.</p>
+
+		<p class=BodyTextL25>O gateway padrão é análogo ao cruzamento de rua. O tráfego da rua 192.168.0 precisa sair
+			pelo cruzamento para outra rua. Outra rua é outra rede. Nessa rede, o gateway padrão é o roteador sem fio
+			que direciona o tráfego da rede local para o modem a cabo, e o tráfego é enviado para o ISP.</p>
+
+		<p class=ConfigWindow>Fim do documento</p>
+
+		<p class=ConfigWindow>Fim do documento</p>
+		<div class="global-action-container btn__container">
+			<button class="show-all-answers btn-text btn__action">Mostrar todas as respostas</button>
+			<button class="hide-all-answers btn-text btn__action hidden">Ocultar todas as respostas</button>
+			<button class="clear-all-responces btn-text btn__action">Limpar minhas respostas</button>
+		</div>
+		
+		<div id="footerDIV"><span><br>
+				<hr><span style="padding-right:5px;float:left;font-family:arial;font-size:12px;">© 2017 - 2022 Cisco
+					and/or its affiliates. All rights reserved. Cisco Public</span><br>
+			</span></div>
+
+	</div>
+
+</body>
+<script>
+
+    window.addEventListener('load', function () {
+        console.log('loaded');
+        document.querySelectorAll(".AnswerGray").forEach(function (ele) {
+            ele.classList.add("hidden");
+        })
+        document.querySelectorAll(".hide-answer").forEach(function (ele) {
+            ele.classList.add("hidden");
+        })
+        document.querySelectorAll(".show-answer").forEach(function (ele) {
+            ele.addEventListener("click", function (e) {
+                e.currentTarget.nextElementSibling.classList.remove("hidden");
+                e.currentTarget.closest('.question-container').querySelectorAll(".AnswerGray").forEach(function (ele) {
+                    ele.classList.remove("hidden");
+                })
+                ele.classList.add("hidden");
+            })
+        })
+        document.querySelectorAll(".hide-answer").forEach(function (ele) {
+            ele.addEventListener("click", function (e) {
+                e.currentTarget.previousElementSibling.classList.remove("hidden");
+                e.currentTarget.closest('.question-container').querySelectorAll(".AnswerGray").forEach(function (ele) {
+                    ele.classList.add("hidden");
+                })
+                ele.classList.add("hidden");
+            })
+        })
+        var event = new Event('click', {
+            bubbles: true,
+            cancelable: true,
+        });
+        document.querySelectorAll(".show-all-answers").forEach(function (ele) {
+            ele.addEventListener("click", function (e) {
+                e.currentTarget.nextElementSibling.classList.remove("hidden");
+                ele.classList.add('hidden');
+                document.querySelectorAll(".show-answer").forEach(function (ele) {
+                    ele.dispatchEvent(event);
+                })
+            })
+        })
+
+        document.querySelectorAll(".hide-all-answers").forEach(function (ele) {
+            ele.addEventListener("click", function (e) {
+                e.currentTarget.previousElementSibling.classList.remove("hidden");
+                ele.classList.add('hidden');
+                document.querySelectorAll(".hide-answer").forEach(function (ele) {
+                    ele.dispatchEvent(event);
+                })
+            })
+        })
+
+        document.querySelectorAll(".clear-all-responces").forEach(function (ele) {
+            ele.addEventListener("click", function (e) {
+                document.querySelectorAll("textArea").forEach(function (ele) {
+                    ele.value = "";
+                })
+            })
+        })
+
+
+
+    })
+</script>
+</html>
