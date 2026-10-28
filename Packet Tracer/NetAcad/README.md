@@ -37,6 +37,21 @@ The archive is about 347 MiB. The largest file is below the GitHub single-file l
 5. Repeat the same idea in a saved `.pkt` file.
 6. Compare the result with `PedroFerreira-configuracoes.txt` when the topic is routing, services, or wireless.
 
+## ACL activities — configured and documented
+
+Six ACL activities were completed and the full IOS command sets are recorded in [`acl-configs.md`](acl-configs.md).
+
+| Activity file | ACL type | What it does |
+|---|---|---|
+| `Configurar ACLs IPv4 padrão numeradas.pka` | Standard numbered | ACL 1 blocks a host on S0/0/0 out; ACL 2 restricts VTY access |
+| `Configuração de ACLs IPv4 nomeadas padrão.pka` | Standard named | `PERMIT_HOST` and `DENY_HOST` on R1 |
+| `configurar o cenário de ACLs estendidas 1.pka` | Extended numbered + named | ACL 100 (FTP + ICMP) and `HTTP_ONLY` applied inbound on R1 |
+| `Configurar Cenário de ACLs estendidas 2.pka` | Extended named | `ACL` blocks HTTP/HTTPS/FTP/ICMP per host on RT1 |
+| `Configurar ACLs IPv6.pka` | IPv6 | `BLOCK_HTTP` on R1 Gi0/1 in; `BLOCK_ICMP` on R3 Gi0/0 out |
+| `packet-tracer-configure-ip-acls-to-mitigate-attacks.pksz` | IPv4 multi-ACL | ACLs 10, 100, 110, 120 across R1/R2/R3 — anti-spoofing, service filtering, VTY restriction |
+
+The `.pka` files are not committed (binary format); the `.pksz` is a sealed assessment container. `acl-configs.md` is the durable record.
+
 ## Topics represented
 
 - LAN construction and Packet Tracer navigation.
