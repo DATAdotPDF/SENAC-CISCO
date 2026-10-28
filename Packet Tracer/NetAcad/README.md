@@ -53,6 +53,19 @@ Six ACL activities were completed and the full IOS command sets are recorded in 
 
 The `.pka` files are not committed (binary format); the `.pksz` is a sealed assessment container. `acl-configs.md` is the durable record.
 
+## Cryptography lab — completed on Kali Linux CLI
+
+The JCrypTool lab "Use algoritmos de criptografia clássica e moderna" was replicated on Kali Linux using `openssl` and `python3` instead of the CSE-LABVM GUI.
+
+| Part | Algorithm | Tool | Notes |
+|---|---|---|---|
+| 1 | Caesar cipher (shift=10, key K) | `python3` | Classical substitution cipher; also ROT13 (shift=13) |
+| 2 | AES-128-ECB | `openssl enc` | Key `AA 00…00 FF`; ECB mode for lab parity |
+| 3 | RSA-1024 | `openssl genrsa` + `pkeyutl` | Key pair equivalent to JCrypTool "John Smith" entry |
+
+Full documentation: [`PedroFerreira_2026-10-28_Lab-Criptografia-Classica-Moderna-README.md`](PedroFerreira_2026-10-28_Lab-Criptografia-Classica-Moderna-README.md)  
+Bash script: [`PedroFerreira_2026-10-28_lab-criptografia.sh`](PedroFerreira_2026-10-28_lab-criptografia.sh)
+
 ## Topics represented
 
 - LAN construction and Packet Tracer navigation.

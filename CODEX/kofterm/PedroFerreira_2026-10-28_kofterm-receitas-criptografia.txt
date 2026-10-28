@@ -1,0 +1,108 @@
+# Contribuição kofterm — Receitas de Criptografia
+# Autor: Pedro Ferreira | 2026-10-28
+# Origem: Lab NetAcad "Use algoritmos de criptografia clássica e moderna"
+# Destino: recipes/pt_BR.txt e index/pt_BR.txt do repo DATAdotPDF/kofterm
+#
+# Para contribuir: fork o repo, adicione os blocos abaixo nos arquivos indicados,
+# abra um PR com a mensagem "recipes: adicionar receitas de criptografia com openssl"
+# ============================================================
+
+
+# ============================================================
+# BLOCO PARA: recipes/pt_BR.txt
+# ============================================================
+
+# cifra-de-cesar
+? criptografar com cifra de cesar
+? aplicar cifra de substituição com deslocamento {numero}
+? cifrar texto com algoritmo classico cesar
+$ echo "{mensagem}" | python3 -c "import sys; shift={numero}; [print(''.join(chr((ord(c)-ord('A' if c.isupper() else 'a')+shift)%26+ord('A' if c.isupper() else 'a')) if c.isalpha() else c for c in line.rstrip())) for line in sys.stdin]"
+> A cifra de César desloca cada letra do alfabeto um número fixo de posições. Com shift=13 temos o ROT13, que é o próprio inverso. Algoritmo histórico: inseguro para qualquer uso real.
+
+# rot13
+? aplicar rot13 em texto
+? codificar rot13
+? inverter rot13
+$ echo "{mensagem}" | python3 -c "import sys,codecs; print(codecs.encode(sys.stdin.read().rstrip(),'rot_13'))"
+> ROT13 é a cifra de César com shift=13. Aplicar duas vezes recupera o original. Usado historicamente para ocultar spoilers em fóruns; não é criptografia segura.
+
+# criptografar-aes
+? criptografar arquivo com AES
+? cifrar com AES-128 pelo openssl
+? criptografia simetrica aes openssl
+$ openssl enc -aes-128-cbc -in {entrada.txt} -out {saida.bin}
+> Criptografa com AES-128-CBC (pede uma senha). O modo CBC é mais seguro que o ECB. O openssl deriva a chave e o IV a partir da senha com PBKDF. Use -aes-256-cbc para chave maior.
+
+# criptografar-aes-chave-hex
+? criptografar com chave AES em hexadecimal
+? aes-128-ecb com chave hex
+? cifrar sem senha com chave direta aes
+$ openssl enc -aes-128-ecb -K {chave_hex_32chars} -nosalt -in {entrada.txt} -out {saida.bin}
+> Usa uma chave AES de 128 bits fornecida diretamente em hex (32 caracteres). O modo ECB não é seguro para textos longos porque blocos iguais geram saídas iguais; prefira -aes-128-cbc em produção.
+
+# descriptografar-aes
+? descriptografar arquivo AES
+? decifrar com openssl aes
+? reverter criptografia aes
+$ openssl enc -d -aes-128-cbc -in {entrada.bin} -out {saida.txt}
+> Descriptografa um arquivo cifrado com AES-128-CBC. Precisa da mesma senha usada na criptografia. Troque -aes-128-cbc pela cifra usada (ex: -aes-256-cbc).
+
+# gerar-chaves-rsa
+? gerar par de chaves RSA
+? criar chave publica e privada RSA
+? gerar chave assimetrica openssl
+$ openssl genrsa -out {privada.pem} 2048 && openssl rsa -in {privada.pem} -pubout -out {publica.pem}
+> Gera um par de chaves RSA de 2048 bits. A chave privada fica em privada.pem; a pública (que você compartilha) em publica.pem. Use 2048 bits no mínimo; 4096 para maior segurança. Só na sua máquina de laboratório ou com autorização.
+
+# criptografar-rsa
+? criptografar com chave publica RSA
+? cifrar arquivo assimetrico openssl
+? criptografia assimetrica rsa
+$ openssl pkeyutl -encrypt -inkey {publica.pem} -pubin -in {entrada.txt} -out {saida.bin}
+> Criptografa usando a chave pública RSA. Só quem tem a chave privada correspondente pode descriptografar. RSA direto só funciona para mensagens pequenas; para textos grandes use criptografia hibrida (RSA + AES).
+
+# descriptografar-rsa
+? descriptografar com chave privada RSA
+? decifrar arquivo rsa openssl
+? reverter criptografia assimetrica rsa
+$ openssl pkeyutl -decrypt -inkey {privada.pem} -in {entrada.bin} -out {saida.txt}
+> Descriptografa usando a chave privada RSA. Mantenha a chave privada segura e com permissão 600 (chmod 600 privada.pem).
+
+# ver-hex-arquivo
+? ver conteudo binario em hexadecimal
+? dump hex de arquivo
+? inspecionar arquivo cifrado em hex
+$ xxd {arquivo.bin}
+> Exibe o conteúdo de um arquivo binário em formato hexadecimal e ASCII. Útil para inspecionar arquivos cifrados. Alternativa: od -A x -t x1z {arquivo.bin}.
+
+# hash-sha256
+? calcular hash sha256 de arquivo
+? verificar integridade com sha256
+? fingerprint sha256
+$ openssl dgst -sha256 {arquivo}
+> Calcula o hash SHA-256 do arquivo. Use para verificar integridade de downloads ou detectar alterações em arquivos. Alternativa mais curta: sha256sum {arquivo}.
+
+
+# ============================================================
+# BLOCO PARA: index/pt_BR.txt
+# ============================================================
+
+# openssl
+> Ferramenta de linha de comando para operações criptográficas: cifrar, decifrar, gerar chaves, criar certificados e calcular hashes.
+- enc | Criptografa ou descriptografa arquivos com cifras simétricas (AES, DES, etc.); -d descriptografa, -K passa chave em hex.
+- genrsa | Gera uma chave privada RSA com o tamanho em bits especificado (ex: 2048).
+- rsa | Lê e processa chaves RSA: extrair chave pública (-pubout), inspecionar (-text -noout).
+- pkeyutl | Operações com chaves assimétricas modernas: -encrypt, -decrypt, -sign, -verify.
+- dgst | Calcula hashes criptográficos: -sha256, -sha512, -md5.
+- req | Cria requisições de certificado CSR (-new) ou certificados autoassinados (-x509).
+- x509 | Lê, converte e inspeciona certificados X.509; -text exibe detalhes.
+- s_client | Conecta a um servidor TLS/SSL para inspecionar o certificado e testar a conexão.
+- rand | Gera bytes aleatórios criptograficamente seguros: openssl rand -hex 32.
+$ openssl enc -aes-256-cbc -in arquivo.txt -out arquivo.enc | Criptografa arquivo.txt com AES-256-CBC (pede senha).
+$ openssl enc -d -aes-256-cbc -in arquivo.enc -out arquivo.txt | Descriptografa o arquivo criptografado.
+$ openssl genrsa -out privada.pem 2048 | Gera chave RSA privada de 2048 bits.
+$ openssl rsa -in privada.pem -pubout -out publica.pem | Extrai a chave pública da privada.
+$ openssl dgst -sha256 arquivo.txt | Calcula o hash SHA-256 do arquivo.
+$ openssl rand -hex 32 | Gera 32 bytes aleatórios em hex (útil como chave AES-256).
+$ openssl s_client -connect exemplo.com:443 | Inspeciona o certificado TLS de um servidor.
+@ https://manpages.debian.org/openssl
