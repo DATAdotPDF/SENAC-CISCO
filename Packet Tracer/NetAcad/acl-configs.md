@@ -159,3 +159,51 @@ access-list 100 permit ip any any
 interface s0/0/1
  ip access-group 100 in
 ```
+
+---
+
+## 7. packet-tracer-configure-a-zpf.pksz
+**Atividade ZPF — Topologia:** R1, R2, R3 (modelo 1941), S1, S3, PC-A (server 192.168.1.x), PC-C (192.168.3.x)
+**Endereçamento pré-configurado:**
+- R1: G0/1=192.168.1.1/24 (LAN), S0/0/0=10.1.1.1/30 → R2
+- R2: S0/0/0=10.1.1.2/30, S0/0/1=10.2.2.2/30 (simula Internet)
+- R3: S0/0/1=10.2.2.1/30 → R2, G0/1=192.168.3.1/24 (LAN)
+- Rotas: default estática em R1 e R3 via R2
+
+### ZPF em R3 (firewall de borda)
+
+```
+! 1. Criar zonas de segurança
+R3(config)# zone security IN-ZONE
+R3(config)# zone security OUT-ZONE
+
+! 2. ACL para identificar tráfego interno
+R3(config)# ip access-list extended INSIDE-NET
+R3(config-ext-nacl)# permit ip 192.168.3.0 0.0.0.255 any
+
+! 3. Class-map: inspeciona TCP, UDP e ICMP vindos de dentro
+R3(config)# class-map type inspect match-all INSIDE-PROTOCOLS
+R3(config-cmap)# match access-group name INSIDE-NET
+R3(config-cmap)# match protocol tcp
+R3(config-cmap)# match protocol udp
+R3(config-cmap)# match protocol icmp
+
+! 4. Policy-map: ação inspect (stateful) para o tráfego classificado
+R3(config)# policy-map type inspect IN-2-OUT-PMAP
+R3(config-pmap)# class type inspect INSIDE-PROTOCOLS
+R3(config-pmap-c)# inspect
+
+! 5. Zone-pair: aplica a policy de IN-ZONE → OUT-ZONE
+R3(config)# zone-pair security IN-2-OUT-ZPAIR source IN-ZONE destination OUT-ZONE
+R3(config-sec-zone-pair)# service-policy type inspect IN-2-OUT-PMAP
+
+! 6. Atribuir interfaces às zonas
+R3(config)# interface GigabitEthernet0/1
+R3(config-if)# zone-member security IN-ZONE
+R3(config)# interface Serial0/0/1
+R3(config-if)# zone-member security OUT-ZONE
+```
+
+> ZPF configurado via `getCommandLine().enterCommand()` — modelo 1941 responde ao CLI.
+> Tráfego de OUT-ZONE → IN-ZONE bloqueado por padrão (ZPF deny implícito).
+> `.pksz` é sealed — configuração avaliada pelo activity checker do PT.

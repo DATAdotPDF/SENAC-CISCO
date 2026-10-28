@@ -49,6 +49,7 @@ Six ACL activities were completed and the full IOS command sets are recorded in 
 | `Configurar Cenário de ACLs estendidas 2.pka` | Extended named | `ACL` blocks HTTP/HTTPS/FTP/ICMP per host on RT1 |
 | `Configurar ACLs IPv6.pka` | IPv6 | `BLOCK_HTTP` on R1 Gi0/1 in; `BLOCK_ICMP` on R3 Gi0/0 out |
 | `packet-tracer-configure-ip-acls-to-mitigate-attacks.pksz` | IPv4 multi-ACL | ACLs 10, 100, 110, 120 across R1/R2/R3 — anti-spoofing, service filtering, VTY restriction |
+| `packet-tracer-configure-a-zpf.pksz` | Zone-Based Policy Firewall | ZPF em R3: IN-ZONE (G0/1) → OUT-ZONE (S0/0/1), inspeciona TCP/UDP/ICMP, bloqueia tráfego externo entrante |
 
 The `.pka` files are not committed (binary format); the `.pksz` is a sealed assessment container. `acl-configs.md` is the durable record.
 
