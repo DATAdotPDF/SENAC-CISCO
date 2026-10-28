@@ -11,7 +11,6 @@ Cada desafio pode ser resolvido de duas formas, e o melhor é fazer as duas e co
 - **No JCrypTool**, o programa gráfico do projeto CrypTool (já vem na CSE-LABVM do curso de
   cibersegurança da Cisco Networking Academy).
 - **No terminal**, em qualquer Linux com `openssl`, `python3` e as coreutils (no Kali já vem tudo).
-  Dentro do [KofTerm](https://github.com/DATAdotPDF/kofterm/blob/main/README.pt_BR.md), a coluna da direita explica cada comando enquanto você digita.
 
 Tudo é offline: nenhum desafio precisa de internet.
 

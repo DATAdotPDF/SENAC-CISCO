@@ -11,7 +11,6 @@ Each challenge can be solved in two ways, and the best is to do both and compare
 - **In JCrypTool**, the graphical program from the CrypTool project (it comes with the CSE-LABVM
   of the Cisco Networking Academy cybersecurity course).
 - **In the terminal**, on any Linux with `openssl`, `python3` and the coreutils (Kali has them all).
-  Inside [KofTerm](https://github.com/DATAdotPDF/kofterm), the right-hand column explains each command as you type.
 
 Everything is offline: no challenge needs the internet.
 
