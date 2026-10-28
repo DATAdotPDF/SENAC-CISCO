@@ -61,6 +61,10 @@ The archive includes wireless router setup, DHCP on a wireless router, client as
 
 ACL demonstrations, access control, data and file integrity, threat scenarios, and physical security with IoT devices connect the Packet Tracer practice to the course cybersecurity topics.
 
+### Cryptography
+
+The [cryptography challenge](criptografia/PedroFerreira_2026-10-28_Desafio-Criptografia/README.md) follows the CSE-LABVM lab that uses JCrypTool for classical, symmetric and asymmetric algorithms. It has seven exercises, one for each group of JCrypTool's Crypto Explorer: Caesar, AES, RSA, hash, HMAC, random numbers and digital signatures. Each exercise can be solved in JCrypTool and in a Linux terminal with `openssl` and `python3`. Answers are checked by their SHA-256, and the solutions show every command with its real output. The challenge is in Portuguese, with an [English version](criptografia/PedroFerreira_2026-10-28_Desafio-Criptografia/en/README.md) that has its own files and answers.
+
 ## Files
 
 All original study files are under [`packet-tracer/NetAcad/`](packet-tracer/NetAcad/). The collection README includes the local source path, the complete file list, and the study boundary.
@@ -70,6 +74,7 @@ All original study files are under [`packet-tracer/NetAcad/`](packet-tracer/NetA
 - [Physical topology image](packet-tracer/NetAcad/PedroFerreira-topologia-fisica.png)
 - [Configuration notes](packet-tracer/NetAcad/PedroFerreira-configuracoes.txt)
 - [Saved topology](packet-tracer/NetAcad/PedroDFerreira-prjrede.pkt)
+- [Cryptography challenge](criptografia/PedroFerreira_2026-10-28_Desafio-Criptografia/README.md) ([English](criptografia/PedroFerreira_2026-10-28_Desafio-Criptografia/en/README.md))
 
 ## Study boundary
 
