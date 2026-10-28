@@ -210,4 +210,4 @@ first.
 
 The JCrypTool steps follow the CSE-LABVM version; menus and names may differ a little in other
 versions. Found a mistake or have an idea for a challenge? Open an
-[issue on KofTerm](https://github.com/DATAdotPDF/kofterm/issues), where this challenge also lives.
+[issue](https://github.com/DATAdotPDF/SENAC-CISCO/issues).

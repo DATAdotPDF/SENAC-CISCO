@@ -208,4 +208,4 @@ Tente antes de abrir.
 
 Os passos no JCrypTool seguem a versão da CSE-LABVM; menus e nomes podem mudar um pouco em outras
 versões. Achou um erro ou tem uma ideia de desafio? Abra uma
-[issue no KofTerm](https://github.com/DATAdotPDF/kofterm/issues), onde o desafio também está.
+[issue](https://github.com/DATAdotPDF/SENAC-CISCO/issues).
