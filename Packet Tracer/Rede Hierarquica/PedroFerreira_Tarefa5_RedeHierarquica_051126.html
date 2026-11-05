@@ -1,0 +1,514 @@
+<title>Tarefa 5 — Rede Hierárquica</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+
+<style>
+/* Layout: single-column document, A4-proportioned, print-ready */
+:root {
+  --bg: #f8f7f5;
+  --surface: #ffffff;
+  --fg: #1a1a1a;
+  --fg-mid: #444;
+  --fg-muted: #777;
+  --border: #d8d5cf;
+  --accent: #0057b8;
+  --accent-bg: #e8f0fb;
+  --success: #1a7a3c;
+  --success-bg: #e6f4ec;
+  --warn: #7a4a00;
+  --warn-bg: #fef3e2;
+  --code-bg: #f0ede8;
+  --mono: "IBM Plex Mono", "Courier New", monospace;
+  --sans: "IBM Plex Sans", system-ui, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #161614;
+    --surface: #1e1e1b;
+    --fg: #e8e5df;
+    --fg-mid: #b0ad a6;
+    --fg-muted: #787570;
+    --border: #333330;
+    --accent: #5b9bef;
+    --accent-bg: #0d1f38;
+    --success: #4caf72;
+    --success-bg: #0d2318;
+    --warn: #e0a040;
+    --warn-bg: #251800;
+    --code-bg: #252522;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #161614;
+  --surface: #1e1e1b;
+  --fg: #e8e5df;
+  --fg-mid: #b0ada6;
+  --fg-muted: #787570;
+  --border: #333330;
+  --accent: #5b9bef;
+  --accent-bg: #0d1f38;
+  --success: #4caf72;
+  --success-bg: #0d2318;
+  --warn: #e0a040;
+  --warn-bg: #251800;
+  --code-bg: #252522;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.65;
+  margin: 0;
+  padding-block: 32px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+.doc {
+  max-width: 760px;
+  margin: 0 auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+
+/* Header strip */
+.doc-header {
+  background: var(--accent);
+  color: #fff;
+  padding: 28px 36px 24px;
+  border-radius: 3px 3px 0 0;
+}
+.doc-header .eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  opacity: .75;
+  margin-bottom: 6px;
+}
+.doc-header h1 {
+  margin: 0 0 14px;
+  font-size: 24px;
+  font-weight: 600;
+  text-wrap: balance;
+  line-height: 1.25;
+}
+.meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  font-size: 12.5px;
+  opacity: .88;
+}
+.meta-row span { display: flex; gap: 5px; align-items: center; }
+.meta-row strong { font-weight: 600; }
+
+/* Content area */
+.doc-body { padding: 32px 36px; display: flex; flex-direction: column; gap: 32px; }
+
+/* Section */
+section { display: flex; flex-direction: column; gap: 12px; }
+h2 {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--accent);
+}
+h3 {
+  font-size: 13.5px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--fg);
+}
+p { margin: 0; color: var(--fg-mid); }
+
+/* Topology diagram */
+.topology {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 20px 24px;
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1.8;
+  color: var(--fg);
+  overflow-x: auto;
+}
+.topology .layer-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-right: 8px;
+}
+
+/* Table */
+.tbl-wrap { overflow-x: auto; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+thead th {
+  background: var(--accent-bg);
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 8px 12px;
+  border-bottom: 2px solid var(--border);
+}
+tbody td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--fg-mid);
+  vertical-align: top;
+}
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover td { background: var(--accent-bg); }
+code {
+  font-family: var(--mono);
+  font-size: 12px;
+  background: var(--code-bg);
+  padding: 1px 5px;
+  border-radius: 3px;
+  color: var(--fg);
+}
+
+/* Device cards */
+.devices { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+.device-card {
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.device-card .device-name {
+  font-weight: 600;
+  font-size: 13.5px;
+  color: var(--fg);
+}
+.device-card .device-model {
+  font-size: 11px;
+  color: var(--fg-muted);
+  font-family: var(--mono);
+}
+.device-card ul {
+  margin: 0;
+  padding-left: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  color: var(--fg-mid);
+  font-size: 12.5px;
+}
+
+/* Status checklist */
+.checklist { display: flex; flex-direction: column; gap: 8px; }
+.check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--fg-mid);
+}
+.check-icon {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  margin-top: 1px;
+  font-weight: 700;
+}
+.check-icon.done { background: var(--success-bg); color: var(--success); }
+.check-icon.pending { background: var(--warn-bg); color: var(--warn); }
+
+/* Credentials */
+.creds {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.cred-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 14px;
+  background: var(--code-bg);
+  border-radius: 4px;
+  font-family: var(--mono);
+  font-size: 12.5px;
+}
+.cred-row .cred-label {
+  color: var(--fg-muted);
+  min-width: 110px;
+  font-size: 11px;
+}
+.cred-row .cred-val { color: var(--accent); font-weight: 600; }
+
+/* Footer */
+.doc-footer {
+  border-top: 1px solid var(--border);
+  padding: 16px 36px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 11.5px;
+  color: var(--fg-muted);
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+@media (max-width: 520px) {
+  .doc-header { padding: 20px 18px 18px; }
+  .doc-body { padding: 24px 18px; }
+  .doc-footer { padding: 14px 18px; }
+  .devices { grid-template-columns: 1fr; }
+  h1 { font-size: 20px; }
+}
+
+@media print {
+  body { background: #fff; padding: 0; }
+  .doc { border: none; border-radius: 0; box-shadow: none; }
+}
+</style>
+
+<div class="doc">
+
+  <div class="doc-header">
+    <div class="eyebrow">SENAC · Cisco Cibersegurança · Tarefa 5</div>
+    <h1>Rede Hierárquica Cisco — 3 Camadas</h1>
+    <div class="meta-row">
+      <span><strong>Aluno:</strong> Pedro Ferreira</span>
+      <span><strong>Entrega:</strong> 09/11/2026</span>
+      <span><strong>Arquivo:</strong> PedroFerreira_RedeHierarquica_041126.pkt</span>
+    </div>
+  </div>
+
+  <div class="doc-body">
+
+    <section>
+      <h2>Topologia</h2>
+      <div class="topology">
+<span class="layer-label">INTERNET</span>  [ Cloud ]
+                        |  WAN
+<span class="layer-label">NÚCLEO   </span>  [ R1-FW ]  Cisco 2911  —  192.168.100.1 (DMZ)
+                      / | \
+         ____________/  |  \___________
+        |               |              |
+<span class="layer-label">DMZ      </span>  [ SW-DMZ ]——[ WEB .10 ][ FTP .20 ][ EMAIL .30 ][ DNS .40 ]
+                        |
+              __________|__________
+             |                     |
+<span class="layer-label">DISTRIB. </span>  [ SWd1 ]              [ SWd2 ]   Cisco 3560-24PS
+            /   \                 /   \
+           /     \               /     \
+<span class="layer-label">ACESSO   </span>  [S1]  [S2]           [S3]  [S4]   Cisco 2960-24TT
+          / \    / \            / \    / \
+        PC PC  PC PC          PC PC  PC PC
+      VLAN 10  VLAN 10       VLAN 20 VLAN 20</div>
+    </section>
+
+    <section>
+      <h2>VLANs</h2>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>VLAN</th><th>Nome</th><th>Rede</th><th>Gateway</th><th>Uso</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><code>10</code></td><td>Usuários / VEND</td><td><code>10.10.10.0/24</code></td><td><code>10.10.10.1</code></td><td>PCs S1, S2</td></tr>
+            <tr><td><code>20</code></td><td>VoIP / MKT</td><td><code>10.20.20.0/24</code></td><td><code>10.20.20.1</code></td><td>PCs S3, S4</td></tr>
+            <tr><td><code>30</code></td><td>Gerência</td><td><code>10.30.30.0/24</code></td><td><code>10.30.30.1</code></td><td>Gestão switches</td></tr>
+            <tr><td><code>99</code></td><td>Nativa</td><td>—</td><td>—</td><td>Trunk nativo</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>Dispositivos Configurados</h2>
+      <div class="devices">
+
+        <div class="device-card">
+          <div class="device-name">R1-FW</div>
+          <div class="device-model">Cisco 2911</div>
+          <ul>
+            <li>Router-on-a-stick: <code>Gi0/2.10/.20/.30</code></li>
+            <li>DHCP pool por VLAN</li>
+            <li>DMZ: <code>Gi0/0</code> → <code>192.168.100.1/24</code></li>
+            <li>SSH habilitado</li>
+          </ul>
+        </div>
+
+        <div class="device-card">
+          <div class="device-name">SWd1 / SWd2</div>
+          <div class="device-model">Cisco 3560-24PS</div>
+          <ul>
+            <li>VTP Server (SWd1) / Client (SWd2)</li>
+            <li>Domain <code>EMPRESA</code></li>
+            <li>Rapid-PVST+</li>
+            <li>Trunks para acesso e core</li>
+          </ul>
+        </div>
+
+        <div class="device-card">
+          <div class="device-name">S1</div>
+          <div class="device-model">Cisco 2960-24TT</div>
+          <ul>
+            <li>VTP Client</li>
+            <li>Trunk: <code>Fa0/20</code> → SWd1</li>
+            <li>Acesso <code>Fa0/1–8</code> → VLAN 10</li>
+            <li>IP gerência: <code>10.30.30.13</code></li>
+            <li>Port-security sticky, max 2</li>
+            <li>PortFast + BPDUGuard</li>
+          </ul>
+        </div>
+
+        <div class="device-card">
+          <div class="device-name">S2</div>
+          <div class="device-model">Cisco 2960-24TT</div>
+          <ul>
+            <li>VTP Client</li>
+            <li>Trunk: <code>Fa0/20</code> → SWd1</li>
+            <li>Acesso <code>Fa0/1–8</code> → VLAN 10</li>
+            <li>IP gerência: <code>10.30.30.14</code></li>
+            <li>Port-security sticky, max 2</li>
+          </ul>
+        </div>
+
+        <div class="device-card">
+          <div class="device-name">S3</div>
+          <div class="device-model">Cisco 2960-24TT</div>
+          <ul>
+            <li>VTP Client</li>
+            <li>Trunk: <code>Fa0/3</code> → SWd2</li>
+            <li>Acesso <code>Fa0/1–8</code> → VLAN 20</li>
+            <li>IP gerência: <code>10.30.30.15</code></li>
+            <li>Port-security sticky, max 2</li>
+          </ul>
+        </div>
+
+        <div class="device-card">
+          <div class="device-name">S4</div>
+          <div class="device-model">Cisco 2960-24TT</div>
+          <ul>
+            <li>VTP Client</li>
+            <li>Trunk: <code>Gi0/2</code> → SWd2</li>
+            <li>Acesso <code>Fa0/1–8</code> → VLAN 20</li>
+            <li>IP gerência: <code>10.30.30.16</code></li>
+            <li>Port-security sticky, max 2</li>
+          </ul>
+        </div>
+
+        <div class="device-card">
+          <div class="device-name">DNS-SRV</div>
+          <div class="device-model">192.168.100.40</div>
+          <ul>
+            <li>Status: On</li>
+            <li><code>www</code> → <code>.10</code></li>
+            <li><code>ftp</code> → <code>.20</code></li>
+            <li><code>mail</code> → <code>.30</code></li>
+            <li><code>dns</code> → <code>.40</code></li>
+          </ul>
+        </div>
+
+        <div class="device-card">
+          <div class="device-name">EMAIL-SRV</div>
+          <div class="device-model">192.168.100.30</div>
+          <ul>
+            <li>Domain: <code>empresa.local</code></li>
+            <li>SMTP + POP3: On</li>
+            <li>Usuários: usuario1, usuario2, admin</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <section>
+      <h2>Credenciais</h2>
+      <div class="creds">
+        <div class="cred-row">
+          <span class="cred-label">SSH / Enable</span>
+          <span class="cred-val">admin / Cisco@2024</span>
+        </div>
+        <div class="cred-row">
+          <span class="cred-label">VTP password</span>
+          <span class="cred-val">Vtp@2024</span>
+        </div>
+        <div class="cred-row">
+          <span class="cred-label">VTP domain</span>
+          <span class="cred-val">EMPRESA</span>
+        </div>
+        <div class="cred-row">
+          <span class="cred-label">SSH domain</span>
+          <span class="cred-val">empresa.local</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Status de Implementação</h2>
+      <div class="checklist">
+        <div class="check-item">
+          <div class="check-icon done">✓</div>
+          <span>S1–S4 — VLANs, trunk, VTP client, SSH, port-security, PortFast/BPDUGuard</span>
+        </div>
+        <div class="check-item">
+          <div class="check-icon done">✓</div>
+          <span>R1-FW — Sub-interfaces, router-on-a-stick, DHCP pools, interface DMZ</span>
+        </div>
+        <div class="check-item">
+          <div class="check-icon done">✓</div>
+          <span>Layout visual hierárquico organizado no Packet Tracer</span>
+        </div>
+        <div class="check-item">
+          <div class="check-icon pending">○</div>
+          <span>DNS-SRV — Registros A via GUI (configuração pendente)</span>
+        </div>
+        <div class="check-item">
+          <div class="check-icon pending">○</div>
+          <span>EMAIL-SRV — Domínio, SMTP/POP3 e contas via GUI (configuração pendente)</span>
+        </div>
+        <div class="check-item">
+          <div class="check-icon pending">○</div>
+          <span>SWd1/SWd2 — Verificar trunks e roteamento inter-VLAN completo</span>
+        </div>
+        <div class="check-item">
+          <div class="check-icon pending">○</div>
+          <span>DHCP — Verificar entrega de IPs aos PCs via relay/pool</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="doc-footer">
+    <span>Pedro Ferreira · SENAC · Cisco Cibersegurança 2026</span>
+    <span>Tarefa 5 — Rede Hierárquica · Entrega 09/11/2026</span>
+  </div>
+
+</div>
