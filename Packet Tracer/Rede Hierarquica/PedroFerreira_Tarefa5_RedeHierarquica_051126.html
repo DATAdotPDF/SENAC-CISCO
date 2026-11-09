@@ -449,6 +449,60 @@ code {
     </section>
 
     <section>
+      <h2>Access Points — Camada de Acesso Wireless</h2>
+      <p style="color:var(--fg-mid);margin-bottom:12px;">Quatro Access Points (AccessPoint-PT) foram adicionados à camada de acesso, um por switch. Cada AP opera na VLAN da sua respectiva camada de acesso e fornece cobertura wireless aos clientes móveis (TabletPC-PT).</p>
+      <div style="overflow-x:auto;">
+        <table class="tbl">
+          <thead>
+            <tr><th>AP</th><th>Switch</th><th>Porta Switch</th><th>VLAN</th><th>Rede</th><th>Clientes</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>AP-1</code></td>
+              <td>S1</td>
+              <td><code>Fa0/9</code></td>
+              <td>10 — Usuários</td>
+              <td>10.10.10.0/24</td>
+              <td>Tablet-WiFi-1</td>
+            </tr>
+            <tr>
+              <td><code>AP-2</code></td>
+              <td>S2</td>
+              <td><code>Fa0/9</code></td>
+              <td>10 — Usuários</td>
+              <td>10.10.10.0/24</td>
+              <td>Tablet-WiFi-2</td>
+            </tr>
+            <tr>
+              <td><code>AP-3</code></td>
+              <td>S3</td>
+              <td><code>Fa0/9</code></td>
+              <td>20 — VoIP/MKT</td>
+              <td>10.20.20.0/24</td>
+              <td>Tablet-WiFi-3</td>
+            </tr>
+            <tr>
+              <td><code>AP-4</code></td>
+              <td>S4</td>
+              <td><code>Fa0/9</code></td>
+              <td>20 — VoIP/MKT</td>
+              <td>10.20.20.0/24</td>
+              <td>Tablet-WiFi-4</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note" style="margin-top:14px;">
+        <strong>Configuração aplicada em cada switch (Fa0/9):</strong>
+        <pre class="code-block" style="margin-top:8px;">interface FastEthernet0/9
+ switchport mode access
+ switchport access vlan {10|20}
+ spanning-tree portfast</pre>
+        <p style="margin-top:8px;">Os clientes wireless (TabletPC-PT) possuem interface <code>Wireless0</code> nativa. O SSID padrão do AccessPoint-PT é <strong>Default</strong> com autenticação aberta, suficiente para o ambiente de laboratório.</p>
+      </div>
+    </section>
+
+    <section>
       <h2>Credenciais</h2>
       <div class="creds">
         <div class="cred-row">
@@ -484,6 +538,10 @@ code {
         <div class="check-item">
           <div class="check-icon done">✓</div>
           <span>Layout visual hierárquico organizado no Packet Tracer</span>
+        </div>
+        <div class="check-item">
+          <div class="check-icon done">✓</div>
+          <span>AP-1 a AP-4 — Access Points adicionados à camada de acesso (S1–S4), portas Fa0/9 configuradas em VLAN 10/20 com PortFast</span>
         </div>
         <div class="check-item">
           <div class="check-icon pending">○</div>
