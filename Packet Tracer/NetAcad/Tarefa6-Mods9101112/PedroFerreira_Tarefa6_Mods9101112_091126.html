@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tarefa 6 — Lab Prático Módulos 9, 10, 11 e 12 — Pedro Ferreira</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f8f7f5; --surface: #ffffff; --fg: #1a1a1a; --fg-mid: #444; --fg-muted: #777;
+    --border: #d8d5cf; --accent: #0057b8; --accent-bg: #e8f0fb;
+    --success: #1a7a3c; --success-bg: #e6f4ec; --warn: #7a4a00; --warn-bg: #fef3e2;
+    --code-bg: #f0ede8; --mono: "IBM Plex Mono","Courier New",monospace;
+    --sans: "IBM Plex Sans",system-ui,sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg:#16151a;--surface:#1f1e24;--fg:#e8e6e1;--fg-mid:#b0aaa0;--fg-muted:#706a62;
+      --border:#3a3830;--accent:#4d9fff;--accent-bg:#0e2240;
+      --success:#4caf76;--success-bg:#0d2a1a;--warn:#d4a040;--warn-bg:#2a1f00;--code-bg:#2a2825;
+    }
+  }
+  [data-theme="dark"] {
+    --bg:#16151a;--surface:#1f1e24;--fg:#e8e6e1;--fg-mid:#b0aaa0;--fg-muted:#706a62;
+    --border:#3a3830;--accent:#4d9fff;--accent-bg:#0e2240;
+    --success:#4caf76;--success-bg:#0d2a1a;--warn:#d4a040;--warn-bg:#2a1f00;--code-bg:#2a2825;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:15px;line-height:1.65;padding:32px 16px 64px}
+  .doc{max-width:760px;margin:0 auto;background:var(--surface);border:1px solid var(--border);border-radius:4px}
+  .doc-header{background:var(--accent);color:#fff;padding:28px 36px 24px;border-radius:3px 3px 0 0}
+  .doc-header h1{font-size:22px;font-weight:600;letter-spacing:-.3px;margin-bottom:8px}
+  .doc-header .meta{font-size:13px;opacity:.85;display:flex;flex-wrap:wrap;gap:20px}
+  .doc-body{padding:36px}
+  section+section{margin-top:40px}
+  h2{font-size:15px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--fg-muted);border-bottom:1px solid var(--border);padding-bottom:8px;margin-bottom:20px}
+  h3{font-size:15px;font-weight:600;color:var(--fg);margin:24px 0 12px}
+  p{color:var(--fg-mid);margin-bottom:12px}
+  .topology{background:var(--code-bg);border:1px solid var(--border);border-radius:3px;padding:20px 24px;font-family:var(--mono);font-size:12.5px;line-height:1.6;overflow-x:auto;white-space:pre;color:var(--fg-mid)}
+  .devices{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:8px}
+  .device-card{border:1px solid var(--border);border-radius:3px;padding:14px 16px}
+  .device-card .name{font-weight:600;font-size:13.5px;margin-bottom:6px;color:var(--fg)}
+  .device-card .kv{display:flex;justify-content:space-between;font-size:12.5px;color:var(--fg-mid);padding:2px 0;border-top:1px solid var(--border);gap:8px}
+  .device-card .kv:first-of-type{border-top:none;padding-top:6px}
+  .device-card .kv span:last-child{font-family:var(--mono);text-align:right;font-size:12px}
+  code{font-family:var(--mono);font-size:12.5px;background:var(--code-bg);padding:2px 5px;border-radius:2px;color:var(--fg)}
+  pre{background:var(--code-bg);border:1px solid var(--border);border-radius:3px;padding:16px 20px;font-family:var(--mono);font-size:12.5px;line-height:1.6;overflow-x:auto;color:var(--fg-mid);margin:12px 0}
+  .table-wrap{overflow-x:auto;margin:12px 0}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  thead th{background:var(--accent-bg);color:var(--accent);font-weight:600;text-align:left;padding:9px 12px;border-bottom:2px solid var(--accent);font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+  tbody td{padding:9px 12px;border-bottom:1px solid var(--border);color:var(--fg-mid);font-size:13px;font-family:var(--mono)}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr:hover{background:var(--accent-bg)}
+  .checklist{list-style:none;margin:12px 0}
+  .checklist li{display:flex;align-items:flex-start;gap:10px;padding:7px 0;border-bottom:1px solid var(--border);font-size:13.5px;color:var(--fg-mid)}
+  .checklist li:last-child{border-bottom:none}
+  .check-icon{flex-shrink:0;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;margin-top:2px}
+  .check-icon.ok{background:var(--success-bg);color:var(--success)}
+  .callout{border-left:3px solid var(--accent);background:var(--accent-bg);padding:12px 16px;border-radius:0 3px 3px 0;margin:16px 0;font-size:13.5px;color:var(--fg-mid)}
+  .callout strong{color:var(--fg)}
+  .part-badge{display:inline-block;background:var(--accent);color:#fff;font-size:11px;font-weight:600;letter-spacing:.08em;padding:2px 10px;border-radius:20px;text-transform:uppercase;margin-bottom:12px}
+  .answer-box{background:var(--success-bg);border:1px solid var(--success);border-radius:3px;padding:14px 18px;margin:16px 0}
+  .answer-box .question{font-weight:600;font-size:13px;color:var(--success);margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em}
+  .answer-box p{color:var(--fg-mid);font-size:13.5px;margin-bottom:6px}
+  .answer-box p:last-child{margin-bottom:0}
+  .doc-footer{border-top:1px solid var(--border);padding:16px 36px;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--fg-muted);flex-wrap:wrap;gap:8px}
+  @media print{body{background:#fff;padding:0}.doc{border:none;border-radius:0}pre,.topology{white-space:pre-wrap}}
+</style>
+</head>
+<body>
+<div class="doc">
+
+  <div class="doc-header">
+    <h1>Tarefa 6 — Lab Prático: Módulos 9, 10, 11 e 12</h1>
+    <div class="meta">
+      <span>&#128100; Pedro Henrique Ferreira</span>
+      <span>&#128197; 09 de novembro de 2026</span>
+      <span>&#127979; SENAC — Defesa Cibernética</span>
+      <span>&#128230; Cisco NetAcad</span>
+    </div>
+  </div>
+
+  <div class="doc-body">
+
+    <!-- OBJETIVO -->
+    <section>
+      <h2>Objetivo</h2>
+      <p>Laboratório prático que consolida os conceitos dos Módulos 9 a 12: <strong>Camada de Transporte</strong> (TCP/UDP, portas e sockets), <strong>Navegação e Comandos no Cisco IOS</strong>, <strong>Configuração e Proteção com SSH e Gateway Padrão</strong>, e <strong>Diagnóstico com ICMP</strong> (ping e traceroute).</p>
+      <ul style="margin:8px 0 0 20px;color:var(--fg-mid);font-size:13.5px;line-height:1.9">
+        <li><strong>Módulo 9:</strong> Sockets TCP, portas efêmeras, sessões ativas (<code>netstat</code>).</li>
+        <li><strong>Módulo 10:</strong> Navegação IOS — modos, comandos <code>show</code>, estrutura hierárquica.</li>
+        <li><strong>Módulo 11:</strong> Segurança — enable secret, console password, SSHv2, service password-encryption.</li>
+        <li><strong>Módulo 12:</strong> ICMP — ping (loopback, gateway, remoto) e traceroute (TTL, Time Exceeded).</li>
+      </ul>
+    </section>
+
+    <!-- TOPOLOGIA -->
+    <section>
+      <h2>Topologia da Rede</h2>
+      <div class="topology">Sub-rede A — Vendas (192.168.10.0/24)       Sub-rede B — Servidores (192.168.20.0/24)
+
+PC-Vendas ──► SW-Acesso-1 ──► R1-Borda ──► SW-Acesso-2 ──► SRV-Web
+(Fa0)   Fa0/1  (2960)  Gi0/1  G0/0/0│G0/0/1  Gi0/1  (2960)  Fa0/1  (Fa0)
+192.168.10.10            SVI:10.2  │         SVI:20.2        192.168.20.10
+GW:192.168.10.1          GW:10.1   │         GW:20.1
+                               192.168.10.1 / 192.168.20.1
+                                     R1-Borda (ISR4321)</div>
+
+      <div class="devices" style="margin-top:20px">
+        <div class="device-card">
+          <div class="name">R1-Borda — ISR4321</div>
+          <div class="kv"><span>G0/0/0 (Sub-rede A)</span><span>192.168.10.1/24</span></div>
+          <div class="kv"><span>G0/0/1 (Sub-rede B)</span><span>192.168.20.1/24</span></div>
+          <div class="kv"><span>SSH</span><span>SSHv2 / RSA 1024</span></div>
+          <div class="kv"><span>Usuário SSH</span><span>admin</span></div>
+        </div>
+        <div class="device-card">
+          <div class="name">SW-Acesso-1 — Catalyst 2960</div>
+          <div class="kv"><span>VLAN1 SVI</span><span>192.168.10.2/24</span></div>
+          <div class="kv"><span>Default Gateway</span><span>192.168.10.1</span></div>
+          <div class="kv"><span>Uplink</span><span>Gi0/1 → R1 G0/0/0</span></div>
+          <div class="kv"><span>Host</span><span>Fa0/1 → PC-Vendas</span></div>
+        </div>
+        <div class="device-card">
+          <div class="name">SW-Acesso-2 — Catalyst 2960</div>
+          <div class="kv"><span>VLAN1 SVI</span><span>192.168.20.2/24</span></div>
+          <div class="kv"><span>Default Gateway</span><span>192.168.20.1</span></div>
+          <div class="kv"><span>Uplink</span><span>Gi0/1 → R1 G0/0/1</span></div>
+          <div class="kv"><span>Host</span><span>Fa0/1 → SRV-Web</span></div>
+        </div>
+        <div class="device-card">
+          <div class="name">PC-Vendas</div>
+          <div class="kv"><span>IP</span><span>192.168.10.10/24</span></div>
+          <div class="kv"><span>Gateway</span><span>192.168.10.1</span></div>
+          <div class="kv"><span>Interface</span><span>FastEthernet0</span></div>
+        </div>
+        <div class="device-card">
+          <div class="name">SRV-Web — Server-PT</div>
+          <div class="kv"><span>IP</span><span>192.168.20.10/24</span></div>
+          <div class="kv"><span>Gateway</span><span>192.168.20.1</span></div>
+          <div class="kv"><span>Serviços</span><span>HTTP (80) / HTTPS (443)</span></div>
+        </div>
+      </div>
+
+      <div class="table-wrap" style="margin-top:16px">
+        <table>
+          <thead>
+            <tr><th>Dispositivo</th><th>Interface</th><th>Endereço IP</th><th>Máscara</th><th>Gateway</th><th>Função</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>R1-Borda</td><td>G0/0/0</td><td>192.168.10.1</td><td>255.255.255.0</td><td>N/A</td><td>GW Sub-rede A</td></tr>
+            <tr><td>R1-Borda</td><td>G0/0/1</td><td>192.168.20.1</td><td>255.255.255.0</td><td>N/A</td><td>GW Sub-rede B</td></tr>
+            <tr><td>SW-Acesso-1</td><td>VLAN1</td><td>192.168.10.2</td><td>255.255.255.0</td><td>192.168.10.1</td><td>Gerenc. L2 Vendas</td></tr>
+            <tr><td>SW-Acesso-2</td><td>VLAN1</td><td>192.168.20.2</td><td>255.255.255.0</td><td>192.168.20.1</td><td>Gerenc. L2 Servidores</td></tr>
+            <tr><td>PC-Vendas</td><td>FastEth0</td><td>192.168.10.10</td><td>255.255.255.0</td><td>192.168.10.1</td><td>Host Cliente</td></tr>
+            <tr><td>SRV-Web</td><td>FastEth0</td><td>192.168.20.10</td><td>255.255.255.0</td><td>192.168.20.1</td><td>Servidor HTTP/SSH</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- MÓDULO 11: SEGURANÇA -->
+    <section>
+      <div class="part-badge">Módulos 10 e 11</div>
+      <h2>Configuração e Proteção dos Dispositivos</h2>
+
+      <h3>R1-Borda — Configuração Completa</h3>
+      <pre>Router(config)# hostname R1-Borda
+R1-Borda(config)# enable secret Cisco12345!
+!
+! Console
+R1-Borda(config)# line console 0
+R1-Borda(config-line)# password ConsolePass#1
+R1-Borda(config-line)# login
+R1-Borda(config-line)# logging synchronous
+R1-Borda(config-line)# exit
+!
+! SSHv2 (RSA 1024 bits)
+R1-Borda(config)# ip domain-name cisco.lab
+R1-Borda(config)# crypto key generate rsa    ! 1024 bits
+R1-Borda(config)# ip ssh version 2
+R1-Borda(config)# username admin secret AdminSSH#2026
+R1-Borda(config)# line vty 0 4
+R1-Borda(config-line)# transport input ssh
+R1-Borda(config-line)# login local
+R1-Borda(config-line)# exit
+!
+R1-Borda(config)# service password-encryption
+R1-Borda(config)# banner motd #ACESSO RESTRITO E MONITORADO - R1-BORDA#
+!
+! Interfaces
+R1-Borda(config)# interface GigabitEthernet0/0/0
+R1-Borda(config-if)# description Gateway Sub-rede A (Vendas)
+R1-Borda(config-if)# ip address 192.168.10.1 255.255.255.0
+R1-Borda(config-if)# no shutdown
+!
+R1-Borda(config)# interface GigabitEthernet0/0/1
+R1-Borda(config-if)# description Gateway Sub-rede B (Servidores)
+R1-Borda(config-if)# ip address 192.168.20.1 255.255.255.0
+R1-Borda(config-if)# no shutdown</pre>
+
+      <h3>SW-Acesso-1 e SW-Acesso-2 — Padrão Aplicado</h3>
+      <pre>! (mesmo padrão nos dois switches, ajustando IPs)
+Switch(config)# hostname SW-Acesso-1          ! ou SW-Acesso-2
+SW-Acesso-1(config)# enable secret Cisco12345!
+SW-Acesso-1(config)# line console 0
+SW-Acesso-1(config-line)# password ConsolePass#1
+SW-Acesso-1(config-line)# login
+SW-Acesso-1(config)# ip domain-name cisco.lab
+SW-Acesso-1(config)# crypto key generate rsa  ! 1024 bits
+SW-Acesso-1(config)# ip ssh version 2
+SW-Acesso-1(config)# username admin secret AdminSSH#2026
+SW-Acesso-1(config)# line vty 0 15
+SW-Acesso-1(config-line)# transport input ssh
+SW-Acesso-1(config-line)# login local
+SW-Acesso-1(config)# service password-encryption
+!
+! SVI de gerenciamento + Default Gateway (Módulo 11)
+SW-Acesso-1(config)# interface vlan 1
+SW-Acesso-1(config-if)# ip address 192.168.10.2 255.255.255.0
+SW-Acesso-1(config-if)# no shutdown
+SW-Acesso-1(config)# ip default-gateway 192.168.10.1</pre>
+
+      <div class="callout">
+        <strong>Por que o Default Gateway é essencial no switch (Módulo 11):</strong> Switches são dispositivos de Camada 2 e não roteiam tráfego entre sub-redes. Sem o <code>ip default-gateway</code>, o switch não sabe para onde enviar a resposta ICMP de volta a um host em outra sub-rede — fazendo o ping ao SVI falhar mesmo que o roteador esteja configurado corretamente.
+      </div>
+
+      <ul class="checklist">
+        <li><span class="check-icon ok">✓</span><span><code>enable secret Cisco12345!</code> — hash MD5 (mais seguro que <code>enable password</code>)</span></li>
+        <li><span class="check-icon ok">✓</span><span>SSHv2 ativo com par RSA 1024 bits e domínio <code>cisco.lab</code></span></li>
+        <li><span class="check-icon ok">✓</span><span>VTYs configuradas com <code>transport input ssh</code> — bloqueia Telnet</span></li>
+        <li><span class="check-icon ok">✓</span><span><code>service password-encryption</code> — cifra senhas fracas no running-config</span></li>
+        <li><span class="check-icon ok">✓</span><span>Banner MOTD configurado no R1-Borda</span></li>
+        <li><span class="check-icon ok">✓</span><span><code>copy running-config startup-config</code> — configurações persistidas na NVRAM</span></li>
+      </ul>
+    </section>
+
+    <!-- VERIFICAÇÃO INTERFACES -->
+    <section>
+      <h2>Verificação das Interfaces (Módulo 10)</h2>
+      <h3>R1-Borda — show ip interface brief</h3>
+      <pre>R1-Borda# show ip interface brief
+Interface              IP-Address      OK? Method Status    Protocol
+GigabitEthernet0/0/0   192.168.10.1    YES manual up        up
+GigabitEthernet0/0/1   192.168.20.1    YES manual up        up</pre>
+
+      <h3>SW-Acesso-2 — show ip interface brief (extrato)</h3>
+      <pre>SW-Acesso-2# show ip interface brief
+Interface        IP-Address      OK? Method Status   Protocol
+FastEthernet0/1  unassigned      YES manual up       up
+GigabitEthernet0/1 unassigned    YES manual up       up
+Vlan1            192.168.20.2    YES manual up       up</pre>
+    </section>
+
+    <!-- MÓDULO 12: TESTES ICMP -->
+    <section>
+      <div class="part-badge">Módulo 12</div>
+      <h2>Testes de Diagnóstico com ICMP</h2>
+
+      <h3>Teste 1 — Loopback (pilha TCP/IP local)</h3>
+      <pre>C:\> ping 127.0.0.1
+
+Pinging 127.0.0.1 with 32 bytes of data:
+Reply from 127.0.0.1: bytes=32 time=8ms TTL=128
+Reply from 127.0.0.1: bytes=32 time=8ms TTL=128
+Reply from 127.0.0.1: bytes=32 time=5ms TTL=128
+Reply from 127.0.0.1: bytes=32 time&lt;1ms TTL=128
+
+Ping statistics for 127.0.0.1:
+    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss)</pre>
+
+      <h3>Teste 2 — Gateway padrão (R1-Borda G0/0/0)</h3>
+      <pre>C:\> ping 192.168.10.1
+
+Pinging 192.168.10.1 with 32 bytes of data:
+Reply from 192.168.10.1: bytes=32 time&lt;1ms TTL=255
+Reply from 192.168.10.1: bytes=32 time&lt;1ms TTL=255
+Reply from 192.168.10.1: bytes=32 time&lt;1ms TTL=255
+Reply from 192.168.10.1: bytes=32 time&lt;1ms TTL=255
+
+Ping statistics for 192.168.10.1:
+    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss)</pre>
+
+      <h3>Teste 3 — Sub-rede remota (SRV-Web, roteamento inter-sub-redes)</h3>
+      <pre>C:\> ping 192.168.20.10
+
+Pinging 192.168.20.10 with 32 bytes of data:
+Request timed out.
+Reply from 192.168.20.10: bytes=32 time&lt;1ms TTL=127
+Reply from 192.168.20.10: bytes=32 time&lt;1ms TTL=127
+Reply from 192.168.20.10: bytes=32 time&lt;1ms TTL=127
+
+Ping statistics for 192.168.20.10:
+    Packets: Sent = 4, Received = 3, Lost = 1 (25% loss)</pre>
+
+      <div class="callout">
+        <strong>Timeout no primeiro pacote:</strong> Comportamento esperado — ao primeiro ping inter-sub-rede, o roteador precisa resolver o endereço MAC do destino via ARP. Enquanto aguarda a resposta ARP, o pacote ICMP é descartado (timeout). Os três pacotes seguintes respondem normalmente, confirmando o roteamento entre 192.168.10.0/24 e 192.168.20.0/24.
+      </div>
+
+      <h3>Teste 4 — Traceroute (mapeamento de saltos TTL)</h3>
+      <pre>C:\> tracert 192.168.20.10
+
+Tracing route to 192.168.20.10 over a maximum of 30 hops:
+  1  &lt;1 ms  &lt;1 ms  &lt;1 ms  192.168.10.1
+  2  &lt;1 ms  &lt;1 ms  &lt;1 ms  192.168.20.10
+
+Trace complete.</pre>
+
+      <div class="answer-box">
+        <div class="question">&#10067; Como o Traceroute mapeia os saltos?</div>
+        <p>O traceroute envia pacotes com <strong>TTL incrementado</strong> a cada rodada. No salto 1, o pacote parte com TTL=1 — o R1-Borda decrementa para 0, descarta o pacote e retorna uma mensagem <strong>ICMP Time Exceeded</strong> com seu IP (192.168.10.1), revelando o primeiro hop. No salto 2, TTL=2 permite alcançar diretamente o SRV-Web (192.168.20.10), que responde com ICMP Echo Reply, encerrando o trace.</p>
+      </div>
+
+      <ul class="checklist">
+        <li><span class="check-icon ok">✓</span><span>Ping loopback 127.0.0.1: 4/4 — pilha TCP/IP operante</span></li>
+        <li><span class="check-icon ok">✓</span><span>Ping gateway 192.168.10.1: 4/4 — L1/L2/L3 local OK</span></li>
+        <li><span class="check-icon ok">✓</span><span>Ping SRV-Web 192.168.20.10: 3/4 — roteamento inter-sub-rede confirmado (1 timeout ARP esperado)</span></li>
+        <li><span class="check-icon ok">✓</span><span>Traceroute: 2 saltos identificados (R1-Borda + SRV-Web)</span></li>
+      </ul>
+    </section>
+
+    <!-- MÓDULO 9: SOCKETS -->
+    <section>
+      <div class="part-badge">Módulo 9</div>
+      <h2>Camada de Transporte — Sockets e Sessões TCP</h2>
+
+      <p>Ao acessar o SRV-Web pelo Web Browser do PC-Vendas (<code>http://192.168.20.10</code>), o TCP estabelece uma conexão pela porta 80. O comando <code>netstat</code> revela os sockets ativos:</p>
+
+      <pre>C:\> netstat
+
+Active Connections
+  Proto  Local Address          Foreign Address        State
+  TCP    192.168.10.10:1025     192.168.20.10:80       ESTABLISHED</pre>
+
+      <div class="answer-box">
+        <div class="question">&#10067; O que é um socket?</div>
+        <p>Um <strong>socket</strong> é o par único <em>endereço IP + número de porta</em> que identifica uma extremidade de uma conexão de Camada de Transporte. No exemplo acima, o socket local é <code>192.168.10.10:1025</code> — porta <strong>efêmera</strong> (atribuída dinamicamente pelo SO ao processo cliente) — e o socket remoto é <code>192.168.20.10:80</code> — porta <strong>bem-conhecida</strong> reservada para HTTP/TCP. O estado <code>ESTABLISHED</code> confirma que o <strong>Handshake Triplo TCP</strong> (SYN → SYN-ACK → ACK) foi concluído com sucesso antes da transferência de dados.</p>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Campo</th><th>Valor</th><th>Significado</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Proto</td><td>TCP</td><td>Protocolo orientado a conexão (Camada 4)</td></tr>
+            <tr><td>Local Address</td><td>192.168.10.10:1025</td><td>Socket do PC-Vendas — porta efêmera/dinâmica</td></tr>
+            <tr><td>Foreign Address</td><td>192.168.20.10:80</td><td>Socket do SRV-Web — porta bem-conhecida HTTP</td></tr>
+            <tr><td>State</td><td>ESTABLISHED</td><td>Handshake Triplo concluído — sessão ativa</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ul class="checklist">
+        <li><span class="check-icon ok">✓</span><span>HTTP ativo no SRV-Web (porta TCP 80)</span></li>
+        <li><span class="check-icon ok">✓</span><span>Sessão TCP ESTABLISHED observada via <code>netstat</code></span></li>
+        <li><span class="check-icon ok">✓</span><span>Porta efêmera (1025) no cliente x porta bem-conhecida (80) no servidor</span></li>
+      </ul>
+    </section>
+
+    <!-- SSH REMOTO -->
+    <section>
+      <div class="part-badge">Módulos 10 e 11</div>
+      <h2>Acesso Remoto Seguro via SSH</h2>
+
+      <p>A partir do PC-Vendas, é possível gerenciar remotamente o SW-Acesso-2 (sub-rede B) via SSHv2 — validando o Default Gateway configurado no switch e a rota pelo R1-Borda:</p>
+
+      <pre>C:\> ssh -l admin 192.168.20.2
+
+Password: AdminSSH#2026
+
+SW-Acesso-2> enable
+Password: Cisco12345!
+SW-Acesso-2#
+
+SW-Acesso-2# show ssh
+Connection  Version  Encryption  State       Username
+0            2.0      AES256      Session started    admin
+
+SW-Acesso-2# show ip interface brief
+Interface        IP-Address     OK? Method Status  Protocol
+Vlan1            192.168.20.2   YES manual up      up
+
+SW-Acesso-2# show mac-address-table
+Vlan  Mac Address       Type       Ports
+1     xxxx.xxxx.xxxx    DYNAMIC    Fa0/1</pre>
+
+      <div class="callout">
+        <strong>Fluxo da sessão SSH:</strong> O PC-Vendas (192.168.10.10) envia o pacote SSH para 192.168.20.2 — como é uma sub-rede diferente, o pacote vai ao gateway (192.168.10.1 = R1-Borda), que roteia para a sub-rede B. O SW-Acesso-2 recebe, autentica com RSA 1024 bits e abre a sessão cifrada. Sem o <code>ip default-gateway 192.168.20.1</code> no switch, a resposta não encontraria o caminho de volta para a sub-rede A.
+      </div>
+
+      <ul class="checklist">
+        <li><span class="check-icon ok">✓</span><span>SSHv2 configurado em todos os dispositivos (RSA 1024 bits)</span></li>
+        <li><span class="check-icon ok">✓</span><span>Acesso remoto cross-subnet: PC-Vendas → SW-Acesso-2</span></li>
+        <li><span class="check-icon ok">✓</span><span>Default Gateway nos switches permite roteamento da resposta SSH</span></li>
+        <li><span class="check-icon ok">✓</span><span>Telnet bloqueado — VTYs aceitam somente SSH</span></li>
+      </ul>
+    </section>
+
+  </div>
+
+  <div class="doc-footer">
+    <span>Pedro Henrique Ferreira — SENAC Defesa Cibernética</span>
+    <span>Tarefa 6 · Módulos 9, 10, 11 e 12 · 09/11/2026</span>
+  </div>
+
+</div>
+</body>
+</html>
