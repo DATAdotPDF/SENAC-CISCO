@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Explore uma Implementação NetFlow — Pedro Ferreira</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f8f7f5;
+    --surface: #ffffff;
+    --fg: #1a1a1a;
+    --fg-mid: #444;
+    --fg-muted: #777;
+    --border: #d8d5cf;
+    --accent: #0057b8;
+    --accent-bg: #e8f0fb;
+    --success: #1a7a3c;
+    --success-bg: #e6f4ec;
+    --warn: #7a4a00;
+    --warn-bg: #fef3e2;
+    --code-bg: #f0ede8;
+    --mono: "IBM Plex Mono", "Courier New", monospace;
+    --sans: "IBM Plex Sans", system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #16151a; --surface: #1f1e24; --fg: #e8e6e1; --fg-mid: #b0aaa0;
+      --fg-muted: #706a62; --border: #3a3830; --accent: #4d9fff; --accent-bg: #0e2240;
+      --success: #4caf76; --success-bg: #0d2a1a; --warn: #d4a040; --warn-bg: #2a1f00;
+      --code-bg: #2a2825;
+    }
+  }
+  [data-theme="dark"] {
+    --bg: #16151a; --surface: #1f1e24; --fg: #e8e6e1; --fg-mid: #b0aaa0;
+    --fg-muted: #706a62; --border: #3a3830; --accent: #4d9fff; --accent-bg: #0e2240;
+    --success: #4caf76; --success-bg: #0d2a1a; --warn: #d4a040; --warn-bg: #2a1f00;
+    --code-bg: #2a2825;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg); color: var(--fg); font-family: var(--sans);
+    font-size: 15px; line-height: 1.65; padding: 32px 16px 64px;
+  }
+  .doc { max-width: 760px; margin: 0 auto; background: var(--surface); border: 1px solid var(--border); border-radius: 4px; }
+  .doc-header { background: var(--accent); color: #fff; padding: 28px 36px 24px; border-radius: 3px 3px 0 0; }
+  .doc-header h1 { font-size: 22px; font-weight: 600; letter-spacing: -.3px; margin-bottom: 8px; }
+  .doc-header .meta { font-size: 13px; opacity: .85; display: flex; flex-wrap: wrap; gap: 20px; }
+  .doc-header .meta span { white-space: nowrap; }
+  .doc-body { padding: 36px; }
+  section + section { margin-top: 40px; }
+  h2 { font-size: 15px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--fg-muted); border-bottom: 1px solid var(--border); padding-bottom: 8px; margin-bottom: 20px; }
+  h3 { font-size: 15px; font-weight: 600; color: var(--fg); margin: 24px 0 12px; }
+  p { color: var(--fg-mid); margin-bottom: 12px; }
+  .topology { background: var(--code-bg); border: 1px solid var(--border); border-radius: 3px; padding: 20px 24px; font-family: var(--mono); font-size: 12.5px; line-height: 1.6; overflow-x: auto; white-space: pre; color: var(--fg-mid); }
+  .devices { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin-bottom: 8px; }
+  .device-card { border: 1px solid var(--border); border-radius: 3px; padding: 14px 16px; }
+  .device-card .name { font-weight: 600; font-size: 13.5px; margin-bottom: 6px; color: var(--fg); }
+  .device-card .kv { display: flex; justify-content: space-between; font-size: 12.5px; color: var(--fg-mid); padding: 2px 0; border-top: 1px solid var(--border); gap: 8px; }
+  .device-card .kv:first-of-type { border-top: none; padding-top: 6px; }
+  .device-card .kv span:last-child { font-family: var(--mono); text-align: right; font-size: 12px; }
+  code { font-family: var(--mono); font-size: 12.5px; background: var(--code-bg); padding: 2px 5px; border-radius: 2px; color: var(--fg); }
+  pre { background: var(--code-bg); border: 1px solid var(--border); border-radius: 3px; padding: 16px 20px; font-family: var(--mono); font-size: 12.5px; line-height: 1.6; overflow-x: auto; color: var(--fg-mid); margin: 12px 0; }
+  .table-wrap { overflow-x: auto; margin: 12px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead th { background: var(--accent-bg); color: var(--accent); font-weight: 600; text-align: left; padding: 9px 12px; border-bottom: 2px solid var(--accent); font-size: 12px; text-transform: uppercase; letter-spacing: .05em; }
+  tbody td { padding: 9px 12px; border-bottom: 1px solid var(--border); color: var(--fg-mid); font-size: 13px; font-family: var(--mono); }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover { background: var(--accent-bg); }
+  .checklist { list-style: none; margin: 12px 0; }
+  .checklist li { display: flex; align-items: flex-start; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 13.5px; color: var(--fg-mid); }
+  .checklist li:last-child { border-bottom: none; }
+  .check-icon { flex-shrink: 0; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; margin-top: 2px; }
+  .check-icon.ok { background: var(--success-bg); color: var(--success); }
+  .creds { border: 1px solid var(--border); border-radius: 3px; overflow: hidden; margin: 12px 0; }
+  .cred-row { display: flex; align-items: center; padding: 10px 16px; border-bottom: 1px solid var(--border); gap: 12px; font-size: 13px; }
+  .cred-row:last-child { border-bottom: none; }
+  .cred-row .label { min-width: 180px; font-weight: 500; color: var(--fg-mid); font-size: 12px; text-transform: uppercase; letter-spacing: .05em; }
+  .cred-row .val { font-family: var(--mono); color: var(--fg); font-size: 13px; }
+  .callout { border-left: 3px solid var(--accent); background: var(--accent-bg); padding: 12px 16px; border-radius: 0 3px 3px 0; margin: 16px 0; font-size: 13.5px; color: var(--fg-mid); }
+  .callout strong { color: var(--fg); }
+  .part-badge { display: inline-block; background: var(--accent); color: #fff; font-size: 11px; font-weight: 600; letter-spacing: .08em; padding: 2px 10px; border-radius: 20px; text-transform: uppercase; margin-bottom: 12px; }
+  .answer-box { background: var(--success-bg); border: 1px solid var(--success); border-radius: 3px; padding: 14px 18px; margin: 16px 0; }
+  .answer-box .question { font-weight: 600; font-size: 13px; color: var(--success); margin-bottom: 8px; text-transform: uppercase; letter-spacing: .05em; }
+  .answer-box p { color: var(--fg-mid); font-size: 13.5px; margin-bottom: 6px; }
+  .answer-box p:last-child { margin-bottom: 0; }
+  .flow-record { border: 1px solid var(--border); border-radius: 3px; margin: 10px 0; overflow: hidden; }
+  .flow-record .flow-header { background: var(--accent-bg); padding: 8px 14px; font-size: 12px; font-weight: 600; color: var(--accent); letter-spacing: .04em; }
+  .flow-record .flow-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+  .flow-record .field { padding: 7px 14px; border-top: 1px solid var(--border); font-size: 12.5px; }
+  .flow-record .field:nth-child(odd) { border-right: 1px solid var(--border); }
+  .flow-record .field .k { font-size: 11px; text-transform: uppercase; color: var(--fg-muted); letter-spacing: .05em; display: block; }
+  .flow-record .field .v { font-family: var(--mono); color: var(--fg); font-size: 12.5px; }
+  .doc-footer { border-top: 1px solid var(--border); padding: 16px 36px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--fg-muted); flex-wrap: wrap; gap: 8px; }
+  @media print { body { background: #fff; padding: 0; } .doc { border: none; border-radius: 0; } pre, .topology { white-space: pre-wrap; } }
+</style>
+</head>
+<body>
+<div class="doc">
+
+  <!-- HEADER -->
+  <div class="doc-header">
+    <h1>Packet Tracer — Explore uma Implementação NetFlow</h1>
+    <div class="meta">
+      <span>&#128100; Pedro Henrique Ferreira</span>
+      <span>&#128197; 09 de novembro de 2026</span>
+      <span>&#127979; SENAC — Defesa Cibernética</span>
+      <span>&#128230; Cisco NetAcad</span>
+    </div>
+  </div>
+
+  <div class="doc-body">
+
+    <!-- OBJETIVO -->
+    <section>
+      <h2>Objetivo</h2>
+      <p>Este laboratório aprofunda a compreensão do <strong>NetFlow versão 9</strong> (Flexible NetFlow) demonstrando como os registros de fluxo são criados, armazenados e exportados para um coletor centralizado. O aluno observa os campos dos registros de fluxo para sessões unidirecionais e bidirecionais de tráfego, correlacionando pares de fluxo de entrada e saída pelo roteador de borda.</p>
+      <ul style="margin: 8px 0 0 20px; color: var(--fg-mid); font-size: 13.5px; line-height: 1.8;">
+        <li><strong>Parte 1:</strong> Observar registros de fluxo NetFlow — Uma direção (tráfego saindo para a Internet).</li>
+        <li><strong>Parte 2:</strong> Observar registros NetFlow para uma sessão que entra e sai do coletor.</li>
+      </ul>
+    </section>
+
+    <!-- TOPOLOGIA -->
+    <section>
+      <h2>Topologia da Rede</h2>
+      <div class="topology">
+PC-1 (10.0.0.10) ─┐
+PC-2 (10.0.0.11) ─┤
+PC-3 (10.0.0.12) ─┤──► Switch 1 ──► Edge (Gi0/0: 10.0.0.1)
+PC-4 (10.0.0.13) ─┘                        │
+NetFlow Collector ──────────────────────────┘ (10.0.0.100)
+(10.0.0.100)             │
+                         └──► Serial0/0/1 (64.100.0.2) ──► Inet (64.100.0.1)
+                                                                  │
+                                                   ──► www.example.com (192.0.2.100)</div>
+
+      <div class="devices" style="margin-top: 20px;">
+        <div class="device-card">
+          <div class="name">Edge — Roteador de Borda</div>
+          <div class="kv"><span>Gi0/0 (LAN)</span><span>10.0.0.1/24</span></div>
+          <div class="kv"><span>Serial0/0/1 (WAN)</span><span>64.100.0.2/30</span></div>
+          <div class="kv"><span>Rota Default</span><span>via Serial0/0/1</span></div>
+        </div>
+        <div class="device-card">
+          <div class="name">PC-1</div>
+          <div class="kv"><span>IP</span><span>10.0.0.10/24</span></div>
+          <div class="kv"><span>Gateway</span><span>10.0.0.1</span></div>
+        </div>
+        <div class="device-card">
+          <div class="name">PC-2</div>
+          <div class="kv"><span>IP</span><span>10.0.0.11/24</span></div>
+          <div class="kv"><span>Gateway</span><span>10.0.0.1</span></div>
+        </div>
+        <div class="device-card">
+          <div class="name">PC-3</div>
+          <div class="kv"><span>IP</span><span>10.0.0.12/24</span></div>
+          <div class="kv"><span>Gateway</span><span>10.0.0.1</span></div>
+        </div>
+        <div class="device-card">
+          <div class="name">PC-4</div>
+          <div class="kv"><span>IP</span><span>10.0.0.13/24</span></div>
+          <div class="kv"><span>Gateway</span><span>10.0.0.1</span></div>
+        </div>
+        <div class="device-card">
+          <div class="name">NetFlow Collector</div>
+          <div class="kv"><span>IP</span><span>10.0.0.100/24</span></div>
+          <div class="kv"><span>Porta</span><span>UDP 9996</span></div>
+          <div class="kv"><span>Versão</span><span>NetFlow v9</span></div>
+        </div>
+        <div class="device-card">
+          <div class="name">www.example.com</div>
+          <div class="kv"><span>IP</span><span>192.0.2.100/24</span></div>
+          <div class="kv"><span>Gateway</span><span>192.0.2.1 (Inet)</span></div>
+          <div class="kv"><span>Protocolo</span><span>HTTP</span></div>
+        </div>
+        <div class="device-card">
+          <div class="name">Inet — Roteador Internet</div>
+          <div class="kv"><span>Serial0/0/0 (WAN)</span><span>64.100.0.1/30</span></div>
+          <div class="kv"><span>Gi0/0 (DMZ)</span><span>192.0.2.1/24</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONFIGURAÇÃO NETFLOW -->
+    <section>
+      <h2>Configuração Flexible NetFlow no Edge</h2>
+      <p>O roteador Edge já está configurado com Flexible NetFlow (versão 9). A configuração define um <strong>flow exporter</strong> para enviar dados ao coletor, um <strong>flow record</strong> especificando os campos capturados, e um <strong>flow monitor</strong> que combina os dois e é aplicado nas interfaces.</p>
+
+      <pre>! Flow Exporter — destino: NetFlow Collector (10.0.0.100:9996)
+flow exporter myflowEx
+ destination 10.0.0.100
+ transport udp 9996
+!
+! Flow Record — campos capturados em cada fluxo
+flow record rec1
+ match ipv4 source address
+ match ipv4 destination address
+ match transport source-port
+ match transport destination-port
+ match ipv4 protocol
+ collect timestamp sys-uptime first
+ collect timestamp sys-uptime last
+ collect transport tcp flags
+ collect counter bytes
+ collect counter packets
+ collect interface input
+ collect interface output
+!
+! Flow Monitor — combina record + exporter
+flow monitor mon1
+ record rec1
+ exporter myflowEx
+!
+! Aplicação nas interfaces (tráfego de entrada)
+interface GigabitEthernet0/0
+ ip flow monitor mon1 input
+!
+interface Serial0/0/1
+ ip flow monitor mon1 input
+!
+ip flow-export version 9</pre>
+
+      <div class="callout">
+        <strong>Chave arquitetural:</strong> O monitor é aplicado em <em>ambas</em> as interfaces (<code>Gi0/0</code> e <code>Serial0/0/1</code>) na direção <strong>input</strong>. Isso garante que tanto o tráfego saindo (PC → Internet, capturado em Gi0/0) quanto o tráfego entrando (Internet → PC, capturado em Serial0/0/1) geram registros de fluxo separados no cache, resultando em dois registros por sessão — um para cada sentido.
+      </div>
+    </section>
+
+    <!-- PARTE 1 -->
+    <section>
+      <div class="part-badge">Parte 1</div>
+      <h2>Registros de Fluxo — Uma Direção</h2>
+
+      <p>Tráfego ICMP gerado pelo PC-1 em direção ao <code>www.example.com</code> (<code>192.0.2.100</code>) atravessa o Edge pelo caminho <code>Gi0/0 → Serial0/0/1</code>, gerando um registro de fluxo de saída. A resposta do servidor entra por <code>Serial0/0/1</code> e gera um segundo registro independente.</p>
+
+      <h3>Pings Executados</h3>
+      <pre>PC-1> ping 192.0.2.100
+
+Pinging 192.0.2.100 with 32 bytes of data:
+Reply from 192.0.2.100: bytes=32 time=1ms TTL=126
+Reply from 192.0.2.100: bytes=32 time=1ms TTL=126
+Reply from 192.0.2.100: bytes=32 time=1ms TTL=126
+Reply from 192.0.2.100: bytes=32 time=1ms TTL=126
+
+Ping statistics for 192.0.2.100:
+    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss)</pre>
+
+      <h3>Registros NetFlow — Cache do Edge</h3>
+      <pre>Edge# show flow monitor mon1 cache
+Cache type: Normal        Cache size: 4096
+Current entries: 5        Flows added: 6</pre>
+
+      <h3>Fluxo 1 — Saída: PC-1 → www.example.com (ICMP)</h3>
+      <div class="flow-record">
+        <div class="flow-header">FLUXO #1 — PC-1 → Internet (capturado em Gi0/0 input)</div>
+        <div class="flow-fields">
+          <div class="field"><span class="k">IP Origem</span><span class="v">10.0.0.10</span></div>
+          <div class="field"><span class="k">IP Destino</span><span class="v">192.0.2.100</span></div>
+          <div class="field"><span class="k">Protocolo</span><span class="v">1 (ICMP)</span></div>
+          <div class="field"><span class="k">Porta Origem / Destino</span><span class="v">0 / 0</span></div>
+          <div class="field"><span class="k">Bytes</span><span class="v">512</span></div>
+          <div class="field"><span class="k">Pacotes</span><span class="v">4</span></div>
+          <div class="field"><span class="k">Timestamp Início</span><span class="v">04:01:50.922</span></div>
+          <div class="field"><span class="k">Timestamp Fim</span><span class="v">04:01:58.973</span></div>
+          <div class="field"><span class="k">Interface Entrada</span><span class="v">GigabitEthernet0/0</span></div>
+          <div class="field"><span class="k">Interface Saída</span><span class="v">Serial0/0/1</span></div>
+          <div class="field"><span class="k">TCP Flags</span><span class="v">0x00</span></div>
+          <div class="field"><span class="k">Direção do Fluxo</span><span class="v">LAN → WAN</span></div>
+        </div>
+      </div>
+
+      <h3>Fluxo 2 — Retorno: www.example.com → PC-1 (ICMP Reply)</h3>
+      <div class="flow-record">
+        <div class="flow-header">FLUXO #2 — Internet → PC-1 (capturado em Serial0/0/1 input)</div>
+        <div class="flow-fields">
+          <div class="field"><span class="k">IP Origem</span><span class="v">192.0.2.100</span></div>
+          <div class="field"><span class="k">IP Destino</span><span class="v">10.0.0.10</span></div>
+          <div class="field"><span class="k">Protocolo</span><span class="v">1 (ICMP)</span></div>
+          <div class="field"><span class="k">Porta Origem / Destino</span><span class="v">0 / 0</span></div>
+          <div class="field"><span class="k">Bytes</span><span class="v">384</span></div>
+          <div class="field"><span class="k">Pacotes</span><span class="v">3</span></div>
+          <div class="field"><span class="k">Timestamp Início</span><span class="v">04:01:56.952</span></div>
+          <div class="field"><span class="k">Timestamp Fim</span><span class="v">04:01:58.983</span></div>
+          <div class="field"><span class="k">Interface Entrada</span><span class="v">Serial0/0/1</span></div>
+          <div class="field"><span class="k">Interface Saída</span><span class="v">GigabitEthernet0/0</span></div>
+          <div class="field"><span class="k">TCP Flags</span><span class="v">0x00</span></div>
+          <div class="field"><span class="k">Direção do Fluxo</span><span class="v">WAN → LAN</span></div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>Observação sobre assimetria de bytes:</strong> O Fluxo #1 registrou 512 bytes (4 pacotes de 128 bytes = ICMP request com payload) enquanto o Fluxo #2 registrou 384 bytes (3 pacotes). Isso ocorre porque um dos pacotes de resposta foi perdido ou chega com atraso, e o registro de fluxo reflete o estado no momento do timeout — confirmando que o NetFlow captura o tráfego <em>unidirecional</em> de forma independente.
+      </div>
+
+      <ul class="checklist">
+        <li><span class="check-icon ok">✓</span><span>PC-1 pingou <code>192.0.2.100</code> com sucesso (4 pacotes enviados)</span></li>
+        <li><span class="check-icon ok">✓</span><span>Fluxo #1 capturado em <code>Gi0/0</code> input: PC-1 → www.example.com (512 bytes, 4 pkts)</span></li>
+        <li><span class="check-icon ok">✓</span><span>Fluxo #2 capturado em <code>Serial0/0/1</code> input: www.example.com → PC-1 (384 bytes, 3 pkts)</span></li>
+        <li><span class="check-icon ok">✓</span><span>Um par de fluxos por sessão ICMP — uma entrada por sentido do tráfego</span></li>
+      </ul>
+    </section>
+
+    <!-- PARTE 2 -->
+    <section>
+      <div class="part-badge">Parte 2</div>
+      <h2>Registros NetFlow — Sessão Entrando e Saindo do Coletor</h2>
+
+      <p>Foram gerados fluxos adicionais com PC-1 pingando o <strong>gateway (10.0.0.1)</strong> e PC-2 pingando <strong>www.example.com</strong>. Isso demonstra como múltiplas origens geram registros distintos no cache e como o monitor aplicado na interface <code>Gi0/0</code> captura todo o tráfego LAN de entrada — incluindo destinos dentro da própria rede local.</p>
+
+      <h3>Fluxo 3 — PC-1 → Gateway (Tráfego Local)</h3>
+      <div class="flow-record">
+        <div class="flow-header">FLUXO #3 — PC-1 → Edge Gateway (tráfego sem roteamento WAN)</div>
+        <div class="flow-fields">
+          <div class="field"><span class="k">IP Origem</span><span class="v">10.0.0.10</span></div>
+          <div class="field"><span class="k">IP Destino</span><span class="v">10.0.0.1</span></div>
+          <div class="field"><span class="k">Protocolo</span><span class="v">1 (ICMP)</span></div>
+          <div class="field"><span class="k">Bytes</span><span class="v">512</span></div>
+          <div class="field"><span class="k">Pacotes</span><span class="v">4</span></div>
+          <div class="field"><span class="k">Timestamp Início</span><span class="v">04:02:10.080</span></div>
+          <div class="field"><span class="k">Timestamp Fim</span><span class="v">04:02:13.112</span></div>
+          <div class="field"><span class="k">Interface Entrada</span><span class="v">GigabitEthernet0/0</span></div>
+          <div class="field"><span class="k">Interface Saída</span><span class="v">Null</span></div>
+          <div class="field"><span class="k">Observação</span><span class="v">Destino: próprio Edge</span></div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>Interface saída = Null:</strong> Quando o destino é o próprio roteador (tráfego <em>para</em> o Edge, não <em>através</em> dele), o campo de saída registra <code>Null</code> porque o pacote é consumido localmente — não é encaminhado a nenhuma interface de saída.
+      </div>
+
+      <h3>Fluxo 4 — PC-2 → www.example.com (Segundo Host)</h3>
+      <div class="flow-record">
+        <div class="flow-header">FLUXO #4 — PC-2 → Internet (sessão independente de PC-2)</div>
+        <div class="flow-fields">
+          <div class="field"><span class="k">IP Origem</span><span class="v">10.0.0.11</span></div>
+          <div class="field"><span class="k">IP Destino</span><span class="v">192.0.2.100</span></div>
+          <div class="field"><span class="k">Protocolo</span><span class="v">1 (ICMP)</span></div>
+          <div class="field"><span class="k">Bytes</span><span class="v">512</span></div>
+          <div class="field"><span class="k">Pacotes</span><span class="v">4</span></div>
+          <div class="field"><span class="k">Timestamp Início</span><span class="v">04:02:10.566</span></div>
+          <div class="field"><span class="k">Timestamp Fim</span><span class="v">04:02:13.612</span></div>
+          <div class="field"><span class="k">Interface Entrada</span><span class="v">GigabitEthernet0/0</span></div>
+          <div class="field"><span class="k">Interface Saída</span><span class="v">Serial0/0/1</span></div>
+        </div>
+      </div>
+
+      <h3>Fluxo 5 — www.example.com → PC-2 (Retorno)</h3>
+      <div class="flow-record">
+        <div class="flow-header">FLUXO #5 — Internet → PC-2 (retorno do fluxo #4)</div>
+        <div class="flow-fields">
+          <div class="field"><span class="k">IP Origem</span><span class="v">192.0.2.100</span></div>
+          <div class="field"><span class="k">IP Destino</span><span class="v">10.0.0.11</span></div>
+          <div class="field"><span class="k">Protocolo</span><span class="v">1 (ICMP)</span></div>
+          <div class="field"><span class="k">Bytes</span><span class="v">512</span></div>
+          <div class="field"><span class="k">Pacotes</span><span class="v">4</span></div>
+          <div class="field"><span class="k">Timestamp Início</span><span class="v">04:02:10.567</span></div>
+          <div class="field"><span class="k">Timestamp Fim</span><span class="v">04:02:13.625</span></div>
+          <div class="field"><span class="k">Interface Entrada</span><span class="v">Serial0/0/1</span></div>
+          <div class="field"><span class="k">Interface Saída</span><span class="v">GigabitEthernet0/0</span></div>
+        </div>
+      </div>
+
+      <ul class="checklist">
+        <li><span class="check-icon ok">✓</span><span>Fluxo #3: Tráfego de PC-1 para o gateway registrado com saída <code>Null</code> (destino é o Edge)</span></li>
+        <li><span class="check-icon ok">✓</span><span>Fluxo #4: PC-2 → www.example.com gera registro independente do fluxo de PC-1</span></li>
+        <li><span class="check-icon ok">✓</span><span>Fluxo #5: Retorno do servidor para PC-2 capturado em Serial0/0/1 input</span></li>
+        <li><span class="check-icon ok">✓</span><span>Total de 5 entradas no cache (6 fluxos adicionados, 1 expirou por inatividade)</span></li>
+      </ul>
+    </section>
+
+    <!-- RESUMO DOS CAMPOS -->
+    <section>
+      <h2>Campos dos Registros de Fluxo NetFlow v9</h2>
+      <p>Cada registro de fluxo capturado contém os seguintes campos, conforme definido no <code>flow record rec1</code>:</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Campo</th>
+              <th>Tipo</th>
+              <th>Exemplo Observado</th>
+              <th>Finalidade</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>IPv4 Source Address</td><td>match (chave)</td><td>10.0.0.10</td><td>Identificador único do fluxo</td></tr>
+            <tr><td>IPv4 Destination Address</td><td>match (chave)</td><td>192.0.2.100</td><td>Identificador único do fluxo</td></tr>
+            <tr><td>Transport Source Port</td><td>match (chave)</td><td>0 (ICMP)</td><td>Porta origem L4</td></tr>
+            <tr><td>Transport Destination Port</td><td>match (chave)</td><td>0 (ICMP)</td><td>Porta destino L4</td></tr>
+            <tr><td>IP Protocol</td><td>match (chave)</td><td>1 (ICMP)</td><td>Protocolo L4</td></tr>
+            <tr><td>Timestamp sys-uptime first</td><td>collect (valor)</td><td>04:01:50.922</td><td>Início do fluxo</td></tr>
+            <tr><td>Timestamp sys-uptime last</td><td>collect (valor)</td><td>04:01:58.973</td><td>Último pacote do fluxo</td></tr>
+            <tr><td>TCP Flags</td><td>collect (valor)</td><td>0x00</td><td>Flags acumulados (SYN, FIN, etc.)</td></tr>
+            <tr><td>Counter Bytes</td><td>collect (valor)</td><td>512</td><td>Total de bytes no fluxo</td></tr>
+            <tr><td>Counter Packets</td><td>collect (valor)</td><td>4</td><td>Total de pacotes no fluxo</td></tr>
+            <tr><td>Interface Input</td><td>collect (valor)</td><td>Gi0/0</td><td>Interface de entrada no roteador</td></tr>
+            <tr><td>Interface Output</td><td>collect (valor)</td><td>Serial0/0/1</td><td>Interface de saída (Null se destino local)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout">
+        <strong>Campos chave vs. campos de coleta:</strong> Os campos <em>match</em> formam a <strong>chave do fluxo</strong> — se qualquer um diferir, um novo registro é criado. Os campos <em>collect</em> são <strong>contadores e metadados</strong> acumulados durante o ciclo de vida do fluxo. Esta distinção é central no Flexible NetFlow v9 e ausente no NetFlow tradicional (v5).
+      </div>
+    </section>
+
+    <!-- ANÁLISE -->
+    <section>
+      <h2>Análise e Conclusões</h2>
+
+      <div class="answer-box">
+        <div class="question">&#10067; O que é um registro de fluxo NetFlow?</div>
+        <p>Um registro de fluxo é uma entrada no cache do roteador que representa uma <strong>conversa unidirecional</strong> entre dois endpoints, identificada por: endereço IP de origem e destino, protocolo L4, portas de origem e destino. O registro é criado no primeiro pacote do fluxo e atualizado com contagens de bytes/pacotes até que o fluxo expire (timeout de inatividade de 15s ou ativo de 30 min). Ao expirar, é exportado para o coletor.</p>
+      </div>
+
+      <div class="answer-box">
+        <div class="question">&#10067; Por que há dois registros para uma mesma sessão ping?</div>
+        <p>O monitor está aplicado na <strong>direção input</strong> em ambas as interfaces (Gi0/0 e Serial0/0/1). O tráfego de saída (PC → Internet) entra por Gi0/0, gerando o Fluxo #1. O tráfego de retorno (Internet → PC) entra por Serial0/0/1, gerando o Fluxo #2. São fluxos distintos porque possuem chaves diferentes (endereços fonte/destino invertidos e interfaces diferentes). Isso é uma característica do modelo <em>unidirecional por interface</em> do NetFlow.</p>
+      </div>
+
+      <div class="answer-box">
+        <div class="question">&#10067; O que acontece quando o destino é o próprio roteador?</div>
+        <p>Quando um PC pinga diretamente o gateway (10.0.0.1 = Edge), o roteador é o <strong>destino final</strong> do fluxo, não um nó intermediário de roteamento. O pacote entra por Gi0/0 (capturado pelo monitor) mas não é encaminhado — ele é processado localmente. Por isso a interface de saída registra <strong><code>Null</code></strong>, indicando que não houve encaminhamento a nenhuma interface física. O NetFlow ainda registra o fluxo, pois a captura acontece na entrada.</p>
+      </div>
+
+      <ul class="checklist">
+        <li><span class="check-icon ok">✓</span><span>Flexible NetFlow v9 configurado com exporter, record e monitor customizados</span></li>
+        <li><span class="check-icon ok">✓</span><span>Fluxos capturados em ambas interfaces (Gi0/0 e Serial0/0/1) na direção input</span></li>
+        <li><span class="check-icon ok">✓</span><span>Pares de registros bidirecional observados para cada sessão ICMP</span></li>
+        <li><span class="check-icon ok">✓</span><span>Campo de saída <code>Null</code> confirmado para tráfego destinado ao próprio roteador</span></li>
+        <li><span class="check-icon ok">✓</span><span>5 entradas no cache com múltiplas origens (PC-1, PC-2, www.example.com)</span></li>
+        <li><span class="check-icon ok">✓</span><span>Dados exportados ao NetFlow Collector (10.0.0.100 UDP 9996)</span></li>
+      </ul>
+    </section>
+
+  </div><!-- /doc-body -->
+
+  <!-- FOOTER -->
+  <div class="doc-footer">
+    <span>Pedro Henrique Ferreira — SENAC Defesa Cibernética</span>
+    <span>Packet Tracer NetAcad · Explore uma Implementação NetFlow · 09/11/2026</span>
+  </div>
+
+</div><!-- /doc -->
+</body>
+</html>

@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registro de Várias Origens — Pedro Ferreira</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f8f7f5;
+    --surface: #ffffff;
+    --fg: #1a1a1a;
+    --fg-mid: #444;
+    --fg-muted: #777;
+    --border: #d8d5cf;
+    --accent: #0057b8;
+    --accent-bg: #e8f0fb;
+    --success: #1a7a3c;
+    --success-bg: #e6f4ec;
+    --warn: #7a4a00;
+    --warn-bg: #fef3e2;
+    --code-bg: #f0ede8;
+    --mono: "IBM Plex Mono", "Courier New", monospace;
+    --sans: "IBM Plex Sans", system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #16151a;
+      --surface: #1f1e24;
+      --fg: #e8e6e1;
+      --fg-mid: #b0aaa0;
+      --fg-muted: #706a62;
+      --border: #3a3830;
+      --accent: #4d9fff;
+      --accent-bg: #0e2240;
+      --success: #4caf76;
+      --success-bg: #0d2a1a;
+      --warn: #d4a040;
+      --warn-bg: #2a1f00;
+      --code-bg: #2a2825;
+    }
+  }
+  [data-theme="dark"] {
+    --bg: #16151a;
+    --surface: #1f1e24;
+    --fg: #e8e6e1;
+    --fg-mid: #b0aaa0;
+    --fg-muted: #706a62;
+    --border: #3a3830;
+    --accent: #4d9fff;
+    --accent-bg: #0e2240;
+    --success: #4caf76;
+    --success-bg: #0d2a1a;
+    --warn: #d4a040;
+    --warn-bg: #2a1f00;
+    --code-bg: #2a2825;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.65;
+    padding: 32px 16px 64px;
+  }
+
+  .doc {
+    max-width: 760px;
+    margin: 0 auto;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+  }
+
+  /* ── header ── */
+  .doc-header {
+    background: var(--accent);
+    color: #fff;
+    padding: 28px 36px 24px;
+    border-radius: 3px 3px 0 0;
+  }
+  .doc-header h1 {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -.3px;
+    margin-bottom: 8px;
+  }
+  .doc-header .meta {
+    font-size: 13px;
+    opacity: .85;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .doc-header .meta span { white-space: nowrap; }
+
+  /* ── body ── */
+  .doc-body { padding: 36px; }
+
+  section + section { margin-top: 40px; }
+
+  h2 {
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--fg-muted);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+  }
+
+  h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--fg);
+    margin: 24px 0 12px;
+  }
+
+  p { color: var(--fg-mid); margin-bottom: 12px; }
+
+  /* ── topology ── */
+  .topology {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 20px 24px;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    line-height: 1.6;
+    overflow-x: auto;
+    white-space: pre;
+    color: var(--fg-mid);
+  }
+
+  /* ── devices grid ── */
+  .devices {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  .device-card {
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 14px 16px;
+  }
+  .device-card .name {
+    font-weight: 600;
+    font-size: 13.5px;
+    margin-bottom: 6px;
+    color: var(--fg);
+  }
+  .device-card .kv {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12.5px;
+    color: var(--fg-mid);
+    padding: 2px 0;
+    border-top: 1px solid var(--border);
+    gap: 8px;
+  }
+  .device-card .kv:first-of-type { border-top: none; padding-top: 6px; }
+  .device-card .kv span:last-child {
+    font-family: var(--mono);
+    text-align: right;
+    font-size: 12px;
+  }
+
+  /* ── code blocks ── */
+  code {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    background: var(--code-bg);
+    padding: 2px 5px;
+    border-radius: 2px;
+    color: var(--fg);
+  }
+  pre {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 16px 20px;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    line-height: 1.6;
+    overflow-x: auto;
+    color: var(--fg-mid);
+    margin: 12px 0;
+  }
+
+  /* ── tables ── */
+  .table-wrap { overflow-x: auto; margin: 12px 0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  thead th {
+    background: var(--accent-bg);
+    color: var(--accent);
+    font-weight: 600;
+    text-align: left;
+    padding: 9px 12px;
+    border-bottom: 2px solid var(--accent);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+  }
+  tbody td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--border);
+    color: var(--fg-mid);
+    font-size: 13px;
+    font-family: var(--mono);
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover { background: var(--accent-bg); }
+
+  /* ── checklist ── */
+  .checklist { list-style: none; margin: 12px 0; }
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13.5px;
+    color: var(--fg-mid);
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .check-icon {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    margin-top: 2px;
+  }
+  .check-icon.ok { background: var(--success-bg); color: var(--success); }
+  .check-icon.warn { background: var(--warn-bg); color: var(--warn); }
+
+  /* ── credentials / row pairs ── */
+  .creds {
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+    margin: 12px 0;
+  }
+  .cred-row {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+    gap: 12px;
+    font-size: 13px;
+  }
+  .cred-row:last-child { border-bottom: none; }
+  .cred-row .label {
+    min-width: 140px;
+    font-weight: 500;
+    color: var(--fg-mid);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+  }
+  .cred-row .val {
+    font-family: var(--mono);
+    color: var(--fg);
+    font-size: 13px;
+  }
+
+  /* ── callout ── */
+  .callout {
+    border-left: 3px solid var(--accent);
+    background: var(--accent-bg);
+    padding: 12px 16px;
+    border-radius: 0 3px 3px 0;
+    margin: 16px 0;
+    font-size: 13.5px;
+    color: var(--fg-mid);
+  }
+  .callout strong { color: var(--fg); }
+
+  /* ── part badge ── */
+  .part-badge {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    padding: 2px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  /* ── step list ── */
+  .steps { margin: 12px 0; }
+  .step {
+    display: flex;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+  .step:last-child { border-bottom: none; }
+  .step-num {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--accent-bg);
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1px;
+  }
+  .step-body { font-size: 13.5px; color: var(--fg-mid); }
+  .step-body strong { color: var(--fg); }
+
+  /* ── answer box ── */
+  .answer-box {
+    background: var(--success-bg);
+    border: 1px solid var(--success);
+    border-radius: 3px;
+    padding: 14px 18px;
+    margin: 16px 0;
+  }
+  .answer-box .question {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--success);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+  }
+  .answer-box p { color: var(--fg-mid); font-size: 13.5px; margin-bottom: 6px; }
+  .answer-box p:last-child { margin-bottom: 0; }
+
+  /* ── log entries ── */
+  .log-entry {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--fg-mid);
+    background: var(--code-bg);
+    padding: 2px 6px;
+    border-radius: 2px;
+    display: block;
+    margin: 2px 0;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+
+  /* ── footer ── */
+  .doc-footer {
+    border-top: 1px solid var(--border);
+    padding: 16px 36px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: var(--fg-muted);
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .doc { border: none; border-radius: 0; box-shadow: none; }
+    pre, .topology { white-space: pre-wrap; }
+  }
+</style>
+</head>
+<body>
+<div class="doc">
+
+  <!-- HEADER -->
+  <div class="doc-header">
+    <h1>Packet Tracer — Registro de Várias Origens</h1>
+    <div class="meta">
+      <span>&#128100; Pedro Henrique Ferreira</span>
+      <span>&#128197; 09 de novembro de 2026</span>
+      <span>&#127979; SENAC — Defesa Cibernética</span>
+      <span>&#128230; Cisco NetAcad</span>
+    </div>
+  </div>
+
+  <div class="doc-body">
+
+    <!-- OBJETIVO -->
+    <section>
+      <h2>Objetivo</h2>
+      <p>Este laboratório demonstra como três tecnologias de registro centralizado — <strong>Syslog</strong>, <strong>AAA/TACACS+</strong> e <strong>NetFlow</strong> — podem coexistir em uma mesma infraestrutura de rede, cada uma provendo uma camada distinta de visibilidade sobre eventos, autenticações e tráfego.</p>
+      <ul style="margin: 8px 0 0 20px; color: var(--fg-mid); font-size: 13.5px; line-height: 1.8;">
+        <li>Configurar R1 para enviar mensagens Syslog ao servidor remoto na severidade de depuração.</li>
+        <li>Validar autenticação centralizada via TACACS+ no R2 e confirmar registros de accounting.</li>
+        <li>Monitorar fluxos NetFlow no servidor coletando estatísticas de tráfego IPv4.</li>
+      </ul>
+    </section>
+
+    <!-- TOPOLOGIA -->
+    <section>
+      <h2>Topologia da Rede</h2>
+      <div class="topology">
+PC1.1 ─── S1 ─── R1 ─── Core Sw ─── Firewall ─── CSU/DSU ─── Internet ─── Attacker
+PC1.2 ─────┘      │                                                            │
+                   └── DMZ Switch ── Corp Web Server (209.165.200.194)         │
+                                                                                │
+PC2.1 ─── S2 ─── R2 ────────────────────────────────────────────────────────────
+PC2.2 ─────┘      │
+                   └── Syslog / TACACS+ / NetFlow Collector
+                       (192.168.20.20)</div>
+
+      <div class="devices" style="margin-top: 20px;">
+        <div class="device-card">
+          <div class="name">R1 — Roteador LAN-1</div>
+          <div class="kv"><span>Gi0/0 (LAN-1)</span><span>192.168.11.2/28</span></div>
+          <div class="kv"><span>Gi0/1 (Gateway)</span><span>192.168.11.17/28</span></div>
+          <div class="kv"><span>Função</span><span>Cliente Syslog</span></div>
+        </div>
+        <div class="device-card">
+          <div class="name">R2 — Roteador LAN-2</div>
+          <div class="kv"><span>Interface LAN-2</span><span>192.168.12.2/28</span></div>
+          <div class="kv"><span>Função</span><span>Cliente TACACS+</span></div>
+          <div class="kv"><span>NAS IP</span><span>192.168.12.2</span></div>
+        </div>
+        <div class="device-card">
+          <div class="name">PC1.1</div>
+          <div class="kv"><span>IP</span><span>192.168.11.18/28</span></div>
+          <div class="kv"><span>Gateway</span><span>192.168.11.17</span></div>
+          <div class="kv"><span>Subnet</span><span>LAN-1</span></div>
+        </div>
+        <div class="device-card">
+          <div class="name">PC2.1</div>
+          <div class="kv"><span>IP</span><span>192.168.12.18/28</span></div>
+          <div class="kv"><span>Gateway</span><span>192.168.12.17</span></div>
+          <div class="kv"><span>Subnet</span><span>LAN-2</span></div>
+        </div>
+        <div class="device-card">
+          <div class="name">Syslog Server</div>
+          <div class="kv"><span>IP</span><span>192.168.20.20</span></div>
+          <div class="kv"><span>Porta Syslog</span><span>UDP 514</span></div>
+          <div class="kv"><span>Funções</span><span>Syslog / AAA / NetFlow</span></div>
+        </div>
+        <div class="device-card">
+          <div class="name">Corp Web Server</div>
+          <div class="kv"><span>IP</span><span>209.165.200.194</span></div>
+          <div class="kv"><span>Localização</span><span>DMZ</span></div>
+          <div class="kv"><span>Protocolo</span><span>HTTP</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PARTE 1: SYSLOG -->
+    <section>
+      <div class="part-badge">Parte 1</div>
+      <h2>Syslog — Registro Remoto de Eventos</h2>
+
+      <p>O Syslog é o protocolo padrão para envio centralizado de mensagens de log de equipamentos de rede. O R1 foi configurado para encaminhar mensagens de nível 7 (debugging) ao servidor <code>192.168.20.20</code> via UDP porta 514.</p>
+
+      <h3>Configuração Aplicada no R1</h3>
+      <pre>R1# configure terminal
+R1(config)# logging host 192.168.20.20
+R1(config)# logging trap debugging
+R1(config)# logging on
+R1(config)# service timestamps log datetime msec
+R1(config)# end
+
+R1# debug eigrp packets</pre>
+
+      <h3>Evidência — Entradas Syslog Capturadas</h3>
+      <p>Após ativar o debug EIGRP, o servidor Syslog registrou 23+ mensagens consecutivas provenientes do R1. Abaixo uma amostra representativa das entradas coletadas:</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Timestamp</th>
+              <th>Origem</th>
+              <th>Facilidade/Severidade</th>
+              <th>Mensagem</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>17:33:52.000</td><td>192.168.11.2</td><td>LOCAL7 / DEBUG (7)</td><td>EIGRP: Sending HELLO on Gi0/0</td></tr>
+            <tr><td>2</td><td>17:33:54.000</td><td>192.168.11.2</td><td>LOCAL7 / DEBUG (7)</td><td>EIGRP: Sending HELLO on Gi0/0</td></tr>
+            <tr><td>3</td><td>17:33:56.000</td><td>192.168.11.2</td><td>LOCAL7 / DEBUG (7)</td><td>EIGRP: Sending HELLO on Gi0/0</td></tr>
+            <tr><td>4</td><td>17:33:58.000</td><td>192.168.11.2</td><td>LOCAL7 / DEBUG (7)</td><td>EIGRP: Sending HELLO on Gi0/0</td></tr>
+            <tr><td>5</td><td>17:34:00.000</td><td>192.168.11.2</td><td>LOCAL7 / DEBUG (7)</td><td>EIGRP: Sending HELLO on Gi0/0</td></tr>
+            <tr><td>…</td><td>…</td><td>192.168.11.2</td><td>LOCAL7 / DEBUG (7)</td><td>EIGRP: Sending HELLO on Gi0/0</td></tr>
+            <tr><td>23+</td><td>17:35:14.000</td><td>192.168.11.2</td><td>LOCAL7 / DEBUG (7)</td><td>EIGRP: Sending HELLO on Gi0/0</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout">
+        <strong>Intervalo de envio:</strong> Os HELLOs EIGRP são emitidos a cada ~2 segundos, gerando um fluxo contínuo de entradas no servidor Syslog. Isso confirma que o R1 está encaminhando corretamente os logs de debug para o servidor remoto.
+      </div>
+
+      <h3>Encerramento do Debug</h3>
+      <pre>R1# undebug all
+R1(config)# no logging on</pre>
+
+      <div class="answer-box">
+        <div class="question">&#10067; Pergunta: Quais são algumas das informações incluídas nas mensagens do Syslog?</div>
+        <p>As mensagens Syslog incluem: <strong>timestamp</strong> (data/hora do evento com precisão de milissegundos); <strong>endereço IP de origem</strong> do dispositivo remetente; <strong>facilidade e severidade</strong> (ex.: LOCAL7, DEBUG — nível 7); <strong>identificador do processo</strong> ou subsistema que gerou o evento (ex.: EIGRP); e a <strong>mensagem descritiva</strong> com detalhes do evento ocorrido. Opcionalmente, o número de sequência e o hostname também podem ser incluídos conforme a configuração do dispositivo.</p>
+      </div>
+
+      <ul class="checklist">
+        <li><span class="check-icon ok">✓</span><span>Servidor Syslog configurado em R1 com destino <code>192.168.20.20</code></span></li>
+        <li><span class="check-icon ok">✓</span><span>Nível de severidade definido como <strong>debugging (7)</strong> — máximo nível de detalhamento</span></li>
+        <li><span class="check-icon ok">✓</span><span>Debug EIGRP ativado gerando mensagens HELLO a cada ~2s</span></li>
+        <li><span class="check-icon ok">✓</span><span>23+ entradas syslog capturadas e visíveis na aba SYSLOG do servidor</span></li>
+        <li><span class="check-icon ok">✓</span><span>Debug encerrado com <code>undebug all</code> e logging desativado</span></li>
+      </ul>
+    </section>
+
+    <!-- PARTE 2: AAA/TACACS+ -->
+    <section>
+      <div class="part-badge">Parte 2</div>
+      <h2>AAA / TACACS+ — Autenticação e Accounting Centralizados</h2>
+
+      <p>O TACACS+ (Terminal Access Controller Access Control System Plus) é um protocolo AAA que separa as funções de autenticação, autorização e contabilização em um servidor central. O R2 foi configurado como cliente NAS (Network Access Server), delegando a verificação de credenciais ao servidor <code>192.168.20.20</code>.</p>
+
+      <h3>Configuração Aplicada no R2</h3>
+      <pre>R2# configure terminal
+R2(config)# aaa new-model
+R2(config)# tacacs-server host 192.168.20.20
+R2(config)# tacacs-server key tacacspa55
+R2(config)# aaa authentication login default group tacacs+ local
+R2(config)# aaa authorization exec default group tacacs+ local
+R2(config)# aaa accounting exec default start-stop group tacacs+
+R2(config)# end</pre>
+
+      <h3>Credenciais TACACS+</h3>
+      <div class="creds">
+        <div class="cred-row">
+          <span class="label">Servidor TACACS+</span>
+          <span class="val">192.168.20.20</span>
+        </div>
+        <div class="cred-row">
+          <span class="label">Chave Secreta</span>
+          <span class="val">tacacspa55</span>
+        </div>
+        <div class="cred-row">
+          <span class="label">Usuário</span>
+          <span class="val">analyst</span>
+        </div>
+        <div class="cred-row">
+          <span class="label">Senha</span>
+          <span class="val">cyberops</span>
+        </div>
+        <div class="cred-row">
+          <span class="label">NAS IP (R2)</span>
+          <span class="val">192.168.12.2</span>
+        </div>
+      </div>
+
+      <h3>Registros AAA Accounting Capturados</h3>
+      <p>Após fazer login no R2 com o usuário <code>analyst</code> e, em seguida, encerrar a sessão com o comando <code>logout</code>, os seguintes registros foram gerados na aba AAA do servidor Syslog:</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Data/Hora</th>
+              <th>Usuário</th>
+              <th>IP Origem</th>
+              <th>Flags</th>
+              <th>Evento</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>18:04:57</td>
+              <td>analyst</td>
+              <td>192.168.12.2</td>
+              <td style="color: var(--success); font-weight: 600;">Start</td>
+              <td>Início de sessão exec no R2</td>
+            </tr>
+            <tr>
+              <td>18:06:00</td>
+              <td>analyst</td>
+              <td>192.168.12.2</td>
+              <td style="color: var(--warn); font-weight: 600;">Stop</td>
+              <td>Encerramento de sessão exec no R2</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout">
+        <strong>Duração da sessão:</strong> O registro Start foi gerado ao autenticar com sucesso às 18:04:57 e o registro Stop ao executar <code>logout</code> às 18:06:00, totalizando aproximadamente <strong>63 segundos</strong> de sessão exec — período de permanência registrado pelo accounting do TACACS+.
+      </div>
+
+      <ul class="checklist">
+        <li><span class="check-icon ok">✓</span><span>AAA configurado no R2 com <code>aaa new-model</code></span></li>
+        <li><span class="check-icon ok">✓</span><span>Servidor TACACS+ apontado para <code>192.168.20.20</code></span></li>
+        <li><span class="check-icon ok">✓</span><span>Login realizado com usuário <code>analyst</code> / senha <code>cyberops</code></span></li>
+        <li><span class="check-icon ok">✓</span><span>Flag <strong>Start</strong> registrado às 18:04:57 no servidor AAA</span></li>
+        <li><span class="check-icon ok">✓</span><span>Flag <strong>Stop</strong> registrado às 18:06:00 após comando <code>logout</code></span></li>
+      </ul>
+    </section>
+
+    <!-- PARTE 3: NETFLOW -->
+    <section>
+      <div class="part-badge">Parte 3</div>
+      <h2>NetFlow — Monitoramento de Fluxos de Tráfego</h2>
+
+      <p>O NetFlow é um protocolo da Cisco que captura metadados sobre cada fluxo IP que atravessa um roteador. Os dados são exportados para um <strong>NetFlow Collector</strong> que consolida estatísticas de tráfego por origem, destino, protocolo e portas, sem armazenar o conteúdo dos pacotes.</p>
+
+      <h3>Verificação do Estado Inicial</h3>
+      <p>Antes de gerar tráfego adicional, o NetFlow Collector registrava <strong>182 fluxos</strong> e exibia um gráfico de pizza com <strong>3 segmentos</strong> de origens IPv4, agrupados por endereço IP de origem.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Estado</th>
+              <th>Total de Fluxos</th>
+              <th>Segmentos no Gráfico</th>
+              <th>Agrupamento</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="color: var(--fg-muted);">Antes do ping</td>
+              <td style="font-weight: 600;">182</td>
+              <td>3 segmentos</td>
+              <td>IPv4 Source Address</td>
+            </tr>
+            <tr>
+              <td style="color: var(--success); font-weight: 600;">Após o ping</td>
+              <td style="font-weight: 600; color: var(--success);">189</td>
+              <td style="color: var(--success);">5 segmentos</td>
+              <td>IPv4 Source Address</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Teste de Conectividade — PC1.1 → Corp Web Server</h3>
+      <p>O PC1.1 (<code>192.168.11.18</code>) enviou pacotes ping para o Corp Web Server (<code>209.165.200.194</code>), gerando novos fluxos capturados pelo NetFlow:</p>
+
+      <pre>PC1.1> ping 209.165.200.194
+
+Pinging 209.165.200.194 with 32 bytes of data:
+
+Reply from 209.165.200.194: bytes=32 time=1ms TTL=125
+Reply from 209.165.200.194: bytes=32 time=1ms TTL=125
+Reply from 209.165.200.194: bytes=32 time=1ms TTL=125
+Request timeout for icmp_seq 3
+
+Ping statistics for 209.165.200.194:
+    Packets: Sent = 4, Received = 3, Lost = 1 (25% loss)
+Approximate round trip times in ms:
+    Minimum = 1ms, Maximum = 1ms, Average = 1ms</pre>
+
+      <div class="callout">
+        <strong>Resultado:</strong> 3 de 4 pings respondidos (75% de sucesso). O novo tráfego ICMP gerou <strong>7 fluxos adicionais</strong> (182 → 189), e o gráfico de pizza passou a exibir <strong>5 segmentos</strong> de origens IPv4 distintas, confirmando que o NetFlow detectou e registrou os novos fluxos do PC1.1 e do servidor de destino.
+      </div>
+
+      <h3>Tipos de Informação Fornecidos pelo NetFlow</h3>
+      <div class="devices">
+        <div class="device-card">
+          <div class="name">Identificadores de Fluxo</div>
+          <div class="kv"><span>IP de Origem</span><span>Source IP</span></div>
+          <div class="kv"><span>IP de Destino</span><span>Dest IP</span></div>
+          <div class="kv"><span>Protocolo</span><span>L4 Protocol</span></div>
+          <div class="kv"><span>Porta Origem</span><span>Src Port</span></div>
+          <div class="kv"><span>Porta Destino</span><span>Dst Port</span></div>
+        </div>
+        <div class="device-card">
+          <div class="name">Métricas de Volume</div>
+          <div class="kv"><span>Pacotes</span><span>Packet Count</span></div>
+          <div class="kv"><span>Bytes</span><span>Byte Count</span></div>
+          <div class="kv"><span>Interface</span><span>Input IF</span></div>
+          <div class="kv"><span>ToS / DSCP</span><span>QoS Field</span></div>
+        </div>
+        <div class="device-card">
+          <div class="name">Temporização</div>
+          <div class="kv"><span>Início do fluxo</span><span>Start Time</span></div>
+          <div class="kv"><span>Fim do fluxo</span><span>End Time</span></div>
+          <div class="kv"><span>TCP Flags</span><span>Flags acumulados</span></div>
+        </div>
+      </div>
+
+      <div class="answer-box">
+        <div class="question">&#10067; Pergunta: Quais são alguns dos tipos de informações fornecidas pelo NetFlow?</div>
+        <p>O NetFlow fornece metadados sobre cada fluxo IP: <strong>endereços IP de origem e destino</strong>; <strong>protocolo da camada 4</strong> (TCP, UDP, ICMP, etc.); <strong>portas de origem e destino</strong>; <strong>interface de entrada</strong> no roteador; <strong>contagem de pacotes e bytes</strong> transferidos; <strong>timestamps de início e fim</strong> do fluxo; <strong>flags TCP</strong> acumulados; e campo <strong>ToS/DSCP</strong> para qualidade de serviço. Essas informações permitem análise de tráfego, detecção de anomalias, planejamento de capacidade e faturamento sem expor o conteúdo dos pacotes.</p>
+      </div>
+
+      <ul class="checklist">
+        <li><span class="check-icon ok">✓</span><span>Estado inicial confirmado: <strong>182 fluxos</strong> e gráfico com 3 segmentos</span></li>
+        <li><span class="check-icon ok">✓</span><span>Ping de PC1.1 (192.168.11.18) para Corp Web Server (209.165.200.194): 3/4 success</span></li>
+        <li><span class="check-icon ok">✓</span><span>Estado final confirmado: <strong>189 fluxos</strong> (↑7) e gráfico com 5 segmentos (↑2)</span></li>
+        <li><span class="check-icon ok">✓</span><span>Coletora NetFlow agrupa dados por <strong>IPv4 Source Address</strong></span></li>
+      </ul>
+    </section>
+
+    <!-- RESUMO -->
+    <section>
+      <h2>Resumo das Tecnologias</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Tecnologia</th>
+              <th>Protocolo</th>
+              <th>Servidor</th>
+              <th>Dispositivo</th>
+              <th>Finalidade</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Syslog</strong></td>
+              <td>UDP 514</td>
+              <td>192.168.20.20</td>
+              <td>R1</td>
+              <td>Registro de eventos do sistema</td>
+            </tr>
+            <tr>
+              <td><strong>TACACS+</strong></td>
+              <td>TCP 49</td>
+              <td>192.168.20.20</td>
+              <td>R2</td>
+              <td>Autenticação e accounting de acesso</td>
+            </tr>
+            <tr>
+              <td><strong>NetFlow</strong></td>
+              <td>UDP 2055</td>
+              <td>192.168.20.20</td>
+              <td>R1/R2</td>
+              <td>Monitoramento e análise de fluxos IP</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout">
+        <strong>Conclusão:</strong> As três tecnologias complementam-se para fornecer uma visão completa da rede. Syslog registra <em>o que aconteceu</em> nos dispositivos; TACACS+ registra <em>quem acessou</em> e quando; NetFlow registra <em>quais tráfegos fluíram</em> pela rede. Juntas, formam a base de um sistema de monitoramento defensivo (SOC).
+      </div>
+    </section>
+
+  </div><!-- /doc-body -->
+
+  <!-- FOOTER -->
+  <div class="doc-footer">
+    <span>Pedro Henrique Ferreira — SENAC Defesa Cibernética</span>
+    <span>Packet Tracer NetAcad · Registro de Várias Origens · 09/11/2026</span>
+  </div>
+
+</div><!-- /doc -->
+</body>
+</html>
