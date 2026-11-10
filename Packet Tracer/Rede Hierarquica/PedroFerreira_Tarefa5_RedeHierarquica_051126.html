@@ -404,7 +404,7 @@ code {
           <div class="device-model">Cisco 2960-24TT</div>
           <ul>
             <li>VTP Client</li>
-            <li>Trunk: <code>Fa0/3</code> → SWd2</li>
+            <li>Trunk: <code>Fa0/24</code> → SWd2</li>
             <li>Acesso <code>Fa0/1–8</code> → VLAN 20</li>
             <li>IP gerência: <code>10.30.30.15</code></li>
             <li>Port-security sticky, max 2</li>
@@ -416,7 +416,7 @@ code {
           <div class="device-model">Cisco 2960-24TT</div>
           <ul>
             <li>VTP Client</li>
-            <li>Trunk: <code>Gi0/2</code> → SWd2</li>
+            <li>Trunk: <code>Gi0/1</code> → SWd2</li>
             <li>Acesso <code>Fa0/1–8</code> → VLAN 20</li>
             <li>IP gerência: <code>10.30.30.16</code></li>
             <li>Port-security sticky, max 2</li>
@@ -544,20 +544,20 @@ code {
           <span>AP-1 a AP-4 — Access Points adicionados à camada de acesso (S1–S4), portas Fa0/9 configuradas em VLAN 10/20 com PortFast</span>
         </div>
         <div class="check-item">
-          <div class="check-icon pending">○</div>
-          <span>DNS-SRV — Registros A via GUI (configuração pendente)</span>
+          <div class="check-icon done">✓</div>
+          <span>DNS-SRV — Service ON, 4 registros A: www/ftp/mail/dns.empresa.local configurados via GUI</span>
         </div>
         <div class="check-item">
-          <div class="check-icon pending">○</div>
-          <span>EMAIL-SRV — Domínio, SMTP/POP3 e contas via GUI (configuração pendente)</span>
+          <div class="check-icon done">✓</div>
+          <span>EMAIL-SRV — Domínio empresa.local, SMTP/POP3 ON, contas usuario1/usuario2/admin configuradas via GUI</span>
         </div>
         <div class="check-item">
-          <div class="check-icon pending">○</div>
-          <span>SWd1/SWd2 — Verificar trunks e roteamento inter-VLAN completo</span>
+          <div class="check-icon done">✓</div>
+          <span>S3/S4 — Fa0/1–8 VLAN 20 (VoIP/MKT), trunks uplink (Fa0/24 / Gi0/1) com native VLAN 99 configurados via Merge</span>
         </div>
         <div class="check-item">
-          <div class="check-icon pending">○</div>
-          <span>DHCP — Verificar entrega de IPs aos PCs via relay/pool</span>
+          <div class="check-icon done">✓</div>
+          <span>DHCP — Pools VLAN10-USUARIOS, VLAN20-VOIP, VLAN30-GERENCIA ativos no R1-FW; PCs recebem IPs automaticamente</span>
         </div>
       </div>
     </section>
