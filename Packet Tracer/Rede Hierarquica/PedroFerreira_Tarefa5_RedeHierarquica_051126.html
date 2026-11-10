@@ -404,7 +404,7 @@ code {
           <div class="device-model">Cisco 2960-24TT</div>
           <ul>
             <li>VTP Client</li>
-            <li>Trunk: <code>Fa0/24</code> → SWd2</li>
+            <li>Trunk: <code>Fa0/3</code> → SWd2</li>
             <li>Acesso <code>Fa0/1–8</code> → VLAN 20</li>
             <li>IP gerência: <code>10.30.30.15</code></li>
             <li>Port-security sticky, max 2</li>
@@ -416,7 +416,7 @@ code {
           <div class="device-model">Cisco 2960-24TT</div>
           <ul>
             <li>VTP Client</li>
-            <li>Trunk: <code>Gi0/1</code> → SWd2</li>
+            <li>Trunk: <code>Gi0/2</code> → SWd2</li>
             <li>Acesso <code>Fa0/1–8</code> → VLAN 20</li>
             <li>IP gerência: <code>10.30.30.16</code></li>
             <li>Port-security sticky, max 2</li>
@@ -553,11 +553,11 @@ code {
         </div>
         <div class="check-item">
           <div class="check-icon done">✓</div>
-          <span>S3/S4 — Fa0/1–8 VLAN 20 (VoIP/MKT), trunks uplink (Fa0/24 / Gi0/1) com native VLAN 99 configurados via Merge</span>
+          <span>S3/S4 — Fa0/1–8 VLAN 20 (VoIP/MKT), trunks uplink (S3: Fa0/3 / S4: Gi0/2) com native VLAN 99</span>
         </div>
         <div class="check-item">
           <div class="check-icon done">✓</div>
-          <span>DHCP — Pools VLAN10-USUARIOS, VLAN20-VOIP, VLAN30-GERENCIA ativos no R1-FW; PCs recebem IPs automaticamente</span>
+          <span>DHCP — Pools VLAN10/20/30 ativos; <code>ip dhcp snooping trust</code> em SWd2 Gi0/2 corrige entrega para VLAN20 (10.20.20.11–14)</span>
         </div>
       </div>
     </section>

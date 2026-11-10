@@ -68,14 +68,14 @@ Modelo hierárquico Cisco de 3 camadas:
 
 ### S3 (Cisco 2960-24TT — Acesso)
 - VTP Client, domain EMPRESA
-- Uplink trunk: `Fa0/24` → SWd2 (nativa VLAN 99)
+- Uplink trunk: `Fa0/3` → SWd2 (nativa VLAN 99)
 - Portas acesso: `Fa0/1–8` → VLAN 20 (VoIP/MKT)
 - VLAN 30 (gerência): IP `10.30.30.15/24`, gateway `10.30.30.1`
 - Port-security, portfast, bpduguard, SSH configurados
 
 ### S4 (Cisco 2960-24TT — Acesso)
 - VTP Client, domain EMPRESA
-- Uplink trunk: `Gi0/1` → SWd2 (nativa VLAN 99)
+- Uplink trunk: `Gi0/2` → SWd2 (nativa VLAN 99)
 - Portas acesso: `Fa0/1–8` → VLAN 20 (VoIP/MKT)
 - VLAN 30 (gerência): IP `10.30.30.16/24`, gateway `10.30.30.1`
 - Port-security, portfast, bpduguard, SSH configurados
@@ -111,5 +111,5 @@ Modelo hierárquico Cisco de 3 camadas:
 - [x] R1-FW configurado (sub-interfaces, DHCP, DMZ)
 - [x] DNS-SRV — Service ON, 4 registros A configurados via GUI
 - [x] EMAIL-SRV — domínio empresa.local, SMTP/POP3 ON, 3 contas configuradas via GUI
-- [x] S3/S4 — trunks uplink corrigidos (Fa0/24 / Gi0/1), VLAN 20 nas portas de acesso
-- [x] DHCP — pools VLAN10/20/30 ativos no R1-FW
+- [x] S3/S4 — trunks uplink corrigidos (Fa0/3 / Gi0/2), VLAN 20 nas portas de acesso
+- [x] DHCP — pools VLAN10/20/30 ativos no R1-FW; `ip dhcp snooping trust` em SWd2 Gi0/2 (uplink)
